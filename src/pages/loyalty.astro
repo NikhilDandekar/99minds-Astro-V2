@@ -1,0 +1,135 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Breadcrumb from '../components/loyalty/Breadcrumb.astro';
+import ProductHero from '../components/loyalty/ProductHero.astro';
+import TrustBar from '../components/loyalty/TrustBar.astro';
+import RulesBuilder from '../components/loyalty/RulesBuilder.astro';
+import CapabilityRow from '../components/loyalty/CapabilityRow.astro';
+import CodeSection from '../components/loyalty/CodeSection.astro';
+import UnifiedMoat from '../components/loyalty/UnifiedMoat.astro';
+import ComparisonTable from '../components/loyalty/ComparisonTable.astro';
+import StatBand from '../components/loyalty/StatBand.astro';
+import CaseStudy from '../components/loyalty/CaseStudy.astro';
+import FAQ from '../components/loyalty/FAQ.astro';
+import FinalCTA from '../components/loyalty/FinalCTA.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Loyalty Engine — 99minds"
+  description="A visual rules builder for marketers. A programmable engine for developers. The same loyalty platform — finally aligned."
+>
+  <Nav />
+
+  <Breadcrumb
+    items={[
+      { label: 'Products', href: '/products' },
+      { label: 'Loyalty Engine' },
+    ]}
+  />
+
+  <ProductHero
+    pill="Loyalty Engine"
+    title="Loyalty that"
+    titleGradient="marketing ships"
+    lede="A visual rules builder for marketers. A programmable engine for developers. The same loyalty platform — finally aligned."
+    primaryCta={{ label: 'Start free trial →', href: '#' }}
+    secondaryCta={{ label: 'Try the rules builder', href: '#' }}
+    features={[
+      { text: 'Launch your first program in <strong>under 30 days</strong> — Antavo takes a quarter, Yotpo isn\'t built for it' },
+      { text: 'One ledger across <strong>points, gift card balance, and store credit</strong> — not three' },
+      { text: 'Visual builder marketing <strong>actually uses</strong> — not a glorified Zapier' },
+    ]}
+  />
+
+  <TrustBar />
+
+  <RulesBuilder />
+
+  <!-- Capabilities section -->
+  <section class="capabilities">
+    <div class="container">
+      <CapabilityRow
+        eyebrow="Tier Architecture"
+        title="Four tiers. Infinite configuration."
+        description="Define thresholds, reset cadences, earning multipliers, and benefit packages per tier. Roll tiers out progressively or flip the whole program at once with our safe-mode deploy."
+        bullets={[
+          { label: 'Flexible thresholds:', description: 'Points, spend, visit count, or any custom metric.' },
+          { label: 'Tier benefits API:', description: 'Query eligibility and unlock brand experiences on the fly.' },
+          { label: 'Qualification windows:', description: 'Annual reset, rolling 12-month, or lifetime — your call.' },
+        ]}
+        ctaLabel="Read tier docs"
+        ctaHref="#"
+        visualSlot="tiers"
+      />
+
+      <CapabilityRow
+        eyebrow="Challenges & Campaigns"
+        title="Gamification that drives real behavior."
+        description="Time-boxed challenges with progress tracking drive urgency. A/B test challenge variants natively — no extra tooling, no sampling headaches."
+        bullets={[
+          { label: 'Progress widgets:', description: 'Embeddable via our JS SDK or React components.' },
+          { label: 'Segment targeting:', description: 'Ship challenges to Bronze-only or Platinum-at-risk cohorts.' },
+          { label: 'Native A/B testing:', description: 'Split traffic across earning rates and measure lift.' },
+        ]}
+        ctaLabel="Explore challenges"
+        ctaHref="#"
+        reverse={true}
+        visualSlot="challenges"
+      />
+
+      <CapabilityRow
+        eyebrow="Rewards Catalog"
+        title="Redemption that doesn't leak value."
+        description="Connect your Shopify or custom catalog, or use our built-in digital rewards (gift cards, discount codes, digital goods). Set minimum redemption thresholds, expiry policies, and per-tier visibility."
+        bullets={[
+          { label: 'Catalog sync:', description: 'Pull from your existing product library or curate manually.' },
+          { label: 'Expiry policies:', description: 'Keep your liability clean with configurable redemption windows.' },
+          { label: 'Partial redemption:', description: 'Let members redeem points + pay the rest — higher conversion.' },
+        ]}
+        ctaLabel="See catalog options"
+        ctaHref="#"
+        visualSlot="rewards"
+      />
+    </div>
+  </section>
+
+  <CodeSection />
+
+  <UnifiedMoat />
+
+  <ComparisonTable />
+
+  <StatBand />
+
+  <CaseStudy />
+
+  <FAQ />
+
+  <FinalCTA
+    title="Ready to ship loyalty your"
+    highlightText="marketing team owns"
+    subtitle="Start with a sandbox key in 30 seconds. Talk to sales when you're ready to migrate."
+    primaryCta={{ label: 'Start free trial →', href: '#' }}
+    secondaryCta={{ label: 'Book a demo', href: '#' }}
+  />
+
+  <Footer />
+</Layout>
+
+<style>
+  .capabilities {
+    background: white;
+    padding: 120px 32px;
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 640px) {
+    .capabilities { padding: 80px 20px; }
+  }
+</style>

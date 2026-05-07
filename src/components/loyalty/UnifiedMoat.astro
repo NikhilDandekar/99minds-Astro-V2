@@ -1,0 +1,209 @@
+---
+// UnifiedMoat.astro — The "One ledger, all products" section
+---
+
+<section class="unified-moat">
+  <div class="container">
+    <div class="section-header center">
+      <div class="section-eyebrow">The 99minds difference</div>
+      <h2 class="section-title">One customer. One ledger. Every balance.</h2>
+      <p class="section-lede">
+        Antavo and Yotpo are loyalty-only — so your gift card balance, store credit, and loyalty points live in three separate systems. We built them all. Your customer sees one unified wallet.
+      </p>
+    </div>
+
+    <div class="moat-diagram">
+      <div class="moat-customer">
+        <div class="moat-customer-avatar">AL</div>
+        <h4>Ada Lovelace</h4>
+        <div class="mc-id-2">cus_8kpq2x · Gold Member</div>
+        <div class="moat-balances">
+          <div class="moat-balance-row">
+            <span class="mbr-label">Loyalty Points</span>
+            <span class="mbr-val">8,420 pts</span>
+          </div>
+          <div class="moat-balance-row">
+            <span class="mbr-label">Gift Card Balance</span>
+            <span class="mbr-val">$25.00</span>
+          </div>
+          <div class="moat-balance-row">
+            <span class="mbr-label">Store Credit</span>
+            <span class="mbr-val">$12.50</span>
+          </div>
+          <div class="moat-balance-row">
+            <span class="mbr-label">Wallet Passes</span>
+            <span class="mbr-val">2 active</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="moat-arrow">→</div>
+
+      <div class="moat-products">
+        {[
+          { iconClass: 'mpi-1', icon: '<path d="M12 2l2.5 7h7l-5.5 4.5 2 7L12 16l-6 4.5 2-7L2.5 9h7z"/>', name: 'Loyalty Engine', desc: 'Points, tiers, challenges' },
+          { iconClass: 'mpi-2', icon: '<rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 10h20"/>', name: 'Gift Cards', desc: 'Digital & physical issuance' },
+          { iconClass: 'mpi-3', icon: '<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>', name: 'Store Credit', desc: 'Refunds, returns, incentives' },
+          { iconClass: 'mpi-4', icon: '<rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/>', name: 'Wallet Passes', desc: 'Apple & Google Wallet' },
+        ].map(p => (
+          <div class="moat-product">
+            <div class={`moat-product-icon ${p.iconClass}`}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" set:html={p.icon} />
+            </div>
+            <div class="moat-product-info">
+              <div class="moat-product-name">{p.name}</div>
+              <div class="moat-product-desc">{p.desc}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="moat-vs-banner">
+      <div class="moat-vs-icon">!</div>
+      <div class="moat-vs-text">
+        <strong>With Antavo or Yotpo:</strong> your gift cards live in a separate vendor (often Giftfly or CashStar), store credit is a Shopify workaround, and wallet passes require another integration. That's 3–4 vendors, 3–4 contracts, and 3–4 sets of customer data.
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .unified-moat {
+    background: linear-gradient(180deg, white 0%, var(--bg-alt) 100%);
+    overflow: hidden;
+    padding: 120px 32px;
+  }
+
+  .container { max-width: 1280px; margin: 0 auto; }
+
+  .section-header { max-width: 720px; margin-bottom: 64px; }
+  .section-header.center { margin-left: auto; margin-right: auto; text-align: center; }
+
+  .section-eyebrow {
+    font-size: 13px; font-weight: 700; color: var(--purple-deep);
+    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 700; letter-spacing: -0.03em; line-height: 1.05;
+    color: var(--ink); margin-bottom: 20px;
+  }
+
+  .section-lede { font-size: 19px; color: var(--slate); line-height: 1.55; }
+
+  .moat-diagram {
+    position: relative;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 60px 40px;
+    box-shadow: 0 24px 60px -20px rgba(10, 10, 35, 0.08);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 60px;
+    align-items: center;
+    margin-top: 48px;
+  }
+
+  .moat-customer {
+    background: linear-gradient(135deg, var(--purple-deep), var(--ink));
+    color: white;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 16px 40px -12px rgba(111, 77, 255, 0.4);
+  }
+
+  .moat-customer-avatar {
+    width: 56px; height: 56px;
+    background: linear-gradient(135deg, var(--accent-gold), var(--accent-coral));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink); font-weight: 800; font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  .moat-customer h4 { font-size: 18px; margin-bottom: 4px; }
+
+  .mc-id-2 {
+    font-size: 11px; opacity: 0.6;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 20px;
+  }
+
+  .moat-balances { display: flex; flex-direction: column; gap: 10px; }
+
+  .moat-balance-row {
+    background: rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 10px 12px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px;
+  }
+
+  .mbr-label { opacity: 0.7; font-size: 12px; }
+  .mbr-val   { font-weight: 700; }
+
+  .moat-arrow {
+    color: var(--purple-deep);
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .moat-products { display: flex; flex-direction: column; gap: 12px; }
+
+  .moat-product {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: 0 4px 12px -4px rgba(10, 10, 35, 0.05);
+  }
+
+  .moat-product-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .mpi-1 { background: linear-gradient(135deg, var(--purple-deep), var(--purple)); }
+  .mpi-2 { background: linear-gradient(135deg, var(--accent-coral), var(--accent-gold)); }
+  .mpi-3 { background: linear-gradient(135deg, var(--accent-cyan), #4a9eff); }
+  .mpi-4 { background: linear-gradient(135deg, var(--accent-mint), #4fd9b0); color: var(--ink); }
+
+  .moat-product-info { flex: 1; }
+  .moat-product-name { font-size: 13px; font-weight: 700; }
+  .moat-product-desc { font-size: 11px; color: var(--slate); margin-top: 1px; }
+
+  .moat-vs-banner {
+    background: rgba(255, 138, 122, 0.08);
+    border: 1px solid rgba(255, 138, 122, 0.3);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-top: 40px;
+    display: flex; align-items: center; gap: 16px;
+  }
+
+  .moat-vs-icon {
+    width: 36px; height: 36px;
+    background: var(--accent-coral);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: 800; font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .moat-vs-text { font-size: 14px; color: var(--ink); line-height: 1.55; }
+  .moat-vs-text strong { color: var(--accent-coral); }
+
+  @media (max-width: 1024px) {
+    .moat-diagram { grid-template-columns: 1fr; gap: 30px; padding: 40px 24px; }
+    .moat-arrow { transform: rotate(90deg); margin: 0 auto; }
+    .unified-moat { padding: 80px 20px; }
+  }
+</style>

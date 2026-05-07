@@ -1,0 +1,157 @@
+---
+---
+
+<section class="relative overflow-hidden px-8 pt-20 pb-[120px]">
+  <!-- Background -->
+  <div class="absolute inset-0 z-0 overflow-hidden">
+    <div class="hero-mesh"></div>
+    <div class="hero-mesh-2"></div>
+    <div class="hero-grid-overlay"></div>
+  </div>
+
+  <div class="relative z-[1] max-w-layout mx-auto grid grid-cols-1 lg:grid-cols-[1.05fr_1fr] gap-16 items-center">
+    <!-- Left: Copy -->
+    <div>
+      <div class="inline-flex items-center gap-2 bg-white border border-[var(--line)] px-[14px] py-1.5 pl-1.5 rounded-full text-[13px] font-medium text-[var(--slate)] mb-6"
+           style="box-shadow: 0 1px 2px rgba(10,10,35,0.04);">
+        <span class="bg-[var(--ink)] text-white px-2.5 py-0.5 rounded-full text-[11px] font-bold tracking-[0.02em]">NEW</span>
+        Referral engine now generally available
+      </div>
+
+      <h1 class="text-[clamp(44px,5.8vw,76px)] leading-[0.98] tracking-[-0.04em] font-bold text-[var(--ink)] mb-6">
+        Every reward your customers <span class="gradient-text">love</span>. On one platform.
+      </h1>
+
+      <p class="text-[19px] text-[var(--slate)] leading-[1.55] max-w-[540px] mb-8">
+        Gift cards, loyalty, promotions, mobile wallet passes, and referral — unified on a single API.
+        Replace five vendors with one platform built for retail, restaurants, travel, and banking.
+      </p>
+
+      <div class="flex gap-3 items-center mb-10">
+        <a href="#"
+           class="font-semibold text-[15px] px-[22px] py-3.5 rounded-full no-underline inline-flex items-center gap-1.5 bg-[var(--purple-deep)] text-white transition-all duration-200 hover:bg-[var(--ink)] hover:-translate-y-px">
+          Start building →
+        </a>
+        <a href="#"
+           class="font-semibold text-[15px] px-[22px] py-3.5 rounded-full no-underline inline-flex items-center gap-1.5 text-[var(--ink)] transition-all duration-200 hover:bg-[var(--line-soft)]">
+          Talk to sales
+        </a>
+      </div>
+
+      <div class="flex items-center gap-4 text-[13px] text-[var(--slate-light)]">
+        <span class="inline-flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-[var(--accent-mint)]"
+                style="box-shadow: 0 0 0 3px rgba(126,240,197,0.25);"></span>
+          99.99% uptime
+        </span>
+        <span class="w-px h-3.5 bg-[var(--line)]"></span>
+        <span>SOC 2 Type II</span>
+        <span class="w-px h-3.5 bg-[var(--line)]"></span>
+        <span>PCI-DSS L1</span>
+        <span class="w-px h-3.5 bg-[var(--line)]"></span>
+        <span>GDPR ready</span>
+      </div>
+    </div>
+
+    <!-- Right: Layered Visual Cards -->
+    <div class="relative h-[560px]" style="perspective: 1800px;">
+
+      <!-- Chip 1: Referral earned -->
+      <div class="hv-chip hv-chip-1">
+        <div class="w-6 h-6 rounded-full bg-[var(--accent-coral)] flex items-center justify-center text-white flex-shrink-0">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/><path d="M16 3l3 3-3 3"/>
+          </svg>
+        </div>
+        Referral earned · +$50
+      </div>
+
+      <!-- Card 1 (back): Mobile Wallet Pass -->
+      <div class="hv-card hv-wallet">
+        <div class="flex justify-between items-start mb-3.5 relative">
+          <div class="text-[10px] font-extrabold tracking-[0.14em] uppercase opacity-95">NORTHWIND</div>
+          <div class="bg-gradient-to-br from-[#ffc060] to-[#f5a623] text-[var(--ink)] px-2.5 py-0.5 rounded-full text-[9px] font-extrabold tracking-[0.08em] uppercase">★ GOLD</div>
+        </div>
+        <div class="text-[36px] font-bold tracking-[-0.025em] leading-none relative">$184.50</div>
+        <div class="text-[10px] opacity-70 uppercase tracking-[0.08em] font-semibold mt-1 relative">Store balance</div>
+        <div class="mt-4 flex justify-between text-[9px] relative">
+          <div>
+            <div class="opacity-60 uppercase tracking-[0.08em] font-semibold">Member</div>
+            <div class="font-bold text-[10px] mt-0.5">2,840 pts</div>
+          </div>
+          <div class="text-right">
+            <div class="opacity-60 uppercase tracking-[0.08em] font-semibold">ID</div>
+            <div class="font-bold text-[10px] mt-0.5">NW-8KPQ2X</div>
+          </div>
+        </div>
+        <div class="barcode mt-3.5"></div>
+      </div>
+
+      <!-- Chip 2: Points earned -->
+      <div class="hv-chip hv-chip-2">
+        <div class="w-6 h-6 rounded-full bg-[var(--purple-deep)] flex items-center justify-center text-white flex-shrink-0">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 2l2.5 7h7l-5.5 4.5 2 7L12 16l-6 4.5 2-7L2.5 9h7z"/>
+          </svg>
+        </div>
+        +500 points · Gold
+      </div>
+
+      <!-- Card 2 (middle): eGift Card -->
+      <div class="hv-card hv-egift">
+        <div class="text-[11px] font-extrabold tracking-[0.18em] opacity-95 relative">NORTHWIND</div>
+        <div>
+          <div class="text-[56px] font-bold tracking-[-0.04em] leading-none relative">$50</div>
+        </div>
+        <div class="text-[12px] opacity-95 italic relative">"Happy birthday, Ada ✨"</div>
+      </div>
+
+      <!-- Chip 3: Promo applied -->
+      <div class="hv-chip hv-chip-3">
+        <div class="w-6 h-6 rounded-full bg-[#1a8c5e] flex items-center justify-center text-white flex-shrink-0">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/>
+          </svg>
+        </div>
+        Promo applied · 25% off
+      </div>
+
+      <!-- Card 3 (front): Loyalty member dashboard -->
+      <div class="hv-card hv-loyalty">
+        <div class="flex items-center gap-2.5 mb-3.5 pb-3 border-b border-[var(--line)]">
+          <div class="w-9 h-9 rounded-full bg-gradient-to-br from-[var(--accent-mint)] to-[var(--accent-cyan)] flex items-center justify-center text-[var(--ink)] font-extrabold text-sm">A</div>
+          <div>
+            <div class="text-[13px] font-bold">Ada Lovelace</div>
+            <div class="text-[10px] text-[var(--slate)] mt-0.5">Member since Mar 2023</div>
+          </div>
+          <div class="ml-auto bg-[var(--purple-pale)] text-[var(--purple-deep)] px-2.5 py-1 rounded-full text-[10px] font-extrabold tracking-[0.04em]">
+            8,420 PTS
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center py-1.5 text-xs">
+          <span class="text-[var(--slate)]">Lifetime spend</span>
+          <span class="font-bold text-[var(--ink)]">$8,348.00</span>
+        </div>
+        <div class="flex justify-between items-center py-1.5 text-xs">
+          <span class="text-[var(--slate)]">Active referrals</span>
+          <span class="font-bold text-[#1a8c5e]">+3 friends</span>
+        </div>
+        <div class="flex justify-between items-center py-1.5 text-xs">
+          <span class="text-[var(--slate)]">Wallet pass</span>
+          <span class="font-bold text-[var(--ink)]">Active</span>
+        </div>
+
+        <div class="mt-3 pt-3 border-t border-[var(--line)]">
+          <div class="flex justify-between text-[10px] text-[var(--slate)] mb-1.5">
+            <span>To Platinum</span>
+            <span class="font-mono">8.4k / 12.5k</span>
+          </div>
+          <div class="h-1 bg-[var(--line-soft)] rounded-full overflow-hidden">
+            <div class="w-[68%] h-full bg-gradient-to-r from-[var(--purple-deep)] to-[var(--purple)] rounded-full"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

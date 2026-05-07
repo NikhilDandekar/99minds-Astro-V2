@@ -1,0 +1,375 @@
+---
+export interface BulletItem {
+  label: string;
+  description: string;
+}
+
+export interface Props {
+  eyebrow: string;
+  title: string;
+  description: string;
+  bullets?: BulletItem[];
+  ctaLabel?: string;
+  ctaHref?: string;
+  reverse?: boolean;
+  visualSlot?: string; // 'tiers' | 'challenges' | 'rewards'
+}
+
+const {
+  eyebrow,
+  title,
+  description,
+  bullets = [],
+  ctaLabel,
+  ctaHref = '#',
+  reverse = false,
+  visualSlot = 'tiers',
+} = Astro.props;
+---
+
+<div class={`cap-row${reverse ? ' reverse' : ''}`}>
+  <div class="cap-text">
+    <div class="cap-eyebrow">{eyebrow}</div>
+    <h3>{title}</h3>
+    <p>{description}</p>
+    {bullets.length > 0 && (
+      <ul class="cap-bullet-list">
+        {bullets.map(b => (
+          <li class="cap-bullet">
+            <span class="cap-bullet-icon">✓</span>
+            <span><strong>{b.label}</strong> {b.description}</span>
+          </li>
+        ))}
+      </ul>
+    )}
+    {ctaLabel && (
+      <a href={ctaHref} class="cap-link">{ctaLabel} →</a>
+    )}
+  </div>
+
+  <div class="cap-visual">
+    {visualSlot === 'tiers' && (
+      <div class="tier-ladder">
+        {[
+          { level: 'bronze', label: 'B', name: 'Bronze', range: '0–999 pts', perks: '5% discount · Free shipping over $50', num: '63%', label2: 'of members' },
+          { level: 'silver', label: 'S', name: 'Silver', range: '1k–4.9k pts', perks: '10% discount · Early access · Free returns', num: '25%', label2: 'of members' },
+          { level: 'gold',   label: 'G', name: 'Gold',   range: '5k–14.9k pts', perks: '15% discount · Dedicated support · Free returns', num: '9%', label2: 'of members', featured: true },
+          { level: 'platinum', label: 'P', name: 'Platinum', range: '15k+ pts', perks: 'VIP concierge · Invite-only events · 25% off', num: '3%', label2: 'of members' },
+        ].map(t => (
+          <div class={`tier-card${t.featured ? ' featured' : ''}`}>
+            <div class={`tier-medal-lg ${t.level}`}>{t.label}</div>
+            <div class="tier-info">
+              <div class="tier-name">{t.name}</div>
+              <div class="tier-range">{t.range}</div>
+              <div class="tier-perks">{t.perks}</div>
+            </div>
+            <div class="tier-stats">
+              <div class="ts-num">{t.num}</div>
+              <div class="ts-label">{t.label2}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+
+    {visualSlot === 'challenges' && (
+      <div class="challenge-grid">
+        {[
+          { icon: 'default', name: 'Birthday Boost', desc: '2× points in your birthday month', reward: '+500 pts', progress: 100, complete: true },
+          { icon: 'alt-1', name: 'Refer a Friend', desc: 'Earn when your friend orders', reward: '$10 GC', progress: 50 },
+          { icon: 'alt-2', name: 'Category Sprint', desc: 'Buy 3 items in Beauty this month', reward: '+300 pts', progress: 67 },
+          { icon: 'alt-3', name: 'Review & Earn', desc: 'Leave a verified review', reward: '+100 pts', progress: 0 },
+        ].map(c => (
+          <div class={`challenge-card${c.complete ? ' complete' : ''}`}>
+            <div class="ch-header">
+              <div class={`ch-icon${c.icon !== 'default' ? ` ${c.icon}` : ''}`}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M12 2l2.5 7h7l-5.5 4.5 2 7L12 16l-6 4.5 2-7L2.5 9h7z"/>
+                </svg>
+              </div>
+              <div class="ch-reward">{c.reward}</div>
+            </div>
+            <div class="ch-name">{c.name}</div>
+            <div class="ch-desc">{c.desc}</div>
+            <div class="ch-progress-bar">
+              <div class="ch-progress-fill" style={`width:${c.progress}%`}></div>
+            </div>
+            <div class="ch-progress-label">
+              <span>{c.complete ? 'Completed!' : 'In progress'}</span>
+              <span>{c.progress}%</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+
+    {visualSlot === 'rewards' && (
+      <div class="rewards-catalog">
+        {[
+          { name: '$10 Gift Card', cost: '1,000 pts', claims: '2,340 claimed', grad: 'gradient-1', icon: '🎁' },
+          { name: 'Free Shipping Pass', cost: '500 pts', claims: '8,120 claimed', grad: 'gradient-2', icon: '📦' },
+          { name: '25% Off Coupon', cost: '2,000 pts', claims: '1,080 claimed', grad: 'gradient-3', icon: '🏷️' },
+          { name: 'VIP Event Access', cost: '5,000 pts', claims: '340 claimed', grad: 'gradient-4', icon: '⭐' },
+        ].map(r => (
+          <div class="reward-card">
+            <div class={`reward-img ${r.grad}`}><span style="font-size:28px">{r.icon}</span></div>
+            <div class="reward-name">{r.name}</div>
+            <div class="reward-meta">
+              <div class="reward-cost">⬟ {r.cost}</div>
+              <div class="reward-claims">{r.claims}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</div>
+
+<style>
+  .cap-row {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 80px;
+    align-items: center;
+    padding: 80px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .cap-row:last-child { border-bottom: none; }
+
+  .cap-row.reverse { direction: rtl; }
+  .cap-row.reverse > * { direction: ltr; }
+
+  .cap-eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--purple-deep);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+  }
+
+  .cap-text h3 {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .cap-text p {
+    font-size: 16px;
+    color: var(--slate);
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .cap-bullet-list { list-style: none; }
+
+  .cap-bullet {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    font-size: 14px;
+    color: var(--slate);
+    align-items: flex-start;
+  }
+
+  .cap-bullet-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    background: var(--purple-pale);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--purple-deep);
+    font-weight: 700;
+    font-size: 12px;
+    margin-top: 2px;
+  }
+
+  .cap-bullet strong { color: var(--ink); }
+
+  .cap-link {
+    margin-top: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--purple-deep);
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: gap 0.2s;
+  }
+
+  .cap-link:hover { gap: 10px; }
+
+  .cap-visual {
+    background: var(--bg-alt);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 32px;
+    min-height: 400px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Tier ladder */
+  .tier-ladder { display: flex; flex-direction: column; gap: 12px; }
+
+  .tier-card {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    transition: transform 0.2s;
+  }
+
+  .tier-card:hover { transform: translateX(4px); }
+
+  .tier-card.featured {
+    border-color: var(--purple-deep);
+    box-shadow: 0 8px 24px -8px rgba(111, 77, 255, 0.2);
+  }
+
+  .tier-medal-lg {
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: 700; font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .tier-medal-lg.bronze   { background: linear-gradient(135deg, #cd7f32, #a0522d); }
+  .tier-medal-lg.silver   { background: linear-gradient(135deg, #b8b8c8, #808090); }
+  .tier-medal-lg.gold     { background: linear-gradient(135deg, var(--accent-gold), #ff9555); color: var(--ink); }
+  .tier-medal-lg.platinum { background: linear-gradient(135deg, var(--ink), var(--purple-deep)); }
+
+  .tier-info { flex: 1; }
+  .tier-name  { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; }
+  .tier-range { font-size: 11px; color: var(--slate-light); font-family: 'JetBrains Mono', monospace; margin-top: 2px; }
+  .tier-perks { font-size: 12px; color: var(--slate); margin-top: 6px; }
+
+  .tier-stats { text-align: right; }
+  .ts-num   { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+  .ts-label { font-size: 10px; color: var(--slate-light); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  /* Challenges */
+  .challenge-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .challenge-card {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px;
+    transition: all 0.25s;
+  }
+
+  .challenge-card:hover { border-color: var(--purple); transform: translateY(-2px); }
+
+  .challenge-card.complete {
+    background: linear-gradient(135deg, var(--purple-pale), white);
+    border-color: var(--purple-light);
+  }
+
+  .ch-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+
+  .ch-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    background: linear-gradient(135deg, var(--purple-deep), var(--purple));
+  }
+
+  .ch-icon.alt-1 { background: linear-gradient(135deg, var(--accent-coral), var(--accent-gold)); }
+  .ch-icon.alt-2 { background: linear-gradient(135deg, var(--accent-cyan), #4a9eff); }
+  .ch-icon.alt-3 { background: linear-gradient(135deg, var(--accent-mint), #4fd9b0); color: var(--ink); }
+
+  .ch-reward {
+    background: var(--ink); color: white;
+    padding: 3px 8px; border-radius: 999px;
+    font-size: 10px; font-weight: 700;
+  }
+
+  .ch-name  { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .ch-desc  { font-size: 12px; color: var(--slate); line-height: 1.5; margin-bottom: 12px; }
+
+  .ch-progress-bar { height: 5px; background: var(--line); border-radius: 999px; overflow: hidden; }
+
+  .ch-progress-fill {
+    height: 100%; border-radius: 999px;
+    background: linear-gradient(90deg, var(--purple-deep), var(--purple));
+  }
+
+  .ch-progress-label {
+    display: flex; justify-content: space-between;
+    font-size: 11px; color: var(--slate); margin-top: 6px; font-weight: 600;
+  }
+
+  /* Rewards */
+  .rewards-catalog { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .reward-card {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px;
+    transition: all 0.25s;
+    position: relative;
+  }
+
+  .reward-card:hover { border-color: var(--purple); transform: translateY(-2px); }
+
+  .reward-img {
+    height: 80px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .reward-img::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent 60%);
+  }
+
+  .gradient-1 { background: linear-gradient(135deg, var(--purple-deep), var(--purple)); }
+  .gradient-2 { background: linear-gradient(135deg, var(--accent-coral), var(--accent-gold)); }
+  .gradient-3 { background: linear-gradient(135deg, var(--accent-cyan), #4a9eff); }
+  .gradient-4 { background: linear-gradient(135deg, var(--ink), var(--purple-deep)); }
+
+  .reward-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+
+  .reward-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+
+  .reward-cost {
+    font-size: 12px; font-weight: 700;
+    color: var(--purple-deep);
+  }
+
+  .reward-claims { font-size: 10px; color: var(--slate-light); }
+
+  @media (max-width: 1024px) {
+    .cap-row { grid-template-columns: 1fr; gap: 48px; }
+    .cap-row.reverse { direction: ltr; }
+  }
+
+  @media (max-width: 640px) {
+    .challenge-grid, .rewards-catalog { grid-template-columns: 1fr; }
+  }
+</style>

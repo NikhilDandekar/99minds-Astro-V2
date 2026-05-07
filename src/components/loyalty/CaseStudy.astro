@@ -1,0 +1,207 @@
+---
+export interface Result {
+  num: string;
+  desc: string;
+}
+
+export interface Props {
+  eyebrow?: string;
+  title?: string;
+  companyLogo?: string;
+  quote?: string;
+  authorInitials?: string;
+  authorName?: string;
+  authorRole?: string;
+  resultsLabel?: string;
+  results?: Result[];
+}
+
+const {
+  eyebrow = 'Customer Story',
+  title = 'How Lumen & Co tripled their VIP cohort.',
+  companyLogo = 'LUMEN&CO',
+  quote = '"We migrated off Yotpo Loyalty in five weeks. The visual builder meant our merchandising team owns the program — they ship a new challenge every Friday without filing a single ticket. VIP cohort tripled in nine months."',
+  authorInitials = 'MJ',
+  authorName = 'Marcus Johnson',
+  authorRole = 'Head of CRM, Lumen & Co',
+  resultsLabel = 'Results in first 9 months',
+  results = [
+    { num: '3.1×', desc: 'Growth in Gold + Platinum cohort' },
+    { num: '+38%', desc: 'Repeat purchase rate among members' },
+    { num: '52',   desc: 'Rules shipped by marketing without engineering' },
+    { num: '5 wks', desc: 'From kickoff to full member migration' },
+  ],
+} = Astro.props;
+
+const GiftCardCaseStudy = {
+  eyebrow: 'Customer Story',
+  title: 'How Lumen & Co tripled their VIP cohort.',
+  companyLogo: 'LUMEN&CO',
+  quote:
+    '"We migrated off Yotpo Loyalty in five weeks. The visual builder meant our merchandising team owns the program — they ship a new challenge every Friday without filing a single ticket. VIP cohort tripled in nine months."',
+  authorInitials: 'MJ',
+  authorName: 'Marcus Johnson',
+  authorRole: 'Head of CRM, Lumen & Co',
+  resultsLabel: 'Results in first 9 months',
+  results: [
+    { num: '3.1×', desc: 'Growth in Gold + Platinum cohort' },
+    { num: '+38%', desc: 'Repeat purchase rate among members' },
+    { num: '52', desc: 'Rules shipped by marketing without engineering' },
+    { num: '5 wks', desc: 'From kickoff to full member migration' },
+  ],
+};
+---
+
+<section class="case-study">
+  <div class="container">
+    <div class="section-header center">
+      <div class="section-eyebrow">{eyebrow}</div>
+      <h2 class="section-title">{title}</h2>
+    </div>
+
+    <div class="case-card">
+      <div class="case-content">
+        <div class="case-logo">{companyLogo}</div>
+        <p class="case-quote">{quote}</p>
+        <div class="case-author">
+          <div class="case-avatar">{authorInitials}</div>
+          <div>
+            <div class="case-name">{authorName}</div>
+            <div class="case-role">{authorRole}</div>
+          </div>
+        </div>
+      </div>
+      <div class="case-results">
+        <div class="case-results-label">{resultsLabel}</div>
+        {results.map(r => (
+          <div class="case-result-row">
+            <div class="case-result-num">{r.num}</div>
+            <div class="case-result-desc">{r.desc}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .case-study {
+    background: var(--bg-alt);
+    padding: 120px 32px;
+  }
+
+  .container { max-width: 1280px; margin: 0 auto; }
+
+  .section-header { max-width: 720px; margin-bottom: 64px; }
+  .section-header.center { margin-left: auto; margin-right: auto; text-align: center; }
+
+  .section-eyebrow {
+    font-size: 13px; font-weight: 700; color: var(--purple-deep);
+    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 700; letter-spacing: -0.03em; line-height: 1.05;
+    color: var(--ink);
+  }
+
+  .case-card {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    box-shadow: 0 24px 60px -20px rgba(10, 10, 35, 0.08);
+  }
+
+  .case-content {
+    padding: 56px;
+    border-right: 1px solid var(--line);
+  }
+
+  .case-logo {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    color: var(--slate-light);
+    margin-bottom: 32px;
+  }
+
+  .case-quote {
+    font-size: 22px;
+    line-height: 1.55;
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: 40px;
+  }
+
+  .case-author { display: flex; align-items: center; gap: 14px; }
+
+  .case-avatar {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, var(--purple-deep), var(--purple));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: 700; font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .case-name { font-size: 15px; font-weight: 700; }
+  .case-role { font-size: 13px; color: var(--slate); margin-top: 2px; }
+
+  .case-results {
+    padding: 56px;
+    background: var(--bg-alt);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .case-results-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--slate-light);
+    margin-bottom: 32px;
+  }
+
+  .case-result-row {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .case-result-row:last-child { border-bottom: none; }
+
+  .case-result-num {
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--purple-deep);
+    min-width: 80px;
+    line-height: 1;
+  }
+
+  .case-result-desc {
+    font-size: 14px;
+    color: var(--slate);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 1024px) {
+    .case-card { grid-template-columns: 1fr; }
+    .case-content { border-right: none; border-bottom: 1px solid var(--line); }
+    .case-study { padding: 80px 20px; }
+  }
+
+  @media (max-width: 640px) {
+    .case-content, .case-results { padding: 32px 24px; }
+    .case-quote { font-size: 18px; }
+  }
+</style>

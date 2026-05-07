@@ -1,0 +1,52 @@
+---
+const industries = [
+  {
+    icon: `<path d="M3 9l1-5h16l1 5M3 9v11h18V9M3 9h18"/><path d="M9 13h6"/>`,
+    title: 'Retail & DTC',
+    desc: 'Holiday gifting peaks, BFCM scale, returns-as-credit, omnichannel redemption.',
+    link: 'Explore retail →',
+  },
+  {
+    icon: `<path d="M5 3v18M19 3v18M5 8h14M5 14h14"/>`,
+    title: 'Restaurants & QSR',
+    desc: 'Stored value cards, visit-based loyalty, location-aware promos, kitchen integrations.',
+    link: 'Explore F&B →',
+  },
+  {
+    icon: `<path d="M2 12h20M12 2c2.5 3 4 6.5 4 10s-1.5 7-4 10c-2.5-3-4-6.5-4-10s1.5-7 4-10z"/><circle cx="12" cy="12" r="10"/>`,
+    title: 'Travel & Hospitality',
+    desc: 'Multi-property stored value, miles ↔ points exchange, loyalty pass for the wallet.',
+    link: 'Explore travel →',
+  },
+  {
+    icon: `<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h2"/>`,
+    title: 'Banking & Fintech',
+    desc: 'Card-linked offers, cashback rails, debit rewards programs, regulated-grade audit logs.',
+    link: 'Explore fintech →',
+  },
+];
+---
+
+<section class="py-[120px] px-8">
+  <div class="max-w-layout mx-auto">
+    <div class="max-w-[720px] mb-16">
+      <div class="text-[13px] font-bold text-[var(--purple-deep)] uppercase tracking-[0.1em] mb-4">Industries</div>
+      <h2 class="text-[clamp(32px,4vw,52px)] font-bold tracking-[-0.03em] leading-[1.05] text-[var(--ink)]">Purpose-built playbooks for your category.</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+      {industries.map(ind => (
+        <div class="industry-card border border-[var(--line)] rounded-[16px] p-7 px-6 bg-white transition-all duration-200 cursor-pointer relative overflow-hidden hover:border-[var(--purple)] hover:-translate-y-1 hover:shadow-[0_16px_40px_-12px_rgba(111,77,255,0.2)]">
+          <div class="relative">
+            <div class="w-12 h-12 bg-gradient-to-br from-[var(--purple-pale)] to-white border border-[var(--line)] rounded-xl flex items-center justify-center mb-5 text-[var(--purple-deep)]">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" set:html={ind.icon} />
+            </div>
+            <h3 class="text-lg font-bold tracking-[-0.01em] mb-2">{ind.title}</h3>
+            <p class="text-[13px] text-[var(--slate)] leading-[1.55] mb-5">{ind.desc}</p>
+            <a href="#" class="text-[13px] font-semibold text-[var(--purple-deep)] inline-flex items-center gap-1">{ind.link}</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

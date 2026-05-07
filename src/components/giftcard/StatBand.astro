@@ -1,0 +1,51 @@
+---
+interface Stat {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  stats?: Stat[];
+}
+
+const {
+  stats = [
+    {
+      value: "$1.8B",
+      label: "Gift card value issued through our platform annually",
+    },
+    {
+      value: "12M+",
+      label: "Gift cards issued across retail, F&B, and travel brands",
+    },
+    {
+      value: "<0.1%",
+      label: "Fraud rate — industry average is 3-5%",
+    },
+    {
+      value: "99.99%",
+      label: "Uptime over the last 12 months. Multi-region active-active.",
+    },
+  ],
+} = Astro.props;
+---
+
+<div
+  class="stat-band py-20 px-8 relative overflow-hidden"
+  style="background: linear-gradient(135deg, #6f4dff 0%, #0a0a23 100%);"
+>
+  <div
+    class="relative max-w-[1280px] mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-white z-10"
+  >
+    {
+      stats.map((stat) => (
+        <div>
+          <div class="g-stat-num text-[56px] font-bold tracking-[-0.04em] leading-none mb-3">
+            {stat.value}
+          </div>
+          <div class="text-sm text-white/70 leading-relaxed">{stat.label}</div>
+        </div>
+      ))
+    }
+  </div>
+</div>

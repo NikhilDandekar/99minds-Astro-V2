@@ -1,0 +1,516 @@
+---
+/**
+ * GiftCardHero.astro
+ * Product hero section for the Gift Cards & eGifts page.
+ * Features an animated stacked gift card visual with floating stat badges.
+ *
+ * Props are all optional — defaults match the 99minds Gift Cards page.
+ */
+
+export interface FeatureItem {
+  text: string;
+}
+
+export interface Props {
+  pill?: string;
+  title?: string;
+  titleGradient?: string;
+  lede?: string;
+  primaryCta?: { label: string; href: string };
+  secondaryCta?: { label: string; href: string };
+  features?: FeatureItem[];
+  /** Gradient for the title text span — defaults to purple→coral */
+  gradientColors?: string;
+}
+
+const {
+  pill = 'Gift Cards & eGifts',
+  title = 'Gift cards your',
+  titleGradient = 'brand deserves',
+  lede = 'Beautiful eGifts. PCI-compliant infrastructure. Bulk corporate gifting. Refunds-as-credit. Every channel, every currency, one API.',
+  primaryCta = { label: 'Start free trial →', href: '#' },
+  secondaryCta = { label: 'See live demo', href: '#' },
+  features = [
+    { text: 'Launch a branded program in <strong>under 14 days</strong> — not 14 weeks' },
+    { text: 'PCI-DSS L1 + SOC 2 Type II from day one — <strong>no vendor risk review needed</strong>' },
+    { text: 'One ledger across <strong>web, mobile, POS, customer service, and wallet</strong>' },
+  ],
+  gradientColors = 'linear-gradient(120deg, var(--purple-deep) 0%, var(--accent-coral) 100%)',
+} = Astro.props;
+---
+
+<section class="product-hero">
+  <!-- Animated background gradient mesh -->
+  <div class="product-hero-bg" aria-hidden="true">
+    <div class="ph-mesh"></div>
+  </div>
+
+  <div class="product-hero-inner">
+    <!-- Left: copy -->
+    <div>
+      <div class="ph-product-pill">
+        <div class="ph-product-pill-icon">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <rect x="3" y="6" width="18" height="13" rx="2"/>
+            <path d="M3 10h18M12 6v13"/>
+          </svg>
+        </div>
+        {pill}
+      </div>
+
+      <h1>
+        {title} <span class="gradient">{titleGradient}</span>.
+      </h1>
+
+      <p class="lede">{lede}</p>
+
+      <div class="ph-actions">
+        <a href={primaryCta.href} class="btn btn-purple btn-lg">{primaryCta.label}</a>
+        {secondaryCta && (
+          <a href={secondaryCta.href} class="btn btn-outline btn-lg">{secondaryCta.label}</a>
+        )}
+      </div>
+
+      {features.length > 0 && (
+        <div class="ph-feature-list">
+          {features.map(f => (
+            <div class="ph-feature-item">
+              <div class="ph-feature-check" aria-hidden="true">✓</div>
+              <div set:html={f.text} />
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <!-- Right: stacked gift cards visual -->
+    <div class="gift-stack" aria-hidden="true">
+
+      <!-- Floating stat: today's issuance -->
+      <div class="gc-floating-info gc-floating-1">
+        <div class="gcf-icon gcf-1-icon">↑</div>
+        <div>
+          <div class="gcf-meta-label">Today's issuance</div>
+          <div class="gcf-meta-value">$48,210</div>
+        </div>
+      </div>
+
+      <!-- Card 1 — purple gradient -->
+      <div class="gift-card gift-card-1">
+        <div class="gift-card-content">
+          <div class="gc-pattern"></div>
+          <div class="gc-shine"></div>
+          <div class="gc-header">
+            <div class="gc-brand">NORTHWIND</div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" opacity="0.7">
+              <path d="M20 12V8H6a2 2 0 010-4h12v4"/>
+              <path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/>
+            </svg>
+          </div>
+          <div>
+            <div class="gc-amount">$50</div>
+            <div class="gc-tagline">Just because.</div>
+          </div>
+          <div class="gc-footer">
+            <div class="gc-chip"></div>
+            <span>NW-7K2P9X</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 — dark gradient -->
+      <div class="gift-card gift-card-2">
+        <div class="gift-card-content">
+          <div class="gc-pattern"></div>
+          <div class="gc-shine"></div>
+          <div class="gc-header">
+            <div class="gc-brand">NORTHWIND · BIRTHDAY</div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" opacity="0.7">
+              <path d="M20 12V8H6a2 2 0 010-4h12v4"/>
+              <path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/>
+            </svg>
+          </div>
+          <div>
+            <div class="gc-amount">$100</div>
+            <div class="gc-tagline">Happy birthday, Ada!</div>
+          </div>
+          <div class="gc-footer">
+            <div class="gc-chip"></div>
+            <span>NW-8KPQ2X</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 — coral/gold gradient -->
+      <div class="gift-card gift-card-3">
+        <div class="gift-card-content">
+          <div class="gc-pattern"></div>
+          <div class="gc-shine"></div>
+          <div class="gc-header">
+            <div class="gc-brand">NORTHWIND · SUMMER</div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" opacity="0.7">
+              <path d="M20 12V8H6a2 2 0 010-4h12v4"/>
+              <path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/>
+            </svg>
+          </div>
+          <div>
+            <div class="gc-amount">$25</div>
+            <div class="gc-tagline">Refund credit · Order #4291</div>
+          </div>
+          <div class="gc-footer">
+            <div class="gc-chip"></div>
+            <span>NW-9LMNZ4</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating stat: redemption rate -->
+      <div class="gc-floating-info gc-floating-2">
+        <div class="gcf-icon gcf-2-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+            <path d="M20 6L9 17l-5-5"/>
+          </svg>
+        </div>
+        <div>
+          <div class="gcf-meta-label">Redemption rate</div>
+          <div class="gcf-meta-value">73.4%</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ── Hero shell ─────────────────────────────── */
+  .product-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 48px 32px 80px;
+  }
+
+  .product-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .ph-mesh {
+    position: absolute;
+    top: -10%; right: -20%;
+    width: 70%; height: 100%;
+    background:
+      radial-gradient(ellipse at 30% 50%, rgba(170,143,255,.35) 0%, transparent 50%),
+      radial-gradient(ellipse at 70% 30%, rgba(255,138,122,.20) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, rgba(255,192, 96,.25) 0%, transparent 50%);
+    filter: blur(70px);
+    animation: meshShift 20s ease-in-out infinite;
+  }
+
+  @keyframes meshShift {
+    0%,100% { transform: translate(0,0) scale(1); }
+    50%      { transform: translate(-30px,20px) scale(1.05); }
+  }
+
+  /* ── Inner grid ─────────────────────────────── */
+  .product-hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  /* ── Pill badge ─────────────────────────────── */
+  .ph-product-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    border: 1px solid var(--line);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--purple-deep);
+    margin-bottom: 24px;
+    box-shadow: 0 1px 2px rgba(10,10,35,.04);
+  }
+
+  .ph-product-pill-icon {
+    width: 18px; height: 18px;
+    background: linear-gradient(135deg, var(--purple-deep), var(--purple));
+    border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  /* ── Headline ───────────────────────────────── */
+  .product-hero h1 {
+    font-size: clamp(44px, 5.6vw, 76px);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+
+  .gradient {
+    background: linear-gradient(120deg, var(--purple-deep) 0%, var(--accent-coral) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* ── Lede ───────────────────────────────────── */
+  .lede {
+    font-size: 19px;
+    color: var(--slate);
+    line-height: 1.55;
+    max-width: 520px;
+    margin-bottom: 32px;
+  }
+
+  /* ── CTA row ────────────────────────────────── */
+  .ph-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .btn-lg { padding: 14px 22px; font-size: 15px; }
+
+  .btn-purple { background: var(--purple-deep); color: white; }
+  .btn-purple:hover { background: var(--ink); transform: translateY(-1px); }
+
+  .btn-outline { background: white; color: var(--ink); border-color: var(--line); }
+  .btn-outline:hover { border-color: var(--purple-deep); color: var(--purple-deep); }
+
+  /* ── Feature checklist ──────────────────────── */
+  .ph-feature-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .ph-feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--slate);
+  }
+
+  .ph-feature-check {
+    width: 18px; height: 18px;
+    flex-shrink: 0;
+    background: var(--purple-pale);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--purple-deep);
+    font-weight: 800;
+    font-size: 11px;
+    margin-top: 2px;
+  }
+
+  /* ── Gift card stack ────────────────────────── */
+  .gift-stack {
+    position: relative;
+    height: 520px;
+    perspective: 1500px;
+  }
+
+  .gift-card {
+    position: absolute;
+    width: 380px; height: 240px;
+    border-radius: 18px;
+    box-shadow:
+      0 30px 60px -20px rgba(10,10,35,.35),
+      0 0 0 1px rgba(255,255,255,.08) inset;
+    overflow: hidden;
+    transition: transform 0.6s cubic-bezier(.2,.8,.2,1);
+    cursor: pointer;
+  }
+
+  .gift-card-content {
+    position: relative;
+    width: 100%; height: 100%;
+    padding: 26px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: white;
+  }
+
+  /* Card decorative layers */
+  .gc-shine {
+    position: absolute; inset: 0;
+    background: linear-gradient(125deg, transparent 30%, rgba(255,255,255,.15) 50%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .gc-pattern {
+    position: absolute; inset: 0;
+    opacity: 0.15;
+    background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 1px);
+    background-size: 16px 16px;
+    pointer-events: none;
+  }
+
+  /* Card typography */
+  .gc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+  }
+
+  .gc-brand {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+
+  .gc-amount {
+    font-size: 44px; font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .gc-tagline { font-size: 11px; opacity: 0.7; margin-top: 6px; }
+
+  .gc-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-size: 10px; opacity: 0.7;
+    font-family: 'JetBrains Mono', monospace;
+    position: relative;
+  }
+
+  /* Chip detail */
+  .gc-chip {
+    width: 32px; height: 24px;
+    background: linear-gradient(135deg, rgba(255,255,255,.4), rgba(255,255,255,.1));
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,.3);
+    position: relative;
+  }
+
+  .gc-chip::before,
+  .gc-chip::after {
+    content: '';
+    position: absolute;
+    left: 4px; right: 4px;
+    height: 1px;
+    background: rgba(255,255,255,.4);
+  }
+
+  .gc-chip::before { top: 8px; }
+  .gc-chip::after  { top: 14px; }
+
+  /* Individual card positions & gradients */
+  .gift-card-1 {
+    background: linear-gradient(135deg, #6f4dff 0%, #aa8fff 100%);
+    top: 30px; left: 20px;
+    transform: rotate(-8deg);
+    z-index: 1;
+  }
+
+  .gift-card-2 {
+    background: linear-gradient(135deg, #0a0a23 0%, #6f4dff 100%);
+    top: 100px; left: 100px;
+    transform: rotate(2deg);
+    z-index: 2;
+  }
+
+  .gift-card-3 {
+    background: linear-gradient(135deg, #ff8a7a 0%, #ffc060 100%);
+    top: 200px; left: 60px;
+    transform: rotate(-3deg);
+    z-index: 3;
+  }
+
+  /* Hover fan-out */
+  .gift-stack:hover .gift-card-1 { transform: rotate(-12deg) translateY(-8px); }
+  .gift-stack:hover .gift-card-2 { transform: rotate(0deg)   translateY(-12px); }
+  .gift-stack:hover .gift-card-3 { transform: rotate(-1deg)  translateY(-16px); }
+
+  /* ── Floating info badges ───────────────────── */
+  .gc-floating-info {
+    position: absolute;
+    background: white;
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 12px 32px -8px rgba(10,10,35,.18), 0 0 0 1px var(--line);
+    font-size: 13px;
+    z-index: 10;
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .gc-floating-1 {
+    top: 10px; right: -10px;
+    animation: float 5s ease-in-out infinite;
+  }
+
+  .gc-floating-2 {
+    bottom: 30px; right: 30px;
+    animation: float 5s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+  }
+
+  .gcf-icon {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: 700; font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  .gcf-1-icon { background: var(--accent-mint); color: var(--ink); }
+  .gcf-2-icon { background: var(--purple-deep); }
+
+  .gcf-meta-label {
+    font-size: 10px; color: var(--slate-light);
+    font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+
+  .gcf-meta-value { font-weight: 700; color: var(--ink); font-size: 13px; }
+
+  /* ── Responsive ─────────────────────────────── */
+  @media (max-width: 1024px) {
+    .product-hero-inner { grid-template-columns: 1fr; gap: 48px; }
+    .gift-stack { transform: scale(0.85); transform-origin: top left; }
+  }
+
+  @media (max-width: 640px) {
+    .product-hero { padding: 32px 20px 56px; }
+    .gift-stack { display: none; }
+  }
+</style>

@@ -1,0 +1,64 @@
+---
+const rows = [
+  { label: 'Gift cards & store credit', ninety: true, rise: true, antavo: false, talon: false },
+  { label: 'Loyalty & tiers', ninety: true, rise: 'Limited', antavo: true, talon: 'Limited' },
+  { label: 'Promotions engine', ninety: true, rise: false, antavo: 'Limited', talon: true },
+  { label: 'Mobile wallet passes', ninety: true, rise: false, antavo: false, talon: false },
+  { label: 'Unified customer ledger', ninety: true, rise: false, antavo: false, talon: false },
+  { label: 'Single API + SDK', ninety: true, rise: 'Partial', antavo: true, talon: true },
+  { label: 'One contract, one invoice', ninety: true, rise: false, antavo: false, talon: false },
+];
+
+function renderCell(val: boolean | string) {
+  if (val === true) return `<span class="text-[#2dba7c] font-bold text-lg">✓</span>`;
+  if (val === false) return `<span class="text-[#c8c8d8] text-lg">—</span>`;
+  return `<span class="text-[#f5a623] text-sm font-semibold">${val}</span>`;
+}
+---
+
+<section class="py-[120px] px-8">
+  <div class="max-w-layout mx-auto">
+    <div class="max-w-[720px] mb-16">
+      <div class="text-[13px] font-bold text-[var(--purple-deep)] uppercase tracking-[0.1em] mb-4">Why teams switch</div>
+      <h2 class="text-[clamp(32px,4vw,52px)] font-bold tracking-[-0.03em] leading-[1.05] text-[var(--ink)] mb-5">One vendor instead of four.</h2>
+      <p class="text-[19px] text-[var(--slate)] leading-[1.55]">
+        See how 99minds compares to running point solutions for each capability.
+      </p>
+    </div>
+
+    <div class="comparison-grid hidden md:grid">
+      <!-- Header row -->
+      <div class="p-5 border-b border-r border-[var(--line)] bg-[var(--bg-alt)] text-[13px] font-bold"></div>
+      <div class="p-5 border-b border-r-2 border-l-2 border-[var(--purple-deep)] bg-[var(--purple-deep)] text-white text-[13px] font-bold">99minds</div>
+      <div class="p-5 border-b border-r border-[var(--line)] bg-[var(--bg-alt)] text-[13px] font-bold">Rise.ai</div>
+      <div class="p-5 border-b border-r border-[var(--line)] bg-[var(--bg-alt)] text-[13px] font-bold">Antavo</div>
+      <div class="p-5 border-b border-[var(--line)] bg-[var(--bg-alt)] text-[13px] font-bold">Talon.One</div>
+
+      <!-- Data rows -->
+      {rows.map(row => (
+        <>
+          <div class="p-5 border-b border-r border-[var(--line)] bg-[var(--line-soft)] text-sm font-semibold text-[var(--ink)]">{row.label}</div>
+          <div class="p-5 border-b border-r-2 border-l-2 border-[var(--purple-deep)] bg-gradient-to-b from-[var(--purple-pale)] to-white text-sm" set:html={renderCell(row.ninety)}></div>
+          <div class="p-5 border-b border-r border-[var(--line)] text-sm" set:html={renderCell(row.rise)}></div>
+          <div class="p-5 border-b border-r border-[var(--line)] text-sm" set:html={renderCell(row.antavo)}></div>
+          <div class="p-5 border-b border-[var(--line)] text-sm" set:html={renderCell(row.talon)}></div>
+        </>
+      ))}
+    </div>
+
+    <!-- Mobile fallback: simple list -->
+    <div class="md:hidden space-y-3">
+      {rows.map(row => (
+        <div class="border border-[var(--line)] rounded-xl p-5 bg-white">
+          <div class="font-semibold text-[var(--ink)] mb-3">{row.label}</div>
+          <div class="grid grid-cols-2 gap-2 text-sm">
+            <div class="flex items-center gap-2"><span class="font-bold text-[var(--purple-deep)]">99minds</span> <span set:html={renderCell(row.ninety)}></span></div>
+            <div class="flex items-center gap-2"><span class="text-[var(--slate)]">Rise.ai</span> <span set:html={renderCell(row.rise)}></span></div>
+            <div class="flex items-center gap-2"><span class="text-[var(--slate)]">Antavo</span> <span set:html={renderCell(row.antavo)}></span></div>
+            <div class="flex items-center gap-2"><span class="text-[var(--slate)]">Talon.One</span> <span set:html={renderCell(row.talon)}></span></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

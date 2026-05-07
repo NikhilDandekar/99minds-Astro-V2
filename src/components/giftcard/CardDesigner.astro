@@ -1,0 +1,518 @@
+---
+/**
+ * CardDesigner.astro
+ * Interactive gift card designer demo section.
+ * 3-panel UI: template/color picker | live card preview | settings form.
+ * All interactions are handled with vanilla JS in the <script> block.
+ */
+---
+
+<section class="designer">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow">Card Designer</div>
+      <h2 class="section-title">Cards that look like your brand. Not ours.</h2>
+      <p class="section-lede">
+        Drop in your logo, choose your palette, and ship pixel-perfect eGifts that match your brand
+        system. No design ticket required.
+      </p>
+    </div>
+
+    <div class="designer-frame">
+      <!-- Toolbar chrome -->
+      <div class="designer-toolbar">
+        <span class="dt-dot"></span>
+        <span class="dt-dot"></span>
+        <span class="dt-dot"></span>
+        <div class="dt-title">Card Designer · Northwind / Birthday Template</div>
+      </div>
+
+      <div class="designer-body">
+
+        <!-- ── LEFT: Templates & colors ─────────── -->
+        <div class="designer-left">
+          <div class="designer-section-label">Templates</div>
+          <div class="design-thumb-grid">
+            <div class="design-thumb dt-1 active"></div>
+            <div class="design-thumb dt-2"></div>
+            <div class="design-thumb dt-3"></div>
+            <div class="design-thumb dt-4"></div>
+            <div class="design-thumb dt-5"></div>
+            <div class="design-thumb dt-6"></div>
+          </div>
+
+          <div class="designer-section-label">Brand colors</div>
+          <div class="color-swatches">
+            {[
+              { hex: '#6f4dff', active: true },
+              { hex: '#0a0a23' },
+              { hex: '#ff8a7a' },
+              { hex: '#7ef0c5' },
+              { hex: '#00d4ff' },
+              { hex: '#ffc060' },
+              { hex: '#aa8fff' },
+              { hex: '#1a8c5e' },
+            ].map(s => (
+              <div
+                class={`swatch${s.active ? ' active' : ''}`}
+                style={`background:${s.hex}`}
+                data-hex={s.hex}
+              ></div>
+            ))}
+          </div>
+
+          <div class="designer-section-label">Pattern</div>
+          <div class="design-thumb-grid">
+            <div class="design-thumb active" style="background:linear-gradient(135deg,#6f4dff,#aa8fff);position:relative;overflow:hidden">
+              <div style="position:absolute;inset:0;opacity:0.2;background-image:radial-gradient(circle at 1px 1px,white 1px,transparent 1px);background-size:6px 6px"></div>
+            </div>
+            <div class="design-thumb" style="background:linear-gradient(135deg,#6f4dff,#aa8fff)"></div>
+          </div>
+        </div>
+
+        <!-- ── CENTER: Live preview ──────────────── -->
+        <div class="designer-center">
+          <div class="preview-card" id="previewCard">
+            <div class="preview-card-pattern"></div>
+            <div class="preview-card-shine"></div>
+            <div class="preview-card-header">
+              <div class="preview-brand">NORTHWIND · BIRTHDAY</div>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" opacity="0.7">
+                <path d="M20 12V8H6a2 2 0 010-4h12v4"/>
+                <path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/>
+              </svg>
+            </div>
+            <div>
+              <div class="preview-amount" id="previewAmount">$100</div>
+              <div class="preview-message">"Happy birthday, Ada — enjoy!"</div>
+            </div>
+            <div class="preview-footer">
+              <div class="gc-chip"></div>
+              <span>NW-8KPQ2X · EXP 12/27</span>
+            </div>
+          </div>
+
+          <!-- Delivery channel pills -->
+          <div class="preview-meta">
+            {['Email', 'SMS', 'Apple Wallet', 'Google Wallet'].map(ch => (
+              <div class="preview-channel">
+                <span class="preview-channel-dot"></span>
+                {ch}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- ── RIGHT: Settings form ──────────────── -->
+        <div class="designer-right">
+          <div class="field">
+            <label class="field-label">Recipient name</label>
+            <input class="field-input" value="Ada Lovelace" />
+          </div>
+          <div class="field">
+            <label class="field-label">Personal message</label>
+            <input class="field-input" value="Happy birthday, Ada — enjoy!" />
+          </div>
+          <div class="field">
+            <label class="field-label">Amount</label>
+            <div class="amount-chips">
+              {['$25', '$50', '$100', 'Custom'].map(amt => (
+                <button class={`amount-chip${amt === '$100' ? ' active' : ''}`} type="button">{amt}</button>
+              ))}
+            </div>
+          </div>
+          <div class="field">
+            <label class="field-label">Currency</label>
+            <input class="field-input" value="USD — US Dollar" />
+          </div>
+          <div class="field">
+            <label class="field-label">Expiration</label>
+            <input class="field-input" value="No expiration (recommended)" />
+          </div>
+
+          <div class="designer-section-label" style="margin-top:24px">Delivery</div>
+          {[
+            { label: 'Email delivery', sub: 'ada@example.com', on: true },
+            { label: 'Add to mobile wallet', sub: 'Apple + Google', on: true },
+            { label: 'Schedule for later', sub: 'Send on a specific date', on: false },
+          ].map(row => (
+            <div class="toggle-row">
+              <div>
+                <div class="toggle-label">{row.label}</div>
+                <div class="toggle-sub">{row.sub}</div>
+              </div>
+              <div class={`toggle${row.on ? '' : ' off'}`}></div>
+            </div>
+          ))}
+
+          <div class="designer-cta">
+            <button type="button">Issue gift card →</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .designer {
+    background: var(--bg-alt);
+    padding: 120px 32px;
+    overflow: hidden;
+  }
+
+  .container { max-width: 1280px; margin: 0 auto; }
+
+  /* Section header */
+  .section-header { max-width: 720px; margin-bottom: 64px; }
+
+  .section-eyebrow {
+    font-size: 13px; font-weight: 700; color: var(--purple-deep);
+    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-size: clamp(32px,4vw,52px);
+    font-weight: 700; letter-spacing: -0.03em; line-height: 1.05;
+    color: var(--ink); margin-bottom: 20px;
+  }
+
+  .section-lede { font-size: 19px; color: var(--slate); line-height: 1.55; }
+
+  /* ── Designer frame ─────────────────────────── */
+  .designer-frame {
+    background: white;
+    border-radius: 20px;
+    border: 1px solid var(--line);
+    box-shadow: 0 24px 60px -20px rgba(10,10,35,.12);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Toolbar chrome dots */
+  .designer-toolbar {
+    background: var(--bg-alt);
+    border-bottom: 1px solid var(--line);
+    padding: 12px 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .dt-dot { width: 11px; height: 11px; border-radius: 50%; }
+  .dt-dot:nth-child(1) { background: #ff8a7a; }
+  .dt-dot:nth-child(2) { background: #ffc060; }
+  .dt-dot:nth-child(3) { background: #7ef0c5; }
+
+  .dt-title {
+    flex: 1; text-align: center;
+    font-size: 12px; color: var(--slate); font-weight: 600;
+  }
+
+  /* 3-column body */
+  .designer-body {
+    display: grid;
+    grid-template-columns: 280px 1fr 320px;
+    min-height: 540px;
+  }
+
+  /* ── Left panel ─────────────────────────────── */
+  .designer-left {
+    background: var(--bg-alt);
+    border-right: 1px solid var(--line);
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  .designer-section-label {
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--slate-light);
+    margin-bottom: 12px; margin-top: 20px;
+  }
+
+  .designer-section-label:first-child { margin-top: 0; }
+
+  .design-thumb-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  }
+
+  .design-thumb {
+    aspect-ratio: 1.6/1;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+    overflow: hidden;
+  }
+
+  .design-thumb:hover { transform: translateY(-2px); }
+
+  .design-thumb.active {
+    border-color: var(--purple-deep);
+    box-shadow: 0 0 0 3px rgba(111,77,255,.15);
+  }
+
+  .dt-1 { background: linear-gradient(135deg, #6f4dff, #aa8fff); }
+  .dt-2 { background: linear-gradient(135deg, #0a0a23, #6f4dff); }
+  .dt-3 { background: linear-gradient(135deg, #ff8a7a, #ffc060); }
+  .dt-4 { background: linear-gradient(135deg, #7ef0c5, #00d4ff); }
+  .dt-5 { background: linear-gradient(135deg, #f4f2fb, #b8bfff); }
+  .dt-6 { background: linear-gradient(135deg, #ffc060, #ff8a7a); }
+
+  .color-swatches { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .swatch {
+    width: 28px; height: 28px; border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 0 0 1px var(--line);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+
+  .swatch:hover { transform: scale(1.1); }
+  .swatch.active { box-shadow: 0 0 0 2px var(--purple-deep); }
+
+  /* ── Center: card preview ───────────────────── */
+  .designer-center {
+    padding: 40px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background:
+      radial-gradient(circle at 30% 20%, var(--purple-pale), transparent 50%),
+      radial-gradient(circle at 70% 80%, rgba(126,240,197,.1), transparent 50%),
+      white;
+    position: relative;
+  }
+
+  .preview-card {
+    width: 360px; height: 220px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #6f4dff 0%, #aa8fff 100%);
+    box-shadow:
+      0 24px 50px -16px rgba(111,77,255,.4),
+      0 0 0 1px rgba(255,255,255,.08) inset;
+    padding: 24px 26px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+
+  .preview-card-pattern {
+    position: absolute; inset: 0;
+    opacity: 0.1;
+    background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 1px);
+    background-size: 14px 14px;
+  }
+
+  .preview-card-shine {
+    position: absolute; inset: 0;
+    background: linear-gradient(125deg, transparent 30%, rgba(255,255,255,.18) 50%, transparent 70%);
+  }
+
+  .preview-card-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    position: relative;
+  }
+
+  .preview-brand {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; opacity: 0.9;
+  }
+
+  .preview-amount {
+    font-size: 42px; font-weight: 700; letter-spacing: -0.03em; line-height: 1;
+  }
+
+  .preview-message {
+    font-size: 12px; opacity: 0.85; margin-top: 4px; font-style: italic;
+  }
+
+  .preview-footer {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    font-size: 9px; opacity: 0.7;
+    font-family: 'JetBrains Mono', monospace;
+    position: relative;
+  }
+
+  /* Chip inside preview */
+  .gc-chip {
+    width: 32px; height: 24px;
+    background: linear-gradient(135deg, rgba(255,255,255,.4), rgba(255,255,255,.1));
+    border-radius: 4px; border: 1px solid rgba(255,255,255,.3);
+    position: relative;
+  }
+  .gc-chip::before, .gc-chip::after {
+    content: ''; position: absolute;
+    left: 4px; right: 4px; height: 1px;
+    background: rgba(255,255,255,.4);
+  }
+  .gc-chip::before { top: 8px; }
+  .gc-chip::after  { top: 14px; }
+
+  /* Channel pills below preview */
+  .preview-meta { margin-top: 24px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+
+  .preview-channel {
+    background: white; border: 1px solid var(--line);
+    border-radius: 999px; padding: 6px 12px;
+    font-size: 11px; font-weight: 600; color: var(--slate);
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .preview-channel-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent-mint);
+    flex-shrink: 0;
+  }
+
+  /* ── Right panel: settings ──────────────────── */
+  .designer-right {
+    background: white;
+    border-left: 1px solid var(--line);
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  .field { margin-bottom: 16px; }
+
+  .field-label {
+    display: block;
+    font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: 6px;
+  }
+
+  .field-input {
+    width: 100%;
+    padding: 9px 12px;
+    font-family: inherit; font-size: 13px; color: var(--ink);
+    background: var(--bg-alt); border: 1px solid var(--line); border-radius: 8px;
+    transition: border-color 0.2s;
+  }
+
+  .field-input:focus { outline: none; border-color: var(--purple-deep); background: white; }
+
+  .amount-chips {
+    display: grid; grid-template-columns: repeat(4,1fr); gap: 6px;
+  }
+
+  .amount-chip {
+    padding: 8px 4px;
+    font-family: inherit; font-size: 12px; font-weight: 600;
+    background: var(--bg-alt); border: 1px solid var(--line); border-radius: 6px;
+    color: var(--ink); cursor: pointer; transition: all 0.2s;
+  }
+
+  .amount-chip:hover { border-color: var(--purple); }
+
+  .amount-chip.active {
+    background: var(--purple-deep); color: white; border-color: var(--purple-deep);
+  }
+
+  /* Toggle rows */
+  .toggle-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 0; border-bottom: 1px solid var(--line);
+  }
+
+  .toggle-row:last-of-type { border-bottom: none; }
+
+  .toggle-label { font-size: 13px; color: var(--ink); font-weight: 500; }
+  .toggle-sub   { font-size: 11px; color: var(--slate-light); margin-top: 2px; }
+
+  .toggle {
+    width: 36px; height: 20px;
+    background: var(--purple-deep); border-radius: 999px;
+    position: relative; cursor: pointer; transition: background 0.2s;
+    flex-shrink: 0;
+  }
+
+  .toggle::after {
+    content: ''; position: absolute;
+    top: 2px; right: 2px;
+    width: 16px; height: 16px;
+    background: white; border-radius: 50%;
+    transition: all 0.2s;
+  }
+
+  .toggle.off { background: var(--line); }
+  .toggle.off::after { right: auto; left: 2px; }
+
+  .designer-cta {
+    margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--line);
+  }
+
+  .designer-cta button {
+    width: 100%; padding: 11px;
+    font-family: inherit; font-size: 13px; font-weight: 600;
+    background: var(--ink); color: white;
+    border: none; border-radius: 8px; cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .designer-cta button:hover { background: var(--purple-deep); }
+
+  /* ── Responsive ─────────────────────────────── */
+  @media (max-width: 1024px) {
+    .designer-body { grid-template-columns: 1fr; }
+    .designer-left, .designer-right { display: none; }
+    .designer { padding: 80px 20px; }
+  }
+</style>
+
+<script>
+  // ── Template thumbnail selection ───────────────
+  document.querySelectorAll('.design-thumb').forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      thumb.parentElement?.querySelectorAll('.design-thumb').forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+    });
+  });
+
+  // ── Color swatch → update preview card gradient ─
+  const previewCard = document.getElementById('previewCard');
+
+  const colorMap: Record<string, string> = {
+    '#6f4dff': 'linear-gradient(135deg,#6f4dff 0%,#aa8fff 100%)',
+    '#0a0a23': 'linear-gradient(135deg,#0a0a23 0%,#6f4dff 100%)',
+    '#ff8a7a': 'linear-gradient(135deg,#ff8a7a 0%,#ffc060 100%)',
+    '#7ef0c5': 'linear-gradient(135deg,#7ef0c5 0%,#00d4ff 100%)',
+    '#00d4ff': 'linear-gradient(135deg,#00d4ff 0%,#4a9eff 100%)',
+    '#ffc060': 'linear-gradient(135deg,#ffc060 0%,#ff8a7a 100%)',
+    '#aa8fff': 'linear-gradient(135deg,#aa8fff 0%,#b8bfff 100%)',
+    '#1a8c5e': 'linear-gradient(135deg,#1a8c5e 0%,#7ef0c5 100%)',
+  };
+
+  document.querySelectorAll('.swatch').forEach(swatch => {
+    swatch.addEventListener('click', () => {
+      swatch.parentElement?.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+      swatch.classList.add('active');
+
+      const hex = (swatch as HTMLElement).dataset.hex || '';
+      if (previewCard && colorMap[hex]) {
+        previewCard.style.background = colorMap[hex];
+      }
+    });
+  });
+
+  // ── Amount chip selection → update preview amount ─
+  const previewAmount = document.getElementById('previewAmount');
+
+  document.querySelectorAll('.amount-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      chip.parentElement?.querySelectorAll('.amount-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+
+      const label = chip.textContent?.trim() ?? '';
+      if (label !== 'Custom' && previewAmount) {
+        previewAmount.textContent = label;
+      }
+    });
+  });
+
+  // ── Toggle switches ───────────────────────────────
+  document.querySelectorAll('.toggle').forEach(toggle => {
+    toggle.addEventListener('click', () => toggle.classList.toggle('off'));
+  });
+</script>

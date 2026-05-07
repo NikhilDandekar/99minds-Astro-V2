@@ -1,0 +1,74 @@
+---
+export interface Stat {
+  num: string;
+  label: string;
+}
+
+export interface Props {
+  stats?: Stat[];
+}
+
+const defaultStats: Stat[] = [
+  { num: '3.2×', label: 'Repeat purchase rate for tiered members vs non-members' },
+  { num: '42%',  label: 'Average LTV uplift after 12 months in a 99minds program' },
+  { num: '68%',  label: 'Of Gold+ members redeem rewards within 30 days' },
+  { num: '~30 days', label: 'From kickoff to live program. Antavo takes 3–6 months.' },
+];
+
+const { stats = defaultStats } = Astro.props;
+---
+
+<div class="stat-band">
+  <div class="stat-band-grid">
+    {stats.map(s => (
+      <div>
+        <div class="sb-num">{s.num}</div>
+        <div class="sb-label">{s.label}</div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .stat-band {
+    background: var(--ink);
+    color: white;
+    padding: 80px 32px;
+  }
+
+  .stat-band-grid {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 48px;
+  }
+
+  .sb-num {
+    font-size: 56px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 12px;
+    background: linear-gradient(180deg, white 0%, var(--purple-light) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .sb-label {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 1024px) {
+    .stat-band-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .stat-band-grid { grid-template-columns: 1fr; gap: 24px; }
+    .sb-num { font-size: 40px; }
+    .stat-band { padding: 80px 20px; }
+  }
+</style>

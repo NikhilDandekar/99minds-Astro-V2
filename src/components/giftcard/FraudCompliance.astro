@@ -1,0 +1,169 @@
+---
+/**
+ * FraudCompliance.astro
+ * Three-column security/compliance card section.
+ * Fully prop-driven — pass your own cards array for other product pages.
+ */
+
+export interface FraudCard {
+  iconPath: string;        // SVG path(s) for the 22px icon
+  title: string;
+  description: string;
+  statNum: string;
+  statLabel: string;
+}
+
+export interface Props {
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
+  cards?: FraudCard[];
+}
+
+const {
+  eyebrow = 'Fraud, Compliance & Trust',
+  title   = 'Built for the security review.',
+  lede    = "Gift cards attract fraud — that's why we obsess over the security stack so you don't have to staff a team for it.",
+  cards   = [
+    {
+      iconPath:    '<path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/>',
+      title:       'ML fraud engine',
+      description: 'Velocity checks, device fingerprinting, behavioural models, and graph analysis catch organised fraud before it lands. Trained on $2.4B of stored value.',
+      statNum:     '0.04%',
+      statLabel:   'Average fraud loss across our customer base',
+    },
+    {
+      iconPath:    '<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>',
+      title:       'PCI tokenisation',
+      description: 'Card numbers tokenised at rest and in transit. Your application never touches sensitive data. PCI scope reduces from your whole stack to zero.',
+      statNum:     'PCI L1',
+      statLabel:   'Audited annually by an external QSA',
+    },
+    {
+      iconPath:    '<path d="M9 11l3 3 8-8"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>',
+      title:       'Escheatment & state law',
+      description: 'Unclaimed property compliance for all 50 US states. Automatic dormancy tracking, state-specific reporting, and breakage accounting that keeps your CFO happy.',
+      statNum:     '50 / 50',
+      statLabel:   'US states + 14 international jurisdictions covered',
+    },
+  ] as FraudCard[],
+} = Astro.props;
+---
+
+<section class="fraud">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow">{eyebrow}</div>
+      <h2 class="section-title">{title}</h2>
+      <p class="section-lede">{lede}</p>
+    </div>
+
+    <div class="fraud-grid">
+      {cards.map(card => (
+        <div class="fraud-card">
+          <div class="fraud-icon">
+            <svg
+              width="22" height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              set:html={card.iconPath}
+            />
+          </div>
+          <h3>{card.title}</h3>
+          <p>{card.description}</p>
+          <div class="fraud-stat">
+            <div class="fraud-stat-num">{card.statNum}</div>
+            <div class="fraud-stat-label">{card.statLabel}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .fraud {
+    background: var(--bg-alt);
+    padding: 120px 32px;
+  }
+
+  .container { max-width: 1280px; margin: 0 auto; }
+
+  /* Section header */
+  .section-header { max-width: 720px; margin-bottom: 0; }
+
+  .section-eyebrow {
+    font-size: 13px; font-weight: 700; color: var(--purple-deep);
+    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 700; letter-spacing: -0.03em; line-height: 1.05;
+    color: var(--ink); margin-bottom: 20px;
+  }
+
+  .section-lede { font-size: 19px; color: var(--slate); line-height: 1.55; }
+
+  /* Card grid */
+  .fraud-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 64px;
+  }
+
+  .fraud-card {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    padding: 32px 28px;
+    transition: all 0.3s;
+  }
+
+  .fraud-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -12px rgba(111, 77, 255, 0.15);
+    border-color: var(--purple-light);
+  }
+
+  .fraud-icon {
+    width: 48px; height: 48px;
+    background: linear-gradient(135deg, var(--purple-pale), white);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+    color: var(--purple-deep);
+  }
+
+  .fraud-card h3 {
+    font-size: 18px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em;
+  }
+
+  .fraud-card p {
+    font-size: 14px; color: var(--slate); line-height: 1.55;
+  }
+
+  .fraud-stat {
+    margin-top: 20px; padding-top: 20px;
+    border-top: 1px solid var(--line);
+    display: flex; gap: 12px; align-items: center;
+  }
+
+  .fraud-stat-num {
+    font-size: 28px; font-weight: 700; letter-spacing: -0.02em;
+    color: var(--purple-deep);
+    white-space: nowrap;
+  }
+
+  .fraud-stat-label { font-size: 12px; color: var(--slate); line-height: 1.4; }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .fraud-grid { grid-template-columns: 1fr; }
+    .fraud { padding: 80px 20px; }
+  }
+</style>

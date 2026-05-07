@@ -1,0 +1,466 @@
+---
+export interface FeatureItem {
+  text: string;
+}
+
+export interface Props {
+  pill?: string;
+  title: string;
+  titleGradient?: string;
+  lede: string;
+  primaryCta?: { label: string; href: string };
+  secondaryCta?: { label: string; href: string };
+  features?: FeatureItem[];
+}
+
+const {
+  pill = 'Loyalty Engine',
+  title = 'Loyalty that',
+  titleGradient = 'marketing ships',
+  lede,
+  primaryCta = { label: 'Start free trial →', href: '#' },
+  secondaryCta = { label: 'Try the rules builder', href: '#' },
+  features = [],
+} = Astro.props;
+---
+
+<section class="product-hero">
+  <div class="product-hero-bg">
+    <div class="ph-mesh"></div>
+  </div>
+
+  <div class="product-hero-inner">
+    <div>
+      <div class="ph-product-pill">
+        <div class="ph-product-pill-icon">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <path d="M12 2l2.5 7h7l-5.5 4.5 2 7L12 16l-6 4.5 2-7L2.5 9h7z" />
+          </svg>
+        </div>
+        {pill}
+      </div>
+
+      <h1>
+        {title}{titleGradient && <> <span class="gradient">{titleGradient}</span></>},<br />
+        engineering trusts.
+      </h1>
+
+      <p class="lede">{lede}</p>
+
+      <div class="ph-actions">
+        <a href={primaryCta.href} class="btn btn-purple btn-lg">{primaryCta.label}</a>
+        {secondaryCta && <a href={secondaryCta.href} class="btn btn-outline btn-lg">{secondaryCta.label}</a>}
+      </div>
+
+      {features.length > 0 && (
+        <div class="ph-feature-list">
+          {features.map(f => (
+            <div class="ph-feature-item">
+              <div class="ph-feature-check">✓</div>
+              <div set:html={f.text} />
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <!-- Hero Visual: Member Card + Tier Pyramid -->
+    <div class="hero-visual">
+      <div class="floating-points fp-1">
+        <div class="fp-icon">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <path d="M12 2l2.5 7h7l-5.5 4.5 2 7L12 16l-6 4.5 2-7L2.5 9h7z" />
+          </svg>
+        </div>
+        +500 points earned
+      </div>
+
+      <div class="member-card">
+        <div class="mc-header">
+          <div>
+            <div class="mc-tier-badge">★ Gold Member</div>
+          </div>
+          <div class="mc-tier-medal">G</div>
+        </div>
+        <div class="mc-name">Ada Lovelace</div>
+        <div class="mc-id">MEM-8KPQ2X · Member since 2023</div>
+        <div class="mc-points-label">Points balance</div>
+        <div class="mc-points">8,420</div>
+        <div class="mc-progress-label">
+          <span>Progress to Platinum</span>
+          <span>8,420 / 12,500</span>
+        </div>
+        <div class="mc-progress-track">
+          <div class="mc-progress-bar"></div>
+        </div>
+        <div class="mc-next">4,080 points to unlock VIP concierge & 25% off</div>
+      </div>
+
+      <div class="tier-pyramid">
+        {[
+          { level: 'bronze', label: 'B', name: 'Bronze · 0–999 pts', perks: '5% off, free ship over $50', pct: '63%' },
+          { level: 'silver', label: 'S', name: 'Silver · 1k–4.9k', perks: '10% off, early access', pct: '25%', rowClass: 'silver-row' },
+          { level: 'gold',   label: 'G', name: 'Gold · 5k–14.9k',  perks: '15% off, free returns', pct: '9%',  rowClass: 'gold-row' },
+          { level: 'platinum', label: 'P', name: 'Platinum · 15k+', perks: 'VIP concierge', pct: '3%', rowClass: 'platinum-row' },
+        ].map(tier => (
+          <div class={`pyramid-tier ${tier.level}-row`}>
+            <div class={`pt-medal ${tier.level}`}>{tier.label}</div>
+            <div class="pt-info">
+              <div class="pt-name">{tier.name}</div>
+              <div class="pt-perks">{tier.perks}</div>
+            </div>
+            <div class="pt-count">{tier.pct}</div>
+          </div>
+        ))}
+      </div>
+
+      <div class="floating-points fp-2">
+        <div class="fp-icon">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <path d="M20 6L9 17l-5-5" />
+          </svg>
+        </div>
+        Tier upgraded
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .product-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 48px 32px 80px;
+  }
+
+  .product-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .ph-mesh {
+    position: absolute;
+    top: -10%;
+    right: -15%;
+    width: 75%;
+    height: 100%;
+    background:
+      radial-gradient(ellipse at 30% 50%, rgba(170, 143, 255, 0.32) 0%, transparent 50%),
+      radial-gradient(ellipse at 70% 30%, rgba(255, 192, 96, 0.22) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, rgba(126, 240, 197, 0.22) 0%, transparent 50%);
+    filter: blur(70px);
+    animation: meshShift 22s ease-in-out infinite;
+  }
+
+  .product-hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .ph-product-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    border: 1px solid var(--line);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--purple-deep);
+    margin-bottom: 24px;
+    box-shadow: 0 1px 2px rgba(10, 10, 35, 0.04);
+  }
+
+  .ph-product-pill-icon {
+    width: 18px;
+    height: 18px;
+    background: linear-gradient(135deg, var(--purple-deep), var(--purple));
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  .product-hero h1 {
+    font-size: clamp(44px, 5.6vw, 76px);
+    line-height: 1.0;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+
+  .gradient {
+    background: linear-gradient(120deg, var(--purple-deep) 0%, var(--accent-gold) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .lede {
+    font-size: 19px;
+    color: var(--slate);
+    line-height: 1.55;
+    max-width: 540px;
+    margin-bottom: 32px;
+  }
+
+  .ph-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .btn-lg { padding: 14px 22px; font-size: 15px; }
+
+  .btn-purple { background: var(--purple-deep); color: white; }
+  .btn-purple:hover { background: var(--ink); transform: translateY(-1px); }
+
+  .btn-outline { background: white; color: var(--ink); border-color: var(--line); }
+  .btn-outline:hover { border-color: var(--purple-deep); color: var(--purple-deep); }
+
+  .ph-feature-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .ph-feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--slate);
+  }
+
+  .ph-feature-check {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    background: var(--purple-pale);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--purple-deep);
+    font-weight: 800;
+    font-size: 11px;
+    margin-top: 2px;
+  }
+
+  /* ---- Hero Visual ---- */
+  .hero-visual {
+    position: relative;
+    height: 540px;
+  }
+
+  .member-card {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    width: 320px;
+    background: linear-gradient(135deg, #0a0a23 0%, #6f4dff 100%);
+    border-radius: 20px;
+    padding: 24px;
+    color: white;
+    box-shadow:
+      0 30px 60px -20px rgba(111, 77, 255, 0.4),
+      0 0 0 1px rgba(255,255,255,0.08) inset;
+    z-index: 3;
+    overflow: hidden;
+  }
+
+  .member-card::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -20%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255, 192, 96, 0.3) 0%, transparent 60%);
+  }
+
+  .mc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    margin-bottom: 18px;
+  }
+
+  .mc-tier-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, var(--accent-gold), #ff9555);
+    color: var(--ink);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .mc-tier-medal {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--accent-gold), #ff9555);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink);
+    font-weight: 800;
+    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(255, 192, 96, 0.4);
+  }
+
+  .mc-name { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 4px; }
+  .mc-id { font-size: 11px; opacity: 0.6; font-family: 'JetBrains Mono', monospace; margin-bottom: 18px; }
+  .mc-points-label { font-size: 11px; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.08em; }
+  .mc-points { font-size: 38px; font-weight: 700; letter-spacing: -0.02em; line-height: 1; margin: 4px 0 18px; }
+
+  .mc-progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    opacity: 0.7;
+    margin-bottom: 6px;
+  }
+
+  .mc-progress-track {
+    height: 6px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .mc-progress-bar {
+    width: 68%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-gold), var(--purple-light));
+    border-radius: 999px;
+    animation: progressFill 2s ease-out;
+  }
+
+  .mc-next { font-size: 11px; opacity: 0.7; margin-top: 8px; }
+
+  /* Tier pyramid */
+  .tier-pyramid {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 380px;
+    z-index: 1;
+  }
+
+  .pyramid-tier {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 14px 18px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 8px 24px -8px rgba(10, 10, 35, 0.08);
+    transition: transform 0.3s ease;
+  }
+
+  .pyramid-tier:hover { transform: translateX(8px); }
+
+  .bronze-row { width: 95%; }
+  .silver-row { width: 80%; }
+  .gold-row   { width: 65%; }
+  .platinum-row { width: 50%; }
+
+  .pt-medal {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .pt-medal.bronze   { background: linear-gradient(135deg, #cd7f32, #a0522d); }
+  .pt-medal.silver   { background: linear-gradient(135deg, #b8b8c8, #808090); }
+  .pt-medal.gold     { background: linear-gradient(135deg, var(--accent-gold), #ff9555); color: var(--ink); }
+  .pt-medal.platinum { background: linear-gradient(135deg, var(--ink), var(--purple-deep)); }
+
+  .pt-info { flex: 1; }
+  .pt-name  { font-size: 13px; font-weight: 700; }
+  .pt-perks { font-size: 11px; color: var(--slate); margin-top: 2px; }
+  .pt-count { font-size: 12px; font-weight: 700; color: var(--purple-deep); }
+
+  /* Floating points badges */
+  .floating-points {
+    position: absolute;
+    background: white;
+    border-radius: 999px;
+    padding: 8px 14px 8px 8px;
+    box-shadow: 0 12px 32px -8px rgba(10, 10, 35, 0.15), 0 0 0 1px var(--line);
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 4;
+    animation: float 5s ease-in-out infinite;
+  }
+
+  .fp-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  .fp-1 { top: -10px; left: 30px; animation-delay: 0s; }
+  .fp-1 .fp-icon { background: var(--purple-deep); }
+
+  .fp-2 { bottom: 80px; right: 50px; animation-delay: 2s; }
+  .fp-2 .fp-icon { background: var(--accent-mint); color: var(--ink); }
+
+  @media (max-width: 1024px) {
+    .product-hero-inner { grid-template-columns: 1fr; gap: 48px; }
+    .hero-visual { transform: scale(0.85); transform-origin: top left; }
+  }
+
+  @media (max-width: 640px) {
+    .product-hero { padding: 32px 20px 56px; }
+    .hero-visual { display: none; }
+  }
+</style>

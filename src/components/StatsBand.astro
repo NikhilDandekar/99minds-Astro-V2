@@ -1,0 +1,22 @@
+---
+const stats = [
+  { num: '$2.4B', label: 'Stored value processed annually across our platform' },
+  { num: '99.99%', label: 'Uptime over the last 12 months. Multi-region active-active.' },
+  { num: '142ms', label: 'Median API latency at the p50, measured from your edge' },
+  { num: '600+', label: 'Brands trust 99minds for their loyalty & rewards rails' },
+];
+---
+
+<div class="py-20 px-8 bg-gradient-to-br from-[var(--purple-deep)] to-[var(--ink)] text-white relative overflow-hidden stats-band-bg">
+  <div class="relative grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-layout mx-auto">
+    {stats.map(s => (
+      <div class="text-left">
+        <div class="text-[56px] font-bold tracking-[-0.04em] leading-none mb-3"
+             style="background: linear-gradient(180deg, white 0%, var(--purple-light) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+          {s.num}
+        </div>
+        <div class="text-sm text-white/70 leading-relaxed">{s.label}</div>
+      </div>
+    ))}
+  </div>
+</div>
