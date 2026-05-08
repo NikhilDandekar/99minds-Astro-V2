@@ -8,6 +8,8 @@ import GiftCardCapabilities from '../components/giftcard/GiftCardCapabilities.as
 import CardDesigner from '../components/giftcard/CardDesigner.astro';
 import GiftCardCodeSection from '../components/giftcard/GiftCardCodeSection.astro';
 import FraudCompliance from '../components/giftcard/FraudCompliance.astro';
+import TrustBar from '../components/loyalty/TrustBar.astro';
+import { giftCardTrustItems } from '../config/trustbar';
 import ComparisonTable from '../components/loyalty/ComparisonTable.astro';
 import StatBand from '../components/giftcard/StatBand.astro';
 import CaseStudy from "../components/CaseStudy.astro";
@@ -38,6 +40,7 @@ const GiftCardFAQ = [
   <Nav />
 
   <GiftCardHero />
+  <TrustBar items={giftCardTrustItems} />
   <LogoWall />
   <CardDesigner />
   <GiftCardCapabilities />
