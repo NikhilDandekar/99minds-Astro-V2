@@ -1,0 +1,125 @@
+---
+export interface Result {
+  num: string;
+  desc: string;
+}
+
+export interface Props {
+  eyebrow?: string;
+  title?: string;
+  companyLogo?: string;
+  quote?: string;
+  authorInitials?: string;
+  authorName?: string;
+  authorRole?: string;
+  resultsLabel?: string;
+  results?: Result[];
+}
+
+const {
+  eyebrow = 'Customer Story',
+  title = 'How Northwind cut refunds by 41%.',
+  companyLogo = 'NORTHWIND',
+  quote = `"Within 90 days of switching to 99minds, our refund-to-credit conversion hit 64%. We saved $1.2M in cash that would've left the business — and our customers were happier because they got value back instantly."`,
+  authorInitials = 'RC',
+  authorName = 'Rachel Chen',
+  authorRole = 'VP Customer Experience, Northwind Retail',
+  resultsLabel = 'Results in first 90 days',
+  results = [
+    {
+      num: '$1.2M',
+      desc: 'In refunds converted to store credit',
+    },
+    {
+      num: '64%',
+      desc: 'Of customers chose credit + 15% bonus',
+    },
+    {
+      num: '1.4×',
+      desc: 'LTV uplift on credit-redeeming customers',
+    },
+    {
+      num: '12 days',
+      desc: 'From kickoff to live in production',
+    },
+  ],
+} = Astro.props;
+---
+
+<section class="bg-[var(--bg-alt)] px-8 py-[120px] max-md:px-5 max-md:py-20">
+  <div class="mx-auto max-w-[1280px]">
+
+    <!-- Section Header -->
+    <div class="mx-auto mb-16 max-w-[720px] text-center">
+      <div class="mb-4 text-[13px] font-bold uppercase tracking-[0.1em] text-[var(--purple-deep)]">
+        {eyebrow}
+      </div>
+
+      <h2 class="text-[clamp(32px,4vw,52px)] font-bold leading-[1.05] tracking-[-0.03em] text-[var(--ink)]">
+        {title}
+      </h2>
+    </div>
+
+    <!-- Card -->
+    <div
+      class="grid overflow-hidden rounded-[24px] border border-[var(--line)] bg-white shadow-[0_24px_60px_-20px_rgba(10,10,35,0.08)] lg:grid-cols-2"
+    >
+
+      <!-- Left -->
+      <div class="border-b border-[var(--line)] p-14 lg:border-b-0 lg:border-r max-md:p-8">
+
+        <div class="mb-8 text-[13px] font-extrabold tracking-[0.15em] text-[var(--slate-light)]">
+          {companyLogo}
+        </div>
+
+        <p class="mb-10 text-[22px] font-medium leading-[1.55] tracking-[-0.01em] text-[var(--ink)] max-md:text-[18px]">
+          {quote}
+        </p>
+
+        <div class="flex items-center gap-4">
+          <div
+            class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[var(--purple-deep)] to-[var(--purple)] text-[14px] font-bold text-white"
+          >
+            {authorInitials}
+          </div>
+
+          <div>
+            <div class="text-[15px] font-bold text-[var(--ink)]">
+              {authorName}
+            </div>
+
+            <div class="mt-0.5 text-[13px] text-[var(--slate)]">
+              {authorRole}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right -->
+      <div class="flex flex-col bg-[var(--bg-alt)] p-14 max-md:p-8">
+
+        <div class="mb-8 text-[12px] font-bold uppercase tracking-[0.1em] text-[var(--slate-light)]">
+          {resultsLabel}
+        </div>
+
+        <div class="flex flex-col">
+          {results.map((result) => (
+            <div
+              class="flex items-center gap-5 border-b border-[var(--line)] py-5 last:border-b-0"
+            >
+              <div
+                class="min-w-[80px] text-[36px] font-extrabold leading-none tracking-[-0.03em] text-[var(--purple-deep)]"
+              >
+                {result.num}
+              </div>
+
+              <div class="text-[14px] leading-[1.5] text-[var(--slate)]">
+                {result.desc}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

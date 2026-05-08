@@ -1,0 +1,126 @@
+---
+export interface FAQItem {
+  question: string;
+  answer: string;
+  open?: boolean;
+}
+
+export interface Props {
+  eyebrow?: string;
+  title?: string;
+  items?: FAQItem[];
+}
+
+const {
+  eyebrow = 'Common questions',
+  title = 'Things buyers usually ask.',
+  items = [
+    {
+      question: 'Can we migrate members and points from Antavo or Yotpo?',
+      answer:
+        'Yes — we have proven migration playbooks for Antavo, Yotpo, Smile.io, and LoyaltyLion. We import member balances, tier assignments, and historical earning events so day-one balances match exactly. Most migrations finish in 4–6 weeks including parallel-running and final cutover.',
+      open: true,
+    },
+    {
+      question: 'How does pricing compare to Antavo for an enterprise program?',
+      answer:
+        "Antavo's enterprise pricing typically runs into six figures annually with significant implementation fees on top. 99minds pricing is tiered on monthly active members with no implementation fee for self-serve onboarding. For a program of 100k active members, our customers typically save 40–60% versus a comparable Antavo contract.",
+    },
+    {
+      question: 'Does the rules builder handle truly complex earning logic?',
+      answer:
+        'Yes. Anything you can describe with a trigger event, conditional logic, and an action is buildable. Multi-step funnels, time-decayed earning, category-based multipliers, A/B-tested earning rates, partner-cobranded earning — all native. For the rare case that needs custom logic, drop into our scripting layer (sandboxed JavaScript).',
+    },
+    {
+      question: 'Can we run multiple programs on one account?',
+      answer:
+        "Yes — multi-program is native. Create as many distinct programs as you need with separate rule sets, tier structures, branding, and reporting.",
+    },
+  ],
+} = Astro.props;
+---
+
+<section class="bg-[#FAFAFF] px-8 py-[120px] max-sm:px-5 max-sm:py-20">
+  <div class="mx-auto max-w-[1280px]">
+    
+    <!-- Header -->
+    <div class="mx-auto mb-16 max-w-[720px] text-center">
+      <div class="mb-4 text-[13px] font-bold uppercase tracking-[0.1em] text-[var(--purple-deep)]">
+        {eyebrow}
+      </div>
+
+      <h2 class="text-[clamp(32px,4vw,52px)] font-bold leading-[1.05] tracking-[-0.03em] text-[var(--ink)]">
+        {title}
+      </h2>
+    </div>
+
+    <!-- FAQ -->
+    <div class="mx-auto max-w-[800px]">
+      {items.map((item, index) => (
+        <div
+          class={`faq-item border border-[#e8e6f5] rounded-lg px-4 py-2 bg-white mb-4 border-[var(--line)] ${
+            item.open ? 'open' : ''
+          }`}
+        >
+          <button
+            class="faq-q flex w-full items-center justify-between gap-6 py-2 text-left text-[17px] font-semibold text-[var(--ink)] transition-colors duration-200 hover:text-[var(--purple-deep)]"
+            data-index={index}
+          >
+            <span>{item.question}</span>
+
+            <div
+              class="faq-toggle flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-[var(--line)] bg-[var(--bg-alt)] text-[18px] leading-none text-[var(--slate)] transition-all duration-200"
+            >
+              +
+            </div>
+          </button>
+
+          <div
+            class={`faq-a overflow-hidden transition-all duration-300 ease-in-out ${
+              item.open ? 'max-h-[300px]' : 'max-h-0'
+            }`}
+          >
+            <div class="pb-6 pr-7 text-[15px] leading-[1.6] text-[var(--slate)]">
+              {item.answer}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('.faq-q').forEach((button) => {
+    button.addEventListener('click', () => {
+      const item = button.parentElement;
+
+      item?.classList.toggle('open');
+
+      const answer = item?.querySelector('.faq-a');
+      const toggle = item?.querySelector('.faq-toggle');
+
+      if (item?.classList.contains('open')) {
+        answer?.classList.remove('max-h-0');
+        answer?.classList.add('max-h-[300px]');
+
+        toggle?.classList.add(
+          'rotate-45',
+          'bg-[var(--purple-pale)]',
+          'border-[var(--purple-light)]',
+          'text-[var(--purple-deep)]'
+        );
+      } else {
+        answer?.classList.remove('max-h-[300px]');
+        answer?.classList.add('max-h-0');
+
+        toggle?.classList.remove(
+          'rotate-45',
+          'bg-[var(--purple-pale)]',
+          'border-[var(--purple-light)]',
+          'text-[var(--purple-deep)]'
+        );
+      }
+    });
+  });
+</script>

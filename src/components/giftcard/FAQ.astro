@@ -1,72 +1,51 @@
 ---
-interface FaqItem {
-  question: string;
-  answer: string;
-}
-
+interface FAQItem { question: string; answer: string; open?: boolean; }
 interface Props {
-  title?: string;
-  items?: FaqItem[];
+  eyebrow?: string;
+  title?:   string;
+  items?:   FAQItem[];
+  bgClass?: string;
 }
-
 const {
-  title = "Common questions",
-  items = [
-    {
-      question: "How long does it take to go live?",
-      answer:
-        "Most teams are issuing their first gift cards within 2 weeks. API integration typically takes 3-5 days, and card design can be done in hours using our designer tool. We provide sandbox access immediately so you can start testing before paperwork is finalized.",
-    },
-    {
-      question: "Can I use my existing plastic card inventory?",
-      answer:
-        "Yes. We can load your existing card stock into our system. You'll get all the fraud protection, reporting, and omnichannel redemption features without throwing away inventory. New cards can be ordered through our fulfillment partners or your existing printer.",
-    },
-    {
-      question: "How does pricing work?",
-      answer:
-        "We charge a small percentage of gift card value issued, with volume discounts starting at $100k/month. No setup fees. No monthly minimums. Physical card fulfillment is billed separately at cost + small markup. First $10k in gift card value is free to test.",
-    },
-    {
-      question: "What about breakage and escheatment?",
-      answer:
-        "We track breakage by state and generate escheatment reports automatically. You get real-time visibility into unredeemed balances, aging reports, and revenue recognition schedules. Our system handles the complex state-by-state rules so your finance team doesn't have to.",
-    },
-    {
-      question: "Can customers check their balance?",
-      answer:
-        "Yes. Every card comes with a branded balance-check page. Wallet passes show real-time balance updates. You can also embed balance lookup directly on your site via our widget or API. Customers can also call into your support team — we provide a phone lookup endpoint.",
-    },
-  ],
+  eyebrow = 'Common questions',
+  title   = 'Things buyers usually ask.',
+  items   = [],
+  bgClass = 'bg-bg-alt',
 } = Astro.props;
 ---
 
-<section class="py-[120px] px-8 max-sm:py-20 max-sm:px-5 bg-bg-alt">
-  <div class="max-w-[800px] mx-auto">
-    <div class="text-center mb-12">
-      <h2 class="section-title font-bold text-ink tracking-[-0.03em] mb-5">{title}</h2>
+<section class:list={[bgClass, 'py-[120px] px-8']}>
+  <div class="max-w-[1280px] mx-auto">
+
+    <div class="max-w-[720px] mx-auto text-center mb-16">
+      <p class="text-[13px] font-bold uppercase tracking-[0.1em] text-purple-deep mb-4">{eyebrow}</p>
+      <h2 class="font-bold tracking-[-0.03em] leading-[1.05] text-ink" style="font-size:clamp(32px,4vw,52px)">{title}</h2>
     </div>
 
-    <div class="space-y-4">
-      {
-        items.map((item) => (
-          <details class="bg-white border border-line rounded-xl p-6 hover:border-purple-light transition group">
-            <summary class="font-semibold text-base cursor-pointer flex justify-between items-center">
-              {item.question}
-              <svg
-                class="w-5 h-5 text-slate group-open:rotate-180 transition-transform"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path d="M6 9l6 6 6-6" />
-              </svg>
-            </summary>
-            <p class="mt-4 text-sm text-slate leading-relaxed">{item.answer}</p>
-          </details>
-        ))
-      }
+    <div class="max-w-[880px] mx-auto">
+      {items.map(item => (
+        <div class:list={['faq-item bg-white border border-line rounded-12 mb-3 overflow-hidden', item.open && 'open']}>
+          <button
+            type="button"
+            class="faq-q w-full px-7 py-[22px] flex justify-between items-center text-[16px] font-semibold text-ink cursor-pointer transition-colors duration-200 hover:text-purple-deep bg-transparent border-none text-left"
+          >
+            <span>{item.question}</span>
+            <span class="faq-toggle w-6 h-6 bg-purple-pale text-purple-deep rounded-full flex items-center justify-center font-bold text-[14px] flex-shrink-0 ml-6 transition-transform duration-300">
+              +
+            </span>
+          </button>
+          <div class="faq-answer">
+            <div class="px-7 pb-[22px] text-[15px] text-slate leading-[1.6]">{item.answer}</div>
+          </div>
+        </div>
+      ))}
     </div>
+
   </div>
 </section>
+
+<script>
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => btn.closest('.faq-item')?.classList.toggle('open'));
+  });
+</script>

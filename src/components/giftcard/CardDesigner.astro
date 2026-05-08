@@ -1,152 +1,185 @@
 ---
 /**
- * CardDesigner.astro
- * Interactive gift card designer demo section.
- * 3-panel UI: template/color picker | live card preview | settings form.
- * All interactions are handled with vanilla JS in the <script> block.
+ * CardDesigner — exact layout match.
+ * .designer: bg-bg-alt overflow-hidden py-[120px] px-8
+ * .designer-frame: bg-white rounded-20 border border-line shadow-[0_24px_60px_-20px_rgba(10,10,35,0.12)] overflow-hidden flex flex-col
+ * .designer-toolbar: bg-bg-alt border-b border-line px-4 py-3 flex items-center gap-2 (spans full width)
+ * .designer-body: grid [280px_1fr_320px] min-h-[540px]
+ *   ≤1024: single col; designer-left and designer-right hidden
+ * Left: bg-bg-alt border-r border-line p-5 overflow-y-auto
+ * Center: p-10 flex flex-col items-center justify-center (radial bg)
+ * Right: bg-white border-l border-line p-5 overflow-y-auto
  */
+const swatches = [
+  { hex:'#6f4dff', grad:'linear-gradient(135deg,#6f4dff,#aa8fff)',  active:true  },
+  { hex:'#0a0a23', grad:'linear-gradient(135deg,#0a0a23,#6f4dff)',  active:false },
+  { hex:'#ff8a7a', grad:'linear-gradient(135deg,#ff8a7a,#ffc060)',  active:false },
+  { hex:'#7ef0c5', grad:'linear-gradient(135deg,#7ef0c5,#00d4ff)',  active:false },
+  { hex:'#00d4ff', grad:'linear-gradient(135deg,#00d4ff,#4a9eff)',  active:false },
+  { hex:'#ffc060', grad:'linear-gradient(135deg,#ffc060,#ff8a7a)',  active:false },
+  { hex:'#aa8fff', grad:'linear-gradient(135deg,#aa8fff,#b8bfff)',  active:false },
+  { hex:'#1a8c5e', grad:'linear-gradient(135deg,#1a8c5e,#7ef0c5)',  active:false },
+];
+const templates = [
+  { cls:'bg-[linear-gradient(135deg,#6f4dff,#aa8fff)]', active:true  },
+  { cls:'bg-[linear-gradient(135deg,#0a0a23,#6f4dff)]', active:false },
+  { cls:'bg-[linear-gradient(135deg,#ff8a7a,#ffc060)]', active:false },
+  { cls:'bg-[linear-gradient(135deg,#7ef0c5,#00d4ff)]', active:false },
+  { cls:'bg-[linear-gradient(135deg,#f4f2fb,#b8bfff)]', active:false },
+  { cls:'bg-[linear-gradient(135deg,#ffc060,#ff8a7a)]', active:false },
+];
+const amounts  = ['$25','$50','$100','Custom'];
+const toggleRows = [
+  { label:'Email delivery',       sub:'ada@example.com',        on:true  },
+  { label:'Add to mobile wallet', sub:'Apple + Google',         on:true  },
+  { label:'Schedule for later',   sub:'Send on a specific date',on:false },
+];
 ---
 
-<section class="designer">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-eyebrow">Card Designer</div>
-      <h2 class="section-title">Cards that look like your brand. Not ours.</h2>
-      <p class="section-lede">
-        Drop in your logo, choose your palette, and ship pixel-perfect eGifts that match your brand
-        system. No design ticket required.
-      </p>
+<section class="bg-bg-alt overflow-hidden py-[120px] px-8">
+  <div class="max-w-[1280px] mx-auto">
+
+    <!-- Section header: max-w-[720px] mb-16 -->
+    <div class="max-w-[720px] mb-16">
+      <p class="text-[13px] font-bold uppercase tracking-[0.1em] text-purple-deep mb-4">Card Designer</p>
+      <h2 class="font-bold tracking-[-0.03em] leading-[1.05] text-ink mb-5" style="font-size:clamp(32px,4vw,52px)">Cards that look like your brand. Not ours.</h2>
+      <p class="text-[19px] text-slate leading-[1.55]">Drop in your logo, choose your palette, and ship pixel-perfect eGifts that match your brand system. No design ticket required.</p>
     </div>
 
-    <div class="designer-frame">
-      <!-- Toolbar chrome -->
-      <div class="designer-toolbar">
-        <span class="dt-dot"></span>
-        <span class="dt-dot"></span>
-        <span class="dt-dot"></span>
-        <div class="dt-title">Card Designer · Northwind / Birthday Template</div>
+    <!-- Designer frame: flex flex-col -->
+    <div class="bg-white rounded-20 border border-line overflow-hidden flex flex-col"
+         style="box-shadow:0 24px 60px -20px rgba(10,10,35,0.12)">
+
+      <!-- Toolbar: full width row -->
+      <div class="bg-bg-alt border-b border-line px-4 py-3 flex items-center gap-2">
+        <span class="w-[11px] h-[11px] rounded-full bg-accent-coral"></span>
+        <span class="w-[11px] h-[11px] rounded-full bg-accent-gold"></span>
+        <span class="w-[11px] h-[11px] rounded-full bg-accent-mint"></span>
+        <div class="flex-1 text-center text-[12px] text-slate font-semibold">Card Designer · Northwind / Birthday Template</div>
       </div>
 
-      <div class="designer-body">
+      <!-- 3-panel body: 280px | 1fr | 320px; ≤1024 single col -->
+      <div class="grid grid-cols-1 lg:[grid-template-columns:280px_1fr_320px] min-h-[540px]">
 
-        <!-- ── LEFT: Templates & colors ─────────── -->
-        <div class="designer-left">
-          <div class="designer-section-label">Templates</div>
-          <div class="design-thumb-grid">
-            <div class="design-thumb dt-1 active"></div>
-            <div class="design-thumb dt-2"></div>
-            <div class="design-thumb dt-3"></div>
-            <div class="design-thumb dt-4"></div>
-            <div class="design-thumb dt-5"></div>
-            <div class="design-thumb dt-6"></div>
-          </div>
+        <!-- ── LEFT: Templates + colors (hidden ≤1024) ─ -->
+        <div class="hidden lg:block bg-bg-alt border-r border-line p-5 overflow-y-auto">
 
-          <div class="designer-section-label">Brand colors</div>
-          <div class="color-swatches">
-            {[
-              { hex: '#6f4dff', active: true },
-              { hex: '#0a0a23' },
-              { hex: '#ff8a7a' },
-              { hex: '#7ef0c5' },
-              { hex: '#00d4ff' },
-              { hex: '#ffc060' },
-              { hex: '#aa8fff' },
-              { hex: '#1a8c5e' },
-            ].map(s => (
-              <div
-                class={`swatch${s.active ? ' active' : ''}`}
-                style={`background:${s.hex}`}
-                data-hex={s.hex}
+          <p class="text-[11px] font-bold uppercase tracking-[0.08em] text-slate-light mb-3">Templates</p>
+          <div class="grid grid-cols-2 gap-2 mb-5">
+            {templates.map(t => (
+              <div data-thumb
+                   class:list={['design-thumb aspect-[1.6/1] rounded-8 cursor-pointer border-2 transition-all duration-200 hover:-translate-y-0.5 overflow-hidden', t.cls, t.active ? 'border-purple-deep shadow-[0_0_0_3px_rgba(111,77,255,0.15)]' : 'border-transparent']}
               ></div>
             ))}
           </div>
 
-          <div class="designer-section-label">Pattern</div>
-          <div class="design-thumb-grid">
-            <div class="design-thumb active" style="background:linear-gradient(135deg,#6f4dff,#aa8fff);position:relative;overflow:hidden">
-              <div style="position:absolute;inset:0;opacity:0.2;background-image:radial-gradient(circle at 1px 1px,white 1px,transparent 1px);background-size:6px 6px"></div>
+          <p class="text-[11px] font-bold uppercase tracking-[0.08em] text-slate-light mb-3 mt-5">Brand colors</p>
+          <div class="flex gap-1.5 flex-wrap mb-5">
+            {swatches.map(s => (
+              <div data-swatch
+                   data-grad={s.grad}
+                   class:list={['w-7 h-7 rounded-full cursor-pointer border-2 border-white transition-transform duration-200 hover:scale-110', s.active ? 'shadow-[0_0_0_2px_#6f4dff]' : 'shadow-[0_0_0_1px_#e8e6f5]']}
+                   style={`background:${s.hex}`}
+              ></div>
+            ))}
+          </div>
+
+          <p class="text-[11px] font-bold uppercase tracking-[0.08em] text-slate-light mb-3 mt-5">Pattern</p>
+          <div class="grid grid-cols-2 gap-2">
+            <div data-thumb class="design-thumb aspect-[1.6/1] rounded-8 cursor-pointer border-2 border-purple-deep shadow-[0_0_0_3px_rgba(111,77,255,0.15)] relative overflow-hidden"
+                 style="background:linear-gradient(135deg,#6f4dff,#aa8fff)">
+              <div class="absolute inset-0 opacity-20" style="background-image:radial-gradient(circle at 1px 1px,white 1px,transparent 1px);background-size:6px 6px"></div>
             </div>
-            <div class="design-thumb" style="background:linear-gradient(135deg,#6f4dff,#aa8fff)"></div>
+            <div data-thumb class="design-thumb aspect-[1.6/1] rounded-8 cursor-pointer border-2 border-transparent transition-all hover:-translate-y-0.5"
+                 style="background:linear-gradient(135deg,#6f4dff,#aa8fff)"></div>
           </div>
         </div>
 
-        <!-- ── CENTER: Live preview ──────────────── -->
-        <div class="designer-center">
-          <div class="preview-card" id="previewCard">
-            <div class="preview-card-pattern"></div>
-            <div class="preview-card-shine"></div>
-            <div class="preview-card-header">
-              <div class="preview-brand">NORTHWIND · BIRTHDAY</div>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" opacity="0.7">
-                <path d="M20 12V8H6a2 2 0 010-4h12v4"/>
-                <path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/>
-              </svg>
+        <!-- ── CENTER: Live preview ──────────────────── -->
+        <div class="p-10 flex flex-col items-center justify-center"
+             style="background:radial-gradient(circle at 30% 20%,#f1edff,transparent 50%),radial-gradient(circle at 70% 80%,rgba(126,240,197,0.1),transparent 50%),white">
+
+          <!-- Preview card: w-[360px] h-[220px] -->
+          <div id="previewCard"
+               class="relative overflow-hidden flex flex-col justify-between text-white transition-all duration-[400ms]"
+               style="width:360px;height:220px;border-radius:18px;background:linear-gradient(135deg,#6f4dff 0%,#aa8fff 100%);box-shadow:0 24px 50px -16px rgba(111,77,255,0.4),inset 0 0 0 1px rgba(255,255,255,0.08);padding:24px 26px">
+            <div class="dot-pattern-sm"></div>
+            <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(125deg,transparent 30%,rgba(255,255,255,0.18) 50%,transparent 70%)"></div>
+            <!-- Header -->
+            <div class="relative flex justify-between items-start">
+              <div class="text-[10px] font-bold tracking-[0.18em] uppercase" style="opacity:0.9">NORTHWIND · BIRTHDAY</div>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" opacity="0.7"><path d="M20 12V8H6a2 2 0 010-4h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/></svg>
             </div>
+            <!-- Amount -->
             <div>
-              <div class="preview-amount" id="previewAmount">$100</div>
-              <div class="preview-message">"Happy birthday, Ada — enjoy!"</div>
+              <div id="previewAmount" class="text-[42px] font-bold tracking-[-0.03em] leading-none">$100</div>
+              <div class="text-[12px] italic mt-1" style="opacity:0.85">"Happy birthday, Ada — enjoy!"</div>
             </div>
-            <div class="preview-footer">
+            <!-- Footer -->
+            <div class="relative flex justify-between items-end font-mono text-[9px]" style="opacity:0.7">
               <div class="gc-chip"></div>
               <span>NW-8KPQ2X · EXP 12/27</span>
             </div>
           </div>
 
-          <!-- Delivery channel pills -->
-          <div class="preview-meta">
-            {['Email', 'SMS', 'Apple Wallet', 'Google Wallet'].map(ch => (
-              <div class="preview-channel">
-                <span class="preview-channel-dot"></span>
+          <!-- Channel pills: mt-6 flex gap-2 -->
+          <div class="mt-6 flex gap-2 flex-wrap justify-center">
+            {['Email','SMS','Apple Wallet','Google Wallet'].map(ch => (
+              <div class="bg-white border border-line rounded-pill px-3 py-1.5 text-[11px] font-semibold text-slate flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-accent-mint flex-shrink-0"></span>
                 {ch}
               </div>
             ))}
           </div>
         </div>
 
-        <!-- ── RIGHT: Settings form ──────────────── -->
-        <div class="designer-right">
-          <div class="field">
-            <label class="field-label">Recipient name</label>
-            <input class="field-input" value="Ada Lovelace" />
-          </div>
-          <div class="field">
-            <label class="field-label">Personal message</label>
-            <input class="field-input" value="Happy birthday, Ada — enjoy!" />
-          </div>
-          <div class="field">
-            <label class="field-label">Amount</label>
-            <div class="amount-chips">
-              {['$25', '$50', '$100', 'Custom'].map(amt => (
-                <button class={`amount-chip${amt === '$100' ? ' active' : ''}`} type="button">{amt}</button>
-              ))}
-            </div>
-          </div>
-          <div class="field">
-            <label class="field-label">Currency</label>
-            <input class="field-input" value="USD — US Dollar" />
-          </div>
-          <div class="field">
-            <label class="field-label">Expiration</label>
-            <input class="field-input" value="No expiration (recommended)" />
-          </div>
+        <!-- ── RIGHT: Settings (hidden ≤1024) ──────── -->
+        <div class="hidden lg:block bg-white border-l border-line p-5 overflow-y-auto">
 
-          <div class="designer-section-label" style="margin-top:24px">Delivery</div>
-          {[
-            { label: 'Email delivery', sub: 'ada@example.com', on: true },
-            { label: 'Add to mobile wallet', sub: 'Apple + Google', on: true },
-            { label: 'Schedule for later', sub: 'Send on a specific date', on: false },
-          ].map(row => (
-            <div class="toggle-row">
-              <div>
-                <div class="toggle-label">{row.label}</div>
-                <div class="toggle-sub">{row.sub}</div>
-              </div>
-              <div class={`toggle${row.on ? '' : ' off'}`}></div>
+          {[{label:'Recipient name',val:'Ada Lovelace'},{label:'Personal message',val:'Happy birthday, Ada — enjoy!'}].map(f => (
+            <div class="mb-4">
+              <label class="block text-[12px] font-semibold text-ink mb-1.5">{f.label}</label>
+              <input value={f.val} class="w-full px-3 py-[9px] font-sans text-[13px] text-ink bg-bg-alt border border-line rounded-8 transition-colors duration-200 focus:outline-none focus:border-purple-deep focus:bg-white"/>
             </div>
           ))}
 
-          <div class="designer-cta">
-            <button type="button">Issue gift card →</button>
+          <!-- Amount chips: grid repeat(4,1fr) gap-1.5 -->
+          <div class="mb-4">
+            <label class="block text-[12px] font-semibold text-ink mb-1.5">Amount</label>
+            <div class="grid grid-cols-4 gap-1.5">
+              {amounts.map(amt => (
+                <button data-chip type="button"
+                        class:list={['font-sans text-[12px] font-semibold py-2 rounded-[6px] border cursor-pointer transition-all duration-200', amt==='$100' ? 'bg-purple-deep text-white border-purple-deep' : 'bg-bg-alt text-ink border-line hover:border-purple']}>
+                  {amt}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {[{label:'Currency',val:'USD — US Dollar'},{label:'Expiration',val:'No expiration (recommended)'}].map(f => (
+            <div class="mb-4">
+              <label class="block text-[12px] font-semibold text-ink mb-1.5">{f.label}</label>
+              <input value={f.val} class="w-full px-3 py-[9px] font-sans text-[13px] text-ink bg-bg-alt border border-line rounded-8 transition-colors duration-200 focus:outline-none focus:border-purple-deep focus:bg-white"/>
+            </div>
+          ))}
+
+          <!-- Delivery toggles -->
+          <p class="text-[11px] font-bold uppercase tracking-[0.08em] text-slate-light mt-6 mb-0">Delivery</p>
+          {toggleRows.map(t => (
+            <div class="flex justify-between items-center py-3 border-b border-line last:border-b-0">
+              <div>
+                <div class="text-[13px] font-medium text-ink">{t.label}</div>
+                <div class="text-[11px] text-slate-light mt-0.5">{t.sub}</div>
+              </div>
+              <div class:list={['toggle-switch', !t.on && 'off']}></div>
+            </div>
+          ))}
+
+          <!-- Issue CTA -->
+          <div class="mt-5 pt-5 border-t border-line">
+            <button type="button" class="w-full py-[11px] font-sans text-[13px] font-semibold text-white bg-ink rounded-8 border-none cursor-pointer transition-colors duration-200 hover:bg-purple-deep">
+              Issue gift card →
+            </button>
           </div>
         </div>
 
@@ -155,364 +188,47 @@
   </div>
 </section>
 
-<style>
-  .designer {
-    background: var(--bg-alt);
-    padding: 120px 32px;
-    overflow: hidden;
-  }
-
-  .container { max-width: 1280px; margin: 0 auto; }
-
-  /* Section header */
-  .section-header { max-width: 720px; margin-bottom: 64px; }
-
-  .section-eyebrow {
-    font-size: 13px; font-weight: 700; color: var(--purple-deep);
-    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px;
-  }
-
-  .section-title {
-    font-size: clamp(32px,4vw,52px);
-    font-weight: 700; letter-spacing: -0.03em; line-height: 1.05;
-    color: var(--ink); margin-bottom: 20px;
-  }
-
-  .section-lede { font-size: 19px; color: var(--slate); line-height: 1.55; }
-
-  /* ── Designer frame ─────────────────────────── */
-  .designer-frame {
-    background: white;
-    border-radius: 20px;
-    border: 1px solid var(--line);
-    box-shadow: 0 24px 60px -20px rgba(10,10,35,.12);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Toolbar chrome dots */
-  .designer-toolbar {
-    background: var(--bg-alt);
-    border-bottom: 1px solid var(--line);
-    padding: 12px 16px;
-    display: flex; align-items: center; gap: 8px;
-  }
-
-  .dt-dot { width: 11px; height: 11px; border-radius: 50%; }
-  .dt-dot:nth-child(1) { background: #ff8a7a; }
-  .dt-dot:nth-child(2) { background: #ffc060; }
-  .dt-dot:nth-child(3) { background: #7ef0c5; }
-
-  .dt-title {
-    flex: 1; text-align: center;
-    font-size: 12px; color: var(--slate); font-weight: 600;
-  }
-
-  /* 3-column body */
-  .designer-body {
-    display: grid;
-    grid-template-columns: 280px 1fr 320px;
-    min-height: 540px;
-  }
-
-  /* ── Left panel ─────────────────────────────── */
-  .designer-left {
-    background: var(--bg-alt);
-    border-right: 1px solid var(--line);
-    padding: 20px;
-    overflow-y: auto;
-  }
-
-  .designer-section-label {
-    font-size: 11px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.08em;
-    color: var(--slate-light);
-    margin-bottom: 12px; margin-top: 20px;
-  }
-
-  .designer-section-label:first-child { margin-top: 0; }
-
-  .design-thumb-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-  }
-
-  .design-thumb {
-    aspect-ratio: 1.6/1;
-    border-radius: 8px;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: all 0.2s;
-    overflow: hidden;
-  }
-
-  .design-thumb:hover { transform: translateY(-2px); }
-
-  .design-thumb.active {
-    border-color: var(--purple-deep);
-    box-shadow: 0 0 0 3px rgba(111,77,255,.15);
-  }
-
-  .dt-1 { background: linear-gradient(135deg, #6f4dff, #aa8fff); }
-  .dt-2 { background: linear-gradient(135deg, #0a0a23, #6f4dff); }
-  .dt-3 { background: linear-gradient(135deg, #ff8a7a, #ffc060); }
-  .dt-4 { background: linear-gradient(135deg, #7ef0c5, #00d4ff); }
-  .dt-5 { background: linear-gradient(135deg, #f4f2fb, #b8bfff); }
-  .dt-6 { background: linear-gradient(135deg, #ffc060, #ff8a7a); }
-
-  .color-swatches { display: flex; gap: 6px; flex-wrap: wrap; }
-
-  .swatch {
-    width: 28px; height: 28px; border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid white;
-    box-shadow: 0 0 0 1px var(--line);
-    transition: transform 0.2s;
-    flex-shrink: 0;
-  }
-
-  .swatch:hover { transform: scale(1.1); }
-  .swatch.active { box-shadow: 0 0 0 2px var(--purple-deep); }
-
-  /* ── Center: card preview ───────────────────── */
-  .designer-center {
-    padding: 40px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    background:
-      radial-gradient(circle at 30% 20%, var(--purple-pale), transparent 50%),
-      radial-gradient(circle at 70% 80%, rgba(126,240,197,.1), transparent 50%),
-      white;
-    position: relative;
-  }
-
-  .preview-card {
-    width: 360px; height: 220px;
-    border-radius: 18px;
-    background: linear-gradient(135deg, #6f4dff 0%, #aa8fff 100%);
-    box-shadow:
-      0 24px 50px -16px rgba(111,77,255,.4),
-      0 0 0 1px rgba(255,255,255,.08) inset;
-    padding: 24px 26px;
-    color: white;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s ease;
-    display: flex; flex-direction: column; justify-content: space-between;
-  }
-
-  .preview-card-pattern {
-    position: absolute; inset: 0;
-    opacity: 0.1;
-    background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 1px);
-    background-size: 14px 14px;
-  }
-
-  .preview-card-shine {
-    position: absolute; inset: 0;
-    background: linear-gradient(125deg, transparent 30%, rgba(255,255,255,.18) 50%, transparent 70%);
-  }
-
-  .preview-card-header {
-    display: flex; justify-content: space-between; align-items: flex-start;
-    position: relative;
-  }
-
-  .preview-brand {
-    font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
-    text-transform: uppercase; opacity: 0.9;
-  }
-
-  .preview-amount {
-    font-size: 42px; font-weight: 700; letter-spacing: -0.03em; line-height: 1;
-  }
-
-  .preview-message {
-    font-size: 12px; opacity: 0.85; margin-top: 4px; font-style: italic;
-  }
-
-  .preview-footer {
-    display: flex; justify-content: space-between; align-items: flex-end;
-    font-size: 9px; opacity: 0.7;
-    font-family: 'JetBrains Mono', monospace;
-    position: relative;
-  }
-
-  /* Chip inside preview */
-  .gc-chip {
-    width: 32px; height: 24px;
-    background: linear-gradient(135deg, rgba(255,255,255,.4), rgba(255,255,255,.1));
-    border-radius: 4px; border: 1px solid rgba(255,255,255,.3);
-    position: relative;
-  }
-  .gc-chip::before, .gc-chip::after {
-    content: ''; position: absolute;
-    left: 4px; right: 4px; height: 1px;
-    background: rgba(255,255,255,.4);
-  }
-  .gc-chip::before { top: 8px; }
-  .gc-chip::after  { top: 14px; }
-
-  /* Channel pills below preview */
-  .preview-meta { margin-top: 24px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
-
-  .preview-channel {
-    background: white; border: 1px solid var(--line);
-    border-radius: 999px; padding: 6px 12px;
-    font-size: 11px; font-weight: 600; color: var(--slate);
-    display: flex; align-items: center; gap: 6px;
-  }
-
-  .preview-channel-dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--accent-mint);
-    flex-shrink: 0;
-  }
-
-  /* ── Right panel: settings ──────────────────── */
-  .designer-right {
-    background: white;
-    border-left: 1px solid var(--line);
-    padding: 20px;
-    overflow-y: auto;
-  }
-
-  .field { margin-bottom: 16px; }
-
-  .field-label {
-    display: block;
-    font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: 6px;
-  }
-
-  .field-input {
-    width: 100%;
-    padding: 9px 12px;
-    font-family: inherit; font-size: 13px; color: var(--ink);
-    background: var(--bg-alt); border: 1px solid var(--line); border-radius: 8px;
-    transition: border-color 0.2s;
-  }
-
-  .field-input:focus { outline: none; border-color: var(--purple-deep); background: white; }
-
-  .amount-chips {
-    display: grid; grid-template-columns: repeat(4,1fr); gap: 6px;
-  }
-
-  .amount-chip {
-    padding: 8px 4px;
-    font-family: inherit; font-size: 12px; font-weight: 600;
-    background: var(--bg-alt); border: 1px solid var(--line); border-radius: 6px;
-    color: var(--ink); cursor: pointer; transition: all 0.2s;
-  }
-
-  .amount-chip:hover { border-color: var(--purple); }
-
-  .amount-chip.active {
-    background: var(--purple-deep); color: white; border-color: var(--purple-deep);
-  }
-
-  /* Toggle rows */
-  .toggle-row {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 12px 0; border-bottom: 1px solid var(--line);
-  }
-
-  .toggle-row:last-of-type { border-bottom: none; }
-
-  .toggle-label { font-size: 13px; color: var(--ink); font-weight: 500; }
-  .toggle-sub   { font-size: 11px; color: var(--slate-light); margin-top: 2px; }
-
-  .toggle {
-    width: 36px; height: 20px;
-    background: var(--purple-deep); border-radius: 999px;
-    position: relative; cursor: pointer; transition: background 0.2s;
-    flex-shrink: 0;
-  }
-
-  .toggle::after {
-    content: ''; position: absolute;
-    top: 2px; right: 2px;
-    width: 16px; height: 16px;
-    background: white; border-radius: 50%;
-    transition: all 0.2s;
-  }
-
-  .toggle.off { background: var(--line); }
-  .toggle.off::after { right: auto; left: 2px; }
-
-  .designer-cta {
-    margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--line);
-  }
-
-  .designer-cta button {
-    width: 100%; padding: 11px;
-    font-family: inherit; font-size: 13px; font-weight: 600;
-    background: var(--ink); color: white;
-    border: none; border-radius: 8px; cursor: pointer;
-    transition: background 0.2s;
-  }
-
-  .designer-cta button:hover { background: var(--purple-deep); }
-
-  /* ── Responsive ─────────────────────────────── */
-  @media (max-width: 1024px) {
-    .designer-body { grid-template-columns: 1fr; }
-    .designer-left, .designer-right { display: none; }
-    .designer { padding: 80px 20px; }
-  }
-</style>
-
 <script>
-  // ── Template thumbnail selection ───────────────
-  document.querySelectorAll('.design-thumb').forEach(thumb => {
-    thumb.addEventListener('click', () => {
-      thumb.parentElement?.querySelectorAll('.design-thumb').forEach(t => t.classList.remove('active'));
-      thumb.classList.add('active');
+  // Template thumbnail selection
+  document.querySelectorAll('[data-thumb]').forEach(el => {
+    el.addEventListener('click', () => {
+      el.closest('.grid')?.querySelectorAll('[data-thumb]').forEach(t => {
+        t.classList.remove('border-purple-deep','shadow-[0_0_0_3px_rgba(111,77,255,0.15)]');
+        t.classList.add('border-transparent');
+      });
+      el.classList.remove('border-transparent');
+      el.classList.add('border-purple-deep','shadow-[0_0_0_3px_rgba(111,77,255,0.15)]');
     });
   });
 
-  // ── Color swatch → update preview card gradient ─
+  // Swatch → update preview gradient
   const previewCard = document.getElementById('previewCard');
-
-  const colorMap: Record<string, string> = {
-    '#6f4dff': 'linear-gradient(135deg,#6f4dff 0%,#aa8fff 100%)',
-    '#0a0a23': 'linear-gradient(135deg,#0a0a23 0%,#6f4dff 100%)',
-    '#ff8a7a': 'linear-gradient(135deg,#ff8a7a 0%,#ffc060 100%)',
-    '#7ef0c5': 'linear-gradient(135deg,#7ef0c5 0%,#00d4ff 100%)',
-    '#00d4ff': 'linear-gradient(135deg,#00d4ff 0%,#4a9eff 100%)',
-    '#ffc060': 'linear-gradient(135deg,#ffc060 0%,#ff8a7a 100%)',
-    '#aa8fff': 'linear-gradient(135deg,#aa8fff 0%,#b8bfff 100%)',
-    '#1a8c5e': 'linear-gradient(135deg,#1a8c5e 0%,#7ef0c5 100%)',
-  };
-
-  document.querySelectorAll('.swatch').forEach(swatch => {
+  document.querySelectorAll('[data-swatch]').forEach(swatch => {
     swatch.addEventListener('click', () => {
-      swatch.parentElement?.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
-      swatch.classList.add('active');
-
-      const hex = (swatch as HTMLElement).dataset.hex || '';
-      if (previewCard && colorMap[hex]) {
-        previewCard.style.background = colorMap[hex];
-      }
+      document.querySelectorAll('[data-swatch]').forEach(s => {
+        s.classList.remove('shadow-[0_0_0_2px_#6f4dff]'); s.classList.add('shadow-[0_0_0_1px_#e8e6f5]');
+      });
+      swatch.classList.add('shadow-[0_0_0_2px_#6f4dff]'); swatch.classList.remove('shadow-[0_0_0_1px_#e8e6f5]');
+      const grad = (swatch as HTMLElement).dataset.grad;
+      if (previewCard && grad) previewCard.style.background = grad;
     });
   });
 
-  // ── Amount chip selection → update preview amount ─
+  // Amount chip → update preview amount
   const previewAmount = document.getElementById('previewAmount');
-
-  document.querySelectorAll('.amount-chip').forEach(chip => {
+  document.querySelectorAll('[data-chip]').forEach(chip => {
     chip.addEventListener('click', () => {
-      chip.parentElement?.querySelectorAll('.amount-chip').forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
-
+      document.querySelectorAll('[data-chip]').forEach(c => {
+        c.classList.remove('bg-purple-deep','text-white','border-purple-deep');
+        c.classList.add('bg-bg-alt','text-ink','border-line');
+      });
+      chip.classList.add('bg-purple-deep','text-white','border-purple-deep');
+      chip.classList.remove('bg-bg-alt','text-ink','border-line');
       const label = chip.textContent?.trim() ?? '';
-      if (label !== 'Custom' && previewAmount) {
-        previewAmount.textContent = label;
-      }
+      if (label !== 'Custom' && previewAmount) previewAmount.textContent = label;
     });
   });
 
-  // ── Toggle switches ───────────────────────────────
-  document.querySelectorAll('.toggle').forEach(toggle => {
-    toggle.addEventListener('click', () => toggle.classList.toggle('off'));
-  });
+  // Toggle switches
+  document.querySelectorAll('.toggle-switch').forEach(t => t.addEventListener('click', () => t.classList.toggle('off')));
 </script>

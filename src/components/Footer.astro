@@ -1,4 +1,6 @@
 ---
+import logo from '../assets/99minds-logo1.svg';
+
 const footerCols = [
   {
     heading: 'Products',
@@ -12,15 +14,33 @@ const footerCols = [
   },
   {
     heading: 'Solutions',
-    links: ['Retail & DTC', 'Restaurants', 'Travel', 'Banking', 'Marketplaces'],
+    links: [
+      { label: 'Retail & DTC', href: '/solutions/retail-dtc' },
+      { label: 'Restaurants', href: '/solutions/restaurants' },
+      { label: 'Travel', href: '/solutions/travel' },
+      { label: 'Banking', href: '/solutions/banking' },
+      { label: 'Marketplaces', href: '/solutions/marketplaces' },
+    ],
   },
   {
     heading: 'Developers',
-    links: ['Documentation', 'API Reference', 'SDKs', 'Changelog', 'Status'],
+    links: [
+      { label: 'Documentation', href: '/docs' },
+      { label: 'API Reference', href: '/api-reference' },
+      { label: 'SDKs', href: '/sdks' },
+      { label: 'Changelog', href: '/changelog' },
+      { label: 'Status', href: '/status' },
+    ],
   },
   {
     heading: 'Company',
-    links: ['About', 'Customers', 'Pricing', 'Careers', 'Contact'],
+    links: [
+      { label: 'About', href: '/about' },
+      { label: 'Customers', href: '/customers' },
+      { label: 'Pricing', href: '/pricing' },
+      { label: 'Careers', href: '/careers' },
+      { label: 'Contact', href: '/contact' },
+    ],
   },
 ];
 ---
@@ -32,8 +52,16 @@ const footerCols = [
       <!-- Brand col -->
       <div class="col-span-2 lg:col-span-1">
         <div class="flex items-center gap-2 mb-4">
-          <span class="logo-mark" style="width:32px;height:32px;"></span>
-          <span class="text-[22px] font-extrabold tracking-[-0.03em]">99minds</span>
+         <a
+      href="/"
+      class="flex items-center gap-3 no-underline"
+    >
+      <img
+        src={logo.src}
+        alt="99minds logo"
+        class="h-7 w-auto object-contain"
+      />
+    </a>
         </div>
         <p class="text-white/55 text-sm leading-[1.55] max-w-[280px]">
           The complete customer value platform. Gift cards, loyalty, promotions, and mobile wallet — unified.
@@ -48,11 +76,11 @@ const footerCols = [
             {col.links.map(link => (
               <li class="mb-2.5">
                 <a
-  href={link.href}
-  class="text-white/55 no-underline text-sm transition-colors duration-200 hover:text-white"
->
-  {link.label}
-</a>
+                  href={link.href}
+                  class="text-white/55 no-underline text-sm transition-colors duration-200 hover:text-white"
+                >
+                  {link.label}
+                </a>
               </li>
             ))}
           </ul>

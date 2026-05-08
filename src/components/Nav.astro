@@ -2,61 +2,212 @@
 import logo from '../assets/99minds-logo-b.svg';
 ---
 
-<nav class="sticky top-0 z-[100] backdrop-blur-xl bg-white/70 border-b border-[var(--line)]/60"
-     style="backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);">
-  <div class="max-w-layout mx-auto px-8 py-[18px] flex items-center justify-between gap-12">
-   <a
-  href="/"
-  class="font-extrabold text-[22px] tracking-[-0.03em] text-[var(--ink)] no-underline flex items-center gap-2"
->
-  <img
-    src={logo.src}
-    alt="99minds logo"
-    class="h-7 w-auto object-contain"
-  />
-</a>
-    <ul class="hidden lg:flex gap-8 list-none flex-1">
-      <li>
-        <a href="#" class="text-[var(--ink)] no-underline text-sm font-medium transition-colors duration-200 hover:text-[var(--purple-deep)] flex items-center gap-1">
-          Products
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" class="opacity-50"><path d="M6 8L2 4h8z"/></svg>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="text-[var(--ink)] no-underline text-sm font-medium transition-colors duration-200 hover:text-[var(--purple-deep)] flex items-center gap-1">
-          Solutions
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" class="opacity-50"><path d="M6 8L2 4h8z"/></svg>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="text-[var(--ink)] no-underline text-sm font-medium transition-colors duration-200 hover:text-[var(--purple-deep)] flex items-center gap-1">
-          Developers
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" class="opacity-50"><path d="M6 8L2 4h8z"/></svg>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="text-[var(--ink)] no-underline text-sm font-medium transition-colors duration-200 hover:text-[var(--purple-deep)] flex items-center gap-1">
-          Resources
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" class="opacity-50"><path d="M6 8L2 4h8z"/></svg>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="text-[var(--ink)] no-underline text-sm font-medium transition-colors duration-200 hover:text-[var(--purple-deep)]">Pricing</a>
-      </li>
-      <li>
-        <a href="#" class="text-[var(--ink)] no-underline text-sm font-medium transition-colors duration-200 hover:text-[var(--purple-deep)]">Customers</a>
-      </li>
-    </ul>
+<nav class="sticky top-0 z-[100] border-b border-[var(--line)] bg-white/80 backdrop-blur-xl">
+  <div class="mx-auto flex max-w-[1280px] items-center justify-between px-8 py-4 max-lg:px-5">
 
-    <div class="flex gap-2 items-center">
-      <a href="#"
-         class="font-semibold text-sm px-[18px] py-[10px] rounded-full no-underline inline-flex items-center gap-1.5 transition-all duration-200 text-[var(--ink)] hover:bg-[var(--line-soft)] whitespace-nowrap">
-        Sign in
-      </a>
-      <a href="#"
-         class="font-semibold text-sm px-[18px] py-[10px] rounded-full no-underline inline-flex items-center gap-1.5 transition-all duration-200 bg-[var(--ink)] text-white hover:bg-[var(--purple-deep)] hover:-translate-y-px whitespace-nowrap">
-        Contact sales →
-      </a>
+    <!-- Logo -->
+    <a
+      href="/"
+      class="flex items-center gap-3 no-underline"
+    >
+      <img
+        src={logo.src}
+        alt="99minds logo"
+        class="h-7 w-auto object-contain"
+      />
+    </a>
+
+    <!-- Desktop Nav -->
+    <div class="hidden items-center gap-10 lg:flex">
+
+      <!-- Menu -->
+      <ul class="flex items-center gap-7">
+
+        <!-- Products -->
+        <li class="group relative">
+          <button
+            class="flex items-center gap-1 text-[15px] font-medium text-[var(--ink)] transition-colors duration-200 hover:text-[var(--purple-deep)]"
+          >
+            Products
+
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              class="opacity-60 transition-transform duration-200 group-hover:rotate-180"
+            >
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </button>
+
+          <!-- Dropdown -->
+          <div
+            class="invisible absolute left-0 top-[calc(100%+18px)] w-[280px] rounded-2xl border border-[var(--line)] bg-white p-3 opacity-0 shadow-[0_20px_60px_-15px_rgba(10,10,35,0.12)] transition-all duration-200 group-hover:visible group-hover:opacity-100"
+          >
+            <a
+              href="/gift-cards"
+              class="flex rounded-xl p-4 transition-colors hover:bg-[var(--bg-alt)]"
+            >
+              <div>
+                <div class="mb-1 text-sm font-semibold text-[var(--ink)]">
+                  Gift Cards
+                </div>
+                <p class="text-[13px] leading-[1.5] text-[var(--slate)]">
+                  Digital cards with unified balance tracking.
+                </p>
+              </div>
+            </a>
+
+            <a
+              href="loyalty"
+              class="flex rounded-xl p-4 transition-colors hover:bg-[var(--bg-alt)]"
+            >
+              <div>
+                <div class="mb-1 text-sm font-semibold text-[var(--ink)]">
+                  Loyalty
+                </div>
+                <p class="text-[13px] leading-[1.5] text-[var(--slate)]">
+                  Build flexible rewards and VIP programs.
+                </p>
+              </div>
+            </a>
+
+            <a
+              href="#"
+              class="flex rounded-xl p-4 transition-colors hover:bg-[var(--bg-alt)]"
+            >
+              <div>
+                <div class="mb-1 text-sm font-semibold text-[var(--ink)]">
+                  Wallet Passes
+                </div>
+                <p class="text-[13px] leading-[1.5] text-[var(--slate)]">
+                  Apple & Google Wallet integrations for engagement.
+                </p>
+              </div>
+            </a>
+          </div>
+        </li>
+
+        <!-- Solutions -->
+        <li class="group relative">
+          <button
+            class="flex items-center gap-1 text-[15px] font-medium text-[var(--ink)] transition-colors duration-200 hover:text-[var(--purple-deep)]"
+          >
+            Solutions
+
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              class="opacity-60 transition-transform duration-200 group-hover:rotate-180"
+            >
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </button>
+        </li>
+
+        <!-- Developers -->
+        <li class="group relative">
+          <button
+            class="flex items-center gap-1 text-[15px] font-medium text-[var(--ink)] transition-colors duration-200 hover:text-[var(--purple-deep)]"
+          >
+            Developers
+
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              class="opacity-60 transition-transform duration-200 group-hover:rotate-180"
+            >
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </button>
+        </li>
+
+        <!-- Resources -->
+        <li class="group relative">
+          <button
+            class="flex items-center gap-1 text-[15px] font-medium text-[var(--ink)] transition-colors duration-200 hover:text-[var(--purple-deep)]"
+          >
+            Resources
+
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              class="opacity-60 transition-transform duration-200 group-hover:rotate-180"
+            >
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </button>
+        </li>
+
+        <!-- Links -->
+        <li>
+          <a
+            href="#"
+            class="text-[15px] font-medium text-[var(--ink)] transition-colors duration-200 hover:text-[var(--purple-deep)]"
+          >
+            Pricing
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="#"
+            class="text-[15px] font-medium text-[var(--ink)] transition-colors duration-200 hover:text-[var(--purple-deep)]"
+          >
+            Customers
+          </a>
+        </li>
+      </ul>
+
+      <!-- Actions -->
+      <div class="flex items-center gap-3">
+
+        <a
+          href="#"
+          class="rounded-full px-4 py-2.5 text-sm font-semibold text-[var(--ink)] transition-colors duration-200 hover:bg-[var(--bg-alt)]"
+        >
+          Sign in
+        </a>
+
+        <a
+          href="#"
+          class="rounded-full bg-[var(--ink)] px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-px hover:bg-[var(--purple-deep)]"
+        >
+          Contact sales
+        </a>
+      </div>
     </div>
+
+    <!-- Mobile Menu Button -->
+    <button
+      class="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--line)] lg:hidden"
+      aria-label="Open Menu"
+    >
+      <svg
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="M4 7h16M4 12h16M4 17h16" />
+      </svg>
+    </button>
   </div>
 </nav>
