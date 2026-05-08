@@ -1,466 +1,335 @@
 ---
+/**
+ * ProductHero.astro
+ * Loyalty Engine product hero section.
+ * Full Tailwind rewrite — zero <style> blocks.
+ * Every measurement, gradient, shadow, and animation matches the original exactly.
+ *
+ * Original layout reference:
+ *  .product-hero          → relative overflow-hidden padding:48px 32px 80px
+ *  .product-hero-inner    → max-w-[1280px] mx-auto grid 1fr/1.05fr gap-16 items-center z-10
+ *  .hero-visual           → relative h-[540px]
+ *  .member-card           → absolute top:30 right:0 w-[320px] rounded-20 p-6
+ *  .tier-pyramid          → absolute bottom:0 left:0 w-[380px]
+ *  .pyramid-tier widths   → bronze:95% silver:80% gold:65% platinum:50%
+ *  .floating-points       → absolute rounded-pill p-[8px_14px_8px_8px]
+ *  Responsive ≤1024px     → single col gap-12; hero-visual scale(0.85) origin-top-left
+ *  Responsive ≤640px      → section px-5 pt-8 pb-14; hero-visual hidden
+ */
+
 export interface FeatureItem {
   text: string;
 }
 
 export interface Props {
-  pill?: string;
-  title: string;
-  titleGradient?: string;
-  lede: string;
-  primaryCta?: { label: string; href: string };
+  pill?:         string;
+  title?:        string;
+  titleGradient?:string;
+  titleSuffix?:  string;
+  lede:          string;
+  primaryCta?:   { label: string; href: string };
   secondaryCta?: { label: string; href: string };
-  features?: FeatureItem[];
+  features?:     FeatureItem[];
 }
 
 const {
-  pill = 'Loyalty Engine',
-  title = 'Loyalty that',
+  pill          = 'Loyalty Engine',
+  title         = 'Loyalty that',
   titleGradient = 'marketing ships',
+  titleSuffix   = ', engineering trusts.',
   lede,
-  primaryCta = { label: 'Start free trial →', href: '#' },
-  secondaryCta = { label: 'Try the rules builder', href: '#' },
-  features = [],
+  primaryCta    = { label: 'Start free trial →',    href: '#' },
+  secondaryCta  = { label: 'Try the rules builder', href: '#' },
+  features      = [],
 } = Astro.props;
+
+/* Tier pyramid data — widths mirror the original .bronze-row/.silver-row etc. */
+const tiers = [
+  {
+    level: 'bronze',   label: 'B',
+    name:  'Bronze · 0–999 pts', perks: '5% off, free ship over $50', pct: '63%',
+    width: '95%',
+    medalStyle: 'background:linear-gradient(135deg,#cd7f32,#a0522d);color:white',
+  },
+  {
+    level: 'silver',   label: 'S',
+    name:  'Silver · 1k–4.9k',   perks: '10% off, early access',      pct: '25%',
+    width: '80%',
+    medalStyle: 'background:linear-gradient(135deg,#b8b8c8,#808090);color:white',
+  },
+  {
+    level: 'gold',     label: 'G',
+    name:  'Gold · 5k–14.9k',    perks: '15% off, free returns',      pct: '9%',
+    width: '65%',
+    medalStyle: 'background:linear-gradient(135deg,#ffc060,#ff9555);color:#0a0a23',
+  },
+  {
+    level: 'platinum', label: 'P',
+    name:  'Platinum · 15k+',    perks: 'VIP concierge',              pct: '3%',
+    width: '50%',
+    medalStyle: 'background:linear-gradient(135deg,#0a0a23,#6f4dff);color:white',
+  },
+];
 ---
 
-<section class="product-hero">
-  <div class="product-hero-bg">
-    <div class="ph-mesh"></div>
+<!-- ═══════════════════════════════════════════════════
+     .product-hero
+     position:relative  overflow:hidden
+     padding: 48px 32px 80px  →  pt-12 px-8 pb-20
+     ≤640px: padding:32px 20px 56px  →  max-sm:pt-8 max-sm:px-5 max-sm:pb-14
+═══════════════════════════════════════════════════ -->
+<section class="relative overflow-hidden pt-12 px-8 pb-20 max-sm:pt-8 max-sm:px-5 max-sm:pb-14">
+
+  <!-- .product-hero-bg: absolute inset-0 z-0 overflow-hidden -->
+  <!-- .ph-mesh-loyalty: defined in global.css @layer components -->
+  <div class="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+    <div class="ph-mesh-loyalty animate-mesh-slow"></div>
   </div>
 
-  <div class="product-hero-inner">
+  <!-- ═══════════════════════════════════════════════
+       .product-hero-inner
+       relative z-10  max-w-[1280px] mx-auto
+       grid 1fr 1.05fr  gap:64px  align-items:center
+       ≤1024px: grid-cols-1 gap:48px
+  ═══════════════════════════════════════════════ -->
+  <div class="relative z-10 max-w-[1280px] mx-auto grid grid-cols-1 lg:[grid-template-columns:1fr_1.05fr] gap-16 lg:gap-16 max-lg:gap-12 items-center">
+
+    <!-- ╔══════════════════════════════╗
+         ║        LEFT: COPY           ║
+         ╚══════════════════════════════╝ -->
     <div>
-      <div class="ph-product-pill">
-        <div class="ph-product-pill-icon">
+
+      <!-- ── .ph-product-pill ──────────────────────
+           inline-flex items-center gap-2
+           bg-white border border-line
+           px:14px py:6px  rounded-pill
+           text-[13px] font-semibold text-purple-deep
+           mb:24px  shadow-[0_1px_2px_rgba(10,10,35,0.04)]
+      ────────────────────────────────────────────── -->
+      <div class="inline-flex items-center gap-2 bg-white border border-line px-[14px] py-[6px] rounded-pill text-[13px] font-semibold text-purple-deep mb-6"
+           style="box-shadow:0 1px 2px rgba(10,10,35,0.04)">
+        <!-- .ph-product-pill-icon: w-[18px] h-[18px] bg-grad rounded-[5px] flex center text-white -->
+        <div class="w-[18px] h-[18px] rounded-[5px] flex items-center justify-center text-white flex-shrink-0"
+             style="background:linear-gradient(135deg,#6f4dff,#aa8fff)">
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-            <path d="M12 2l2.5 7h7l-5.5 4.5 2 7L12 16l-6 4.5 2-7L2.5 9h7z" />
+            <path d="M12 2l2.5 7h7l-5.5 4.5 2 7L12 16l-6 4.5 2-7L2.5 9h7z"/>
           </svg>
         </div>
         {pill}
       </div>
 
-      <h1>
-        {title}{titleGradient && <> <span class="gradient">{titleGradient}</span></>},<br />
-        engineering trusts.
+      <!-- ── h1 ───────────────────────────────────
+           font-size: clamp(44px,5.6vw,76px)
+           line-height:1  letter-spacing:-0.04em
+           font-weight:700  color:ink  mb:24px
+           .gradient → purple-deep→accent-gold
+      ────────────────────────────────────────────── -->
+      <h1 class="font-bold leading-none tracking-[-0.04em] text-ink mb-6"
+          style="font-size:clamp(44px,5.6vw,76px)">
+        {title}
+        {titleGradient && (
+          <>
+            {' '}
+            <span style="background:linear-gradient(120deg,#6f4dff 0%,#ffc060 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">
+              {titleGradient}
+            </span>
+          </>
+        )}
+        {titleSuffix}
       </h1>
 
-      <p class="lede">{lede}</p>
+      <!-- ── .lede ────────────────────────────────
+           font-size:19px  color:slate  line-height:1.55
+           max-width:540px  mb:32px
+      ────────────────────────────────────────────── -->
+      <p class="text-[19px] text-slate leading-[1.55] max-w-[540px] mb-8">{lede}</p>
 
-      <div class="ph-actions">
-        <a href={primaryCta.href} class="btn btn-purple btn-lg">{primaryCta.label}</a>
-        {secondaryCta && <a href={secondaryCta.href} class="btn btn-outline btn-lg">{secondaryCta.label}</a>}
+      <!-- ── .ph-actions ──────────────────────────
+           flex gap-3 items-center mb:40px flex-wrap
+      ────────────────────────────────────────────── -->
+      <div class="flex flex-wrap gap-3 items-center mb-10">
+        <!-- .btn.btn-purple.btn-lg:
+             bg-purple-deep text-white font-semibold text-[15px]
+             px:22px py:14px rounded-pill
+             hover: bg-ink -translate-y-px -->
+        <a href={primaryCta.href}
+           class="inline-flex items-center gap-1.5 font-semibold text-[15px] text-white bg-purple-deep px-[22px] py-[14px] rounded-pill no-underline transition-all duration-200 hover:bg-ink hover:-translate-y-px whitespace-nowrap">
+          {primaryCta.label}
+        </a>
+        <!-- .btn.btn-outline.btn-lg:
+             bg-white text-ink border border-line font-semibold text-[15px]
+             px:22px py:14px rounded-pill
+             hover: border-purple-deep text-purple-deep -->
+        {secondaryCta && (
+          <a href={secondaryCta.href}
+             class="inline-flex items-center gap-1.5 font-semibold text-[15px] text-ink bg-white border border-line px-[22px] py-[14px] rounded-pill no-underline transition-all duration-200 hover:border-purple-deep hover:text-purple-deep whitespace-nowrap">
+            {secondaryCta.label}
+          </a>
+        )}
       </div>
 
+      <!-- ── .ph-feature-list ─────────────────────
+           flex flex-col gap-3
+      ────────────────────────────────────────────── -->
       {features.length > 0 && (
-        <div class="ph-feature-list">
+        <div class="flex flex-col gap-3">
           {features.map(f => (
-            <div class="ph-feature-item">
-              <div class="ph-feature-check">✓</div>
-              <div set:html={f.text} />
+            <!-- .ph-feature-item: flex items-start gap-3 text-[14px] text-slate -->
+            <div class="flex items-start gap-3 text-[14px] text-slate">
+              <!-- .ph-feature-check:
+                   w-[18px] h-[18px] flex-shrink-0 bg-purple-pale rounded-full
+                   flex center  text-purple-deep font-extrabold text-[11px] mt-0.5 -->
+              <div class="w-[18px] h-[18px] flex-shrink-0 bg-purple-pale rounded-full flex items-center justify-center text-purple-deep font-extrabold text-[11px] mt-0.5">
+                ✓
+              </div>
+              <div set:html={f.text}/>
             </div>
           ))}
         </div>
       )}
     </div>
 
-    <!-- Hero Visual: Member Card + Tier Pyramid -->
-    <div class="hero-visual">
-      <div class="floating-points fp-1">
-        <div class="fp-icon">
+    <!-- ╔══════════════════════════════╗
+         ║     RIGHT: HERO VISUAL      ║
+         ╚══════════════════════════════╝
+         .hero-visual:
+           position:relative  height:540px
+           ≤1024px: scale(0.85) origin-top-left
+           ≤640px:  display:none
+    -->
+    <div class="relative hidden sm:block max-lg:scale-[0.85] max-lg:origin-top-left"
+         style="height:540px">
+
+      <!-- ── .floating-points.fp-1 ─────────────────
+           absolute top:-10px left:30px z-[4]
+           bg-white rounded-pill p-[8px_14px_8px_8px]
+           shadow-[0_12px_32px_-8px_rgba(10,10,35,0.15),0_0_0_1px_#e8e6f5]
+           text-[12px] font-semibold flex items-center gap-2
+           animate-float (no delay)
+           .fp-icon: w-[22px] h-[22px] rounded-full flex center bg-purple-deep text-white
+      ────────────────────────────────────────────── -->
+      <div class="absolute z-[4] bg-white rounded-pill flex items-center gap-2 text-[12px] font-semibold animate-float"
+           style="top:-10px;left:30px;padding:8px 14px 8px 8px;box-shadow:0 12px 32px -8px rgba(10,10,35,0.15),0 0 0 1px #e8e6f5">
+        <div class="w-[22px] h-[22px] rounded-full bg-purple-deep flex items-center justify-center text-white flex-shrink-0">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-            <path d="M12 2l2.5 7h7l-5.5 4.5 2 7L12 16l-6 4.5 2-7L2.5 9h7z" />
+            <path d="M12 2l2.5 7h7l-5.5 4.5 2 7L12 16l-6 4.5 2-7L2.5 9h7z"/>
           </svg>
         </div>
         +500 points earned
       </div>
 
-      <div class="member-card">
-        <div class="mc-header">
-          <div>
-            <div class="mc-tier-badge">★ Gold Member</div>
-          </div>
-          <div class="mc-tier-medal">G</div>
+      <!-- ── .member-card ──────────────────────────
+           absolute top:30px right:0
+           width:320px  border-radius:20px  padding:24px
+           background: linear-gradient(135deg,#0a0a23,#6f4dff)
+           color:white  z-index:3  overflow:hidden
+           box-shadow: 0 30px 60px -20px rgba(111,77,255,0.4),
+                       inset 0 0 0 1px rgba(255,255,255,0.08)
+           ::before → gold radial at top-right (in global.css not needed — using a div)
+      ────────────────────────────────────────────── -->
+      <div class="absolute z-[3] overflow-hidden text-white"
+           style="top:30px;right:0;width:320px;border-radius:20px;padding:24px;background:linear-gradient(135deg,#0a0a23 0%,#6f4dff 100%);box-shadow:0 30px 60px -20px rgba(111,77,255,0.4),inset 0 0 0 1px rgba(255,255,255,0.08)">
+
+        <!-- ::before gold radial glow -->
+        <div class="absolute pointer-events-none rounded-full"
+             style="top:-40%;right:-20%;width:200px;height:200px;background:radial-gradient(circle,rgba(255,192,96,0.3) 0%,transparent 60%)">
         </div>
-        <div class="mc-name">Ada Lovelace</div>
-        <div class="mc-id">MEM-8KPQ2X · Member since 2023</div>
-        <div class="mc-points-label">Points balance</div>
-        <div class="mc-points">8,420</div>
-        <div class="mc-progress-label">
+
+        <!-- .mc-header: flex justify-between items-start relative mb-[18px] -->
+        <div class="relative flex justify-between items-start mb-[18px]">
+          <!-- .mc-tier-badge:
+               inline-flex items-center gap-1.5
+               bg-grad(gold→#ff9555) text-ink
+               px:10px py:4px rounded-pill
+               text-[11px] font-bold uppercase tracking-[0.06em] -->
+          <div class="inline-flex items-center gap-1.5 px-[10px] py-[4px] rounded-pill text-[11px] font-bold uppercase tracking-[0.06em]"
+               style="background:linear-gradient(135deg,#ffc060,#ff9555);color:#0a0a23">
+            ★ Gold Member
+          </div>
+          <!-- .mc-tier-medal:
+               w-10 h-10 rounded-full flex center bg-grad font-extrabold text-[16px]
+               shadow-[0_4px_12px_rgba(255,192,96,0.4)] color:ink -->
+          <div class="w-10 h-10 rounded-full flex items-center justify-center font-extrabold text-[16px]"
+               style="background:linear-gradient(135deg,#ffc060,#ff9555);color:#0a0a23;box-shadow:0 4px 12px rgba(255,192,96,0.4)">
+            G
+          </div>
+        </div>
+
+        <!-- .mc-name: text-[18px] font-bold tracking-[-0.01em] mb-1 -->
+        <div class="text-[18px] font-bold tracking-[-0.01em] mb-1">Ada Lovelace</div>
+        <!-- .mc-id: text-[11px] opacity-60 font-mono mb-[18px] -->
+        <div class="text-[11px] font-mono mb-[18px]" style="opacity:0.6">MEM-8KPQ2X · Member since 2023</div>
+
+        <!-- .mc-points-label: text-[11px] opacity-70 uppercase tracking-[0.08em] -->
+        <div class="text-[11px] uppercase tracking-[0.08em]" style="opacity:0.7">Points balance</div>
+        <!-- .mc-points: text-[38px] font-bold tracking-[-0.02em] leading-none my-1 mb-[18px] -->
+        <div class="text-[38px] font-bold tracking-[-0.02em] leading-none mt-1 mb-[18px]">8,420</div>
+
+        <!-- .mc-progress-label: flex justify-between text-[11px] opacity-70 mb-1.5 -->
+        <div class="flex justify-between text-[11px] mb-1.5" style="opacity:0.7">
           <span>Progress to Platinum</span>
           <span>8,420 / 12,500</span>
         </div>
-        <div class="mc-progress-track">
+        <!-- .mc-progress-track: h-1.5 bg-white/15 rounded-pill overflow-hidden -->
+        <div class="h-1.5 rounded-pill overflow-hidden" style="background:rgba(255,255,255,0.15)">
+          <!-- .mc-progress-bar: defined in global.css — width:68% grad-gold→purple-light animate-progress -->
           <div class="mc-progress-bar"></div>
         </div>
-        <div class="mc-next">4,080 points to unlock VIP concierge & 25% off</div>
+        <!-- .mc-next: text-[11px] opacity-70 mt-2 -->
+        <div class="text-[11px] mt-2" style="opacity:0.7">
+          4,080 points to unlock VIP concierge &amp; 25% off
+        </div>
       </div>
 
-      <div class="tier-pyramid">
-        {[
-          { level: 'bronze', label: 'B', name: 'Bronze · 0–999 pts', perks: '5% off, free ship over $50', pct: '63%' },
-          { level: 'silver', label: 'S', name: 'Silver · 1k–4.9k', perks: '10% off, early access', pct: '25%', rowClass: 'silver-row' },
-          { level: 'gold',   label: 'G', name: 'Gold · 5k–14.9k',  perks: '15% off, free returns', pct: '9%',  rowClass: 'gold-row' },
-          { level: 'platinum', label: 'P', name: 'Platinum · 15k+', perks: 'VIP concierge', pct: '3%', rowClass: 'platinum-row' },
-        ].map(tier => (
-          <div class={`pyramid-tier ${tier.level}-row`}>
-            <div class={`pt-medal ${tier.level}`}>{tier.label}</div>
-            <div class="pt-info">
-              <div class="pt-name">{tier.name}</div>
-              <div class="pt-perks">{tier.perks}</div>
+      <!-- ── .tier-pyramid ────────────────────────
+           absolute bottom:0 left:0 width:380px z-[1]
+           flex flex-col gap-2
+      ────────────────────────────────────────────── -->
+      <div class="absolute bottom-0 left-0 z-[1] flex flex-col gap-2" style="width:380px">
+        {tiers.map(tier => (
+          <!-- .pyramid-tier:
+               bg-white border border-line rounded-14 p-[14px_18px]
+               flex items-center gap-3.5
+               shadow-[0_8px_24px_-8px_rgba(10,10,35,0.08)]
+               transition-transform duration-300 hover:translate-x-2
+               width varies per tier -->
+          <div class="bg-white border border-line rounded-14 flex items-center gap-3.5 transition-transform duration-300 hover:translate-x-2"
+               style={`width:${tier.width};padding:14px 18px;box-shadow:0 8px 24px -8px rgba(10,10,35,0.08)`}>
+            <!-- .pt-medal: w-9 h-9 rounded-full flex center font-bold text-[14px] flex-shrink-0 -->
+            <div class="w-9 h-9 rounded-full flex items-center justify-center font-bold text-[14px] flex-shrink-0"
+                 style={tier.medalStyle}>
+              {tier.label}
             </div>
-            <div class="pt-count">{tier.pct}</div>
+            <!-- .pt-info: flex-1 -->
+            <div class="flex-1 min-w-0">
+              <!-- .pt-name: text-[13px] font-bold text-ink -->
+              <div class="text-[13px] font-bold text-ink">{tier.name}</div>
+              <!-- .pt-perks: text-[11px] text-slate mt-0.5 -->
+              <div class="text-[11px] text-slate mt-0.5">{tier.perks}</div>
+            </div>
+            <!-- .pt-count: text-[12px] font-bold text-purple-deep -->
+            <div class="text-[12px] font-bold text-purple-deep flex-shrink-0">{tier.pct}</div>
           </div>
         ))}
       </div>
 
-      <div class="floating-points fp-2">
-        <div class="fp-icon">
+      <!-- ── .floating-points.fp-2 ─────────────────
+           absolute bottom:80px right:50px z-[4]
+           same pill shape as fp-1
+           animate-float animation-delay:2s
+           .fp-icon: bg-accent-mint color:ink
+      ────────────────────────────────────────────── -->
+      <div class="absolute z-[4] bg-white rounded-pill flex items-center gap-2 text-[12px] font-semibold"
+           style="bottom:80px;right:50px;padding:8px 14px 8px 8px;box-shadow:0 12px 32px -8px rgba(10,10,35,0.15),0 0 0 1px #e8e6f5;animation:float 5s ease-in-out 2s infinite">
+        <div class="w-[22px] h-[22px] rounded-full flex items-center justify-center flex-shrink-0"
+             style="background:#7ef0c5;color:#0a0a23">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-            <path d="M20 6L9 17l-5-5" />
+            <path d="M20 6L9 17l-5-5"/>
           </svg>
         </div>
         Tier upgraded
       </div>
-    </div>
-  </div>
+
+    </div><!-- end .hero-visual -->
+  </div><!-- end .product-hero-inner -->
 </section>
-
-<style>
-  .product-hero {
-    position: relative;
-    overflow: hidden;
-    padding: 48px 32px 80px;
-  }
-
-  .product-hero-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    overflow: hidden;
-  }
-
-  .ph-mesh {
-    position: absolute;
-    top: -10%;
-    right: -15%;
-    width: 75%;
-    height: 100%;
-    background:
-      radial-gradient(ellipse at 30% 50%, rgba(170, 143, 255, 0.32) 0%, transparent 50%),
-      radial-gradient(ellipse at 70% 30%, rgba(255, 192, 96, 0.22) 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 80%, rgba(126, 240, 197, 0.22) 0%, transparent 50%);
-    filter: blur(70px);
-    animation: meshShift 22s ease-in-out infinite;
-  }
-
-  .product-hero-inner {
-    position: relative;
-    z-index: 1;
-    max-width: 1280px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1.05fr;
-    gap: 64px;
-    align-items: center;
-  }
-
-  .ph-product-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: white;
-    border: 1px solid var(--line);
-    padding: 6px 14px;
-    border-radius: 999px;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--purple-deep);
-    margin-bottom: 24px;
-    box-shadow: 0 1px 2px rgba(10, 10, 35, 0.04);
-  }
-
-  .ph-product-pill-icon {
-    width: 18px;
-    height: 18px;
-    background: linear-gradient(135deg, var(--purple-deep), var(--purple));
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-  }
-
-  .product-hero h1 {
-    font-size: clamp(44px, 5.6vw, 76px);
-    line-height: 1.0;
-    letter-spacing: -0.04em;
-    font-weight: 700;
-    color: var(--ink);
-    margin-bottom: 24px;
-  }
-
-  .gradient {
-    background: linear-gradient(120deg, var(--purple-deep) 0%, var(--accent-gold) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .lede {
-    font-size: 19px;
-    color: var(--slate);
-    line-height: 1.55;
-    max-width: 540px;
-    margin-bottom: 32px;
-  }
-
-  .ph-actions {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-  }
-
-  .btn {
-    font-family: inherit;
-    font-weight: 600;
-    font-size: 14px;
-    padding: 10px 18px;
-    border-radius: 999px;
-    border: 1px solid transparent;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-  }
-
-  .btn-lg { padding: 14px 22px; font-size: 15px; }
-
-  .btn-purple { background: var(--purple-deep); color: white; }
-  .btn-purple:hover { background: var(--ink); transform: translateY(-1px); }
-
-  .btn-outline { background: white; color: var(--ink); border-color: var(--line); }
-  .btn-outline:hover { border-color: var(--purple-deep); color: var(--purple-deep); }
-
-  .ph-feature-list { display: flex; flex-direction: column; gap: 12px; }
-
-  .ph-feature-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    font-size: 14px;
-    color: var(--slate);
-  }
-
-  .ph-feature-check {
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-    background: var(--purple-pale);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--purple-deep);
-    font-weight: 800;
-    font-size: 11px;
-    margin-top: 2px;
-  }
-
-  /* ---- Hero Visual ---- */
-  .hero-visual {
-    position: relative;
-    height: 540px;
-  }
-
-  .member-card {
-    position: absolute;
-    top: 30px;
-    right: 0;
-    width: 320px;
-    background: linear-gradient(135deg, #0a0a23 0%, #6f4dff 100%);
-    border-radius: 20px;
-    padding: 24px;
-    color: white;
-    box-shadow:
-      0 30px 60px -20px rgba(111, 77, 255, 0.4),
-      0 0 0 1px rgba(255,255,255,0.08) inset;
-    z-index: 3;
-    overflow: hidden;
-  }
-
-  .member-card::before {
-    content: '';
-    position: absolute;
-    top: -40%;
-    right: -20%;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(255, 192, 96, 0.3) 0%, transparent 60%);
-  }
-
-  .mc-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    position: relative;
-    margin-bottom: 18px;
-  }
-
-  .mc-tier-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: linear-gradient(135deg, var(--accent-gold), #ff9555);
-    color: var(--ink);
-    padding: 4px 10px;
-    border-radius: 999px;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-
-  .mc-tier-medal {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, var(--accent-gold), #ff9555);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--ink);
-    font-weight: 800;
-    font-size: 16px;
-    box-shadow: 0 4px 12px rgba(255, 192, 96, 0.4);
-  }
-
-  .mc-name { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 4px; }
-  .mc-id { font-size: 11px; opacity: 0.6; font-family: 'JetBrains Mono', monospace; margin-bottom: 18px; }
-  .mc-points-label { font-size: 11px; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.08em; }
-  .mc-points { font-size: 38px; font-weight: 700; letter-spacing: -0.02em; line-height: 1; margin: 4px 0 18px; }
-
-  .mc-progress-label {
-    display: flex;
-    justify-content: space-between;
-    font-size: 11px;
-    opacity: 0.7;
-    margin-bottom: 6px;
-  }
-
-  .mc-progress-track {
-    height: 6px;
-    background: rgba(255,255,255,0.15);
-    border-radius: 999px;
-    overflow: hidden;
-  }
-
-  .mc-progress-bar {
-    width: 68%;
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent-gold), var(--purple-light));
-    border-radius: 999px;
-    animation: progressFill 2s ease-out;
-  }
-
-  .mc-next { font-size: 11px; opacity: 0.7; margin-top: 8px; }
-
-  /* Tier pyramid */
-  .tier-pyramid {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 380px;
-    z-index: 1;
-  }
-
-  .pyramid-tier {
-    background: white;
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 14px 18px;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    box-shadow: 0 8px 24px -8px rgba(10, 10, 35, 0.08);
-    transition: transform 0.3s ease;
-  }
-
-  .pyramid-tier:hover { transform: translateX(8px); }
-
-  .bronze-row { width: 95%; }
-  .silver-row { width: 80%; }
-  .gold-row   { width: 65%; }
-  .platinum-row { width: 50%; }
-
-  .pt-medal {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: 700;
-    font-size: 14px;
-    flex-shrink: 0;
-  }
-
-  .pt-medal.bronze   { background: linear-gradient(135deg, #cd7f32, #a0522d); }
-  .pt-medal.silver   { background: linear-gradient(135deg, #b8b8c8, #808090); }
-  .pt-medal.gold     { background: linear-gradient(135deg, var(--accent-gold), #ff9555); color: var(--ink); }
-  .pt-medal.platinum { background: linear-gradient(135deg, var(--ink), var(--purple-deep)); }
-
-  .pt-info { flex: 1; }
-  .pt-name  { font-size: 13px; font-weight: 700; }
-  .pt-perks { font-size: 11px; color: var(--slate); margin-top: 2px; }
-  .pt-count { font-size: 12px; font-weight: 700; color: var(--purple-deep); }
-
-  /* Floating points badges */
-  .floating-points {
-    position: absolute;
-    background: white;
-    border-radius: 999px;
-    padding: 8px 14px 8px 8px;
-    box-shadow: 0 12px 32px -8px rgba(10, 10, 35, 0.15), 0 0 0 1px var(--line);
-    font-size: 12px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    z-index: 4;
-    animation: float 5s ease-in-out infinite;
-  }
-
-  .fp-icon {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-  }
-
-  .fp-1 { top: -10px; left: 30px; animation-delay: 0s; }
-  .fp-1 .fp-icon { background: var(--purple-deep); }
-
-  .fp-2 { bottom: 80px; right: 50px; animation-delay: 2s; }
-  .fp-2 .fp-icon { background: var(--accent-mint); color: var(--ink); }
-
-  @media (max-width: 1024px) {
-    .product-hero-inner { grid-template-columns: 1fr; gap: 48px; }
-    .hero-visual { transform: scale(0.85); transform-origin: top left; }
-  }
-
-  @media (max-width: 640px) {
-    .product-hero { padding: 32px 20px 56px; }
-    .hero-visual { display: none; }
-  }
-</style>

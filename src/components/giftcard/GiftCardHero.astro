@@ -1,171 +1,322 @@
 ---
 /**
- * GiftCardHero — exact layout match to .product-hero in original HTML.
+ * GiftCardHero.astro — Gift Cards & eGifts product hero.
  *
- * .product-hero: relative overflow-hidden padding: 48px 32px 80px
- * .product-hero-bg: absolute inset-0 z-0 overflow-hidden
- * .ph-mesh: absolute top:-10% right:-20% w:70% h:100% blur(70px) animated
- * .product-hero-inner: relative z-10 max-w-[1280px] mx-auto grid 1fr 1.05fr gap-16 items-center
- *   ≤1024: single col gap-12
+ * Fixes applied vs previous version:
+ *  1. Heading line-break: "Gift cards your" / "brand deserves." on separate lines
+ *     matching the screenshot — achieved with <br /> between title and gradient span.
+ *  2. Card stack visibility: added explicit min-width to .gift-stack container so
+ *     the absolutely-positioned cards (left up to 100px + 380px wide) don't overflow
+ *     and get clipped. Container needs at least ~500px.
+ *  3. gc-1/gc-2/gc-3 class names are static strings (not template literals) so
+ *     Tailwind's content scanner keeps them and global.css hover rules apply.
  *
- * Left copy:
- *   .ph-product-pill: inline-flex items-center gap-2 bg-white border border-line px-3.5 py-1.5 rounded-pill text-[13px] font-semibold text-purple-deep mb-6 shadow-[0_1px_2px_rgba(10,10,35,0.04)]
- *   .ph-product-pill-icon: w-[18px] h-[18px] rounded-[5px] bg-grad flex items-center justify-center text-white
- *   h1: clamp(44px,5.6vw,76px) leading-[1] tracking-[-0.04em] font-bold text-ink mb-6
- *   .gradient: purple-deep → accent-coral
- *   .lede: text-[19px] text-slate leading-[1.55] max-w-[520px] mb-8
- *   .ph-actions: flex gap-3 items-center mb-10  (btn-purple lg + btn-outline lg)
- *   .ph-feature-list: flex flex-col gap-3
- *   .ph-feature-item: flex items-start gap-3 text-[14px] text-slate
- *   .ph-feature-check: w-[18px] h-[18px] flex-shrink-0 bg-purple-pale rounded-full flex items-center justify-center text-purple-deep font-extrabold text-[11px] mt-0.5
- *
- * Right visual .gift-stack:
- *   relative h-[520px] [perspective:1500px]
- *   ≤1024: scale(0.85) origin-top-left; ≤640: display:none
- *   .gift-card: absolute w-[380px] h-[240px] rounded-[18px] shadow-[0_30px_60px_-20px_rgba(10,10,35,0.35),inset_0_0_0_1px_rgba(255,255,255,0.08)] overflow-hidden transition duration-[600ms] cursor-pointer
- *   gc-1: bg purple grad, top:30 left:20 rotate(-8deg) z-10
- *   gc-2: bg dark grad, top:100 left:100 rotate(2deg) z-20
- *   gc-3: bg coral grad, top:200 left:60 rotate(-3deg) z-30
- *   hover fan-out via .gift-stack:hover .gc-N
- *   .gc-floating-info: absolute bg-white rounded-12 p-[14px_16px] shadow-[0_12px_32px_-8px_rgba(10,10,35,0.18),0_0_0_1px_#e8e6f5] text-[13px] z-40 flex items-center gap-2.5
- *   gc-floating-1: top:10 right:-10 animate-float
- *   gc-floating-2: bottom:30 right:30 animate-float-delay
+ * global.css @layer components used:
+ *   .ph-mesh        — hero background blob (top:-10% right:-20% blur:70px)
+ *   .dot-pattern    — was .gc-pattern (absolute inset-0 opacity-0.15 dot 16px)
+ *   .card-shine     — was .gc-shine   (absolute inset-0 linear-grad 125deg)
+ *   .gc-chip        — EMV chip shape with ::before/::after lines
+ *   .gift-stack:hover .gc-1/2/3 — hover fan-out transforms
  */
-interface Feature { text: string; }
-interface Props {
+
+export interface FeatureItem { text: string; }
+
+export interface Props {
   pill?:         string;
   title?:        string;
   titleGradient?:string;
   lede?:         string;
   primaryCta?:   { label: string; href: string };
   secondaryCta?: { label: string; href: string };
-  features?:     Feature[];
+  features?:     FeatureItem[];
 }
+
 const {
   pill          = 'Gift Cards & eGifts',
   title         = 'Gift cards your',
   titleGradient = 'brand deserves',
   lede          = 'Beautiful eGifts. PCI-compliant infrastructure. Bulk corporate gifting. Refunds-as-credit. Every channel, every currency, one API.',
-  primaryCta    = { label:'Start free trial →', href:'#' },
-  secondaryCta  = { label:'See live demo',       href:'#' },
+  primaryCta    = { label: 'Start free trial →', href: '#' },
+  secondaryCta  = { label: 'See live demo',       href: '#' },
   features      = [
-    { text:'Launch a branded program in <strong>under 14 days</strong> — not 14 weeks' },
-    { text:'PCI-DSS L1 + SOC 2 Type II from day one — <strong>no vendor risk review needed</strong>' },
-    { text:'One ledger across <strong>web, mobile, POS, customer service, and wallet</strong>' },
+    { text: 'Launch a branded program in <strong>under 14 days</strong> — not 14 weeks' },
+    { text: 'PCI-DSS L1 + SOC 2 Type II from day one — <strong>no vendor risk review needed</strong>' },
+    { text: 'One ledger across <strong>web, mobile, POS, customer service, and wallet</strong>' },
   ],
 } = Astro.props;
 ---
 
-<section class="relative overflow-hidden px-8 pt-12 pb-20">
-  <!-- Background mesh blob -->
+<!--
+  .product-hero
+  padding: 48px 32px 80px  →  pt-12 px-8 pb-20
+  ≤640px:  padding: 32px 20px 56px  →  max-sm:pt-8 max-sm:px-5 max-sm:pb-14
+-->
+<section class="relative overflow-hidden pt-12 px-8 pb-20 max-sm:pt-8 max-sm:px-5 max-sm:pb-14">
+
+  <!-- Background mesh blob (.ph-mesh defined in global.css) -->
   <div class="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
-    <div class="ph-mesh animate-mesh"></div>
+    <div class="ph-mesh"></div>
   </div>
 
-  <!-- Inner grid: 1fr 1.05fr, gap 64px, ≤1024 single col -->
-  <div class="relative z-10 max-w-[1280px] mx-auto grid grid-cols-1 lg:[grid-template-columns:1fr_1.05fr] gap-16 items-center">
+  <!--
+    .product-hero-inner
+    relative z-[1]  max-w-[1280px] mx-auto
+    grid 1fr / 1.05fr  gap: 64px  align-items: center
+    ≤1024px → single column  gap: 48px
+  -->
+  <div class="relative z-[1] max-w-[1280px] mx-auto
+              grid grid-cols-1 lg:[grid-template-columns:1fr_1.05fr]
+              gap-16 max-lg:gap-12 items-center">
 
-    <!-- ── Left copy ───────────────────────────── -->
+    <!-- ═══════════════════════════
+         LEFT COLUMN — COPY
+    ═══════════════════════════ -->
     <div>
-      <!-- Pill badge -->
-      <div class="inline-flex items-center gap-2 bg-white border border-line px-3.5 py-1.5 rounded-pill text-[13px] font-semibold text-purple-deep mb-6"
+
+      <!--
+        .ph-product-pill
+        inline-flex items-center gap-2  bg-white border border-line
+        padding: 6px 14px  rounded-pill
+        font-size:13px  font-weight:600  color:purple-deep
+        margin-bottom:24px  box-shadow: 0 1px 2px rgba(10,10,35,0.04)
+      -->
+      <div class="inline-flex items-center gap-2 bg-white border border-line
+                  py-[6px] px-[14px] rounded-pill
+                  text-[13px] font-semibold text-purple-deep mb-6"
            style="box-shadow:0 1px 2px rgba(10,10,35,0.04)">
+        <!--
+          .ph-product-pill-icon
+          w:18px h:18px  background: grad(purple-deep → purple)  rounded: 5px
+          flex center  color: white
+        -->
         <div class="w-[18px] h-[18px] rounded-[5px] flex items-center justify-center text-white flex-shrink-0"
              style="background:linear-gradient(135deg,#6f4dff,#aa8fff)">
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-            <rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M12 6v13"/>
+            <rect x="3" y="6" width="18" height="13" rx="2"/>
+            <path d="M3 10h18M12 6v13"/>
           </svg>
         </div>
         {pill}
       </div>
 
-      <!-- Headline: clamp(44px,5.6vw,76px) -->
-      <h1 class="font-bold tracking-[-0.04em] leading-[1] text-ink mb-6"
+      <!--
+        h1
+        font-size: clamp(44px, 5.6vw, 76px) — inline style (Tailwind can't express clamp)
+        line-height: 1  letter-spacing: -0.04em  font-weight: 700  color: ink
+        margin-bottom: 24px
+
+        FIX: <br/> between title and gradient span so they render on separate lines
+        exactly matching the screenshot:
+          "Gift cards your"   ← line 1 (ink)
+          "brand deserves."   ← line 2 (gradient purple→coral)
+      -->
+      <h1 class="font-bold leading-none tracking-[-0.04em] text-ink mb-6"
           style="font-size:clamp(44px,5.6vw,76px)">
-        {title} <span class="text-grad-gc">{titleGradient}</span>.
+        {title}<br />
+        <span style="background:linear-gradient(120deg,#6f4dff 0%,#ff8a7a 100%);
+                     -webkit-background-clip:text;background-clip:text;
+                     -webkit-text-fill-color:transparent">{titleGradient}</span>.
       </h1>
 
-      <!-- Lede -->
+      <!--
+        .lede
+        font-size:19px  color:slate  line-height:1.55  max-width:520px  margin-bottom:32px
+      -->
       <p class="text-[19px] text-slate leading-[1.55] max-w-[520px] mb-8">{lede}</p>
 
-      <!-- CTA buttons -->
+      <!--
+        .ph-actions
+        display:flex  gap:12px  align-items:center  margin-bottom:40px  flex-wrap:wrap
+      -->
       <div class="flex flex-wrap gap-3 items-center mb-10">
+
+        <!--
+          .btn.btn-purple.btn-lg
+          background: purple-deep  color: white
+          font-weight:600  font-size:15px  padding:14px 22px  rounded-pill
+          hover: background:ink  translateY(-1px)
+        -->
         <a href={primaryCta.href}
-           class="font-semibold text-[15px] text-white bg-purple-deep px-[22px] py-[14px] rounded-pill no-underline transition-all duration-200 hover:bg-ink hover:-translate-y-px">
+           class="inline-flex items-center gap-1.5 font-semibold text-[15px] text-white
+                  bg-purple-deep py-[14px] px-[22px] rounded-pill
+                  no-underline whitespace-nowrap
+                  transition-all duration-200 hover:bg-ink hover:-translate-y-px">
           {primaryCta.label}
         </a>
+
+        <!--
+          .btn.btn-outline.btn-lg
+          background: white  color: ink  border: 1px solid line
+          font-weight:600  font-size:15px  padding:14px 22px  rounded-pill
+          hover: border-color:purple-deep  color:purple-deep
+        -->
         {secondaryCta && (
           <a href={secondaryCta.href}
-             class="font-semibold text-[15px] text-ink bg-white border border-line px-[22px] py-[14px] rounded-pill no-underline transition-all duration-200 hover:border-purple-deep hover:text-purple-deep">
+             class="inline-flex items-center gap-1.5 font-semibold text-[15px] text-ink
+                    bg-white border border-line py-[14px] px-[22px] rounded-pill
+                    no-underline whitespace-nowrap
+                    transition-all duration-200 hover:border-purple-deep hover:text-purple-deep">
             {secondaryCta.label}
           </a>
         )}
       </div>
 
-      <!-- Feature checklist -->
+      <!-- .ph-feature-list: flex flex-col gap-3 -->
       <div class="flex flex-col gap-3">
         {features.map(f => (
+          <!--
+            .ph-feature-item
+            display:flex  align-items:flex-start  gap:12px
+            font-size:14px  color:slate
+          -->
           <div class="flex items-start gap-3 text-[14px] text-slate">
-            <div class="w-[18px] h-[18px] flex-shrink-0 bg-purple-pale rounded-full flex items-center justify-center text-purple-deep font-extrabold text-[11px] mt-0.5">✓</div>
+            <!--
+              .ph-feature-check
+              w:18px h:18px  flex-shrink:0  background:purple-pale  border-radius:50%
+              flex center  color:purple-deep  font-weight:800  font-size:11px  margin-top:2px
+            -->
+            <div class="w-[18px] h-[18px] flex-shrink-0 bg-purple-pale rounded-full
+                        flex items-center justify-center
+                        text-purple-deep font-extrabold text-[11px] mt-[2px]">
+              ✓
+            </div>
             <div set:html={f.text}/>
           </div>
         ))}
       </div>
     </div>
 
-    <!-- ── Right: gift card stack ──────────────── -->
-    <!--
-      gift-stack: relative h-[520px] perspective-[1500px]
-      ≤1024: scale(0.85) origin top-left
-      ≤640: hidden
-    -->
-    <div class="gift-stack relative hidden sm:block lg:scale-100 scale-[0.85] origin-top-left"
-         style="height:520px;perspective:1500px" aria-hidden="true">
+    <!-- ═══════════════════════════════════════════
+         RIGHT COLUMN — GIFT CARD STACK
 
-      <!-- Floating badge 1 -->
-      <div class="absolute top-[10px] right-[-10px] z-40 bg-white rounded-12 p-[14px_16px] flex items-center gap-2.5 text-[13px] animate-float"
-           style="box-shadow:0 12px 32px -8px rgba(10,10,35,0.18),0 0 0 1px #e8e6f5">
-        <div class="w-7 h-7 rounded-full flex items-center justify-center font-bold flex-shrink-0" style="background:#7ef0c5;color:#0a0a23">↑</div>
+         .gift-stack
+           position: relative
+           height: 520px
+           perspective: 1500px
+           ≤1024px: transform: scale(0.85); transform-origin: top left
+           ≤640px:  display: none
+
+         FIX: explicit min-width so absolutely-positioned cards
+         (gc-2 is left:100px + 380px wide = 480px) are not clipped.
+         The grid column provides width on lg, but we also set
+         min-w-[500px] so it renders correctly at all sizes.
+    ═══════════════════════════════════════════ -->
+    <div class="gift-stack relative hidden sm:block max-lg:scale-[0.85] max-lg:origin-top-left"
+         style="height:520px;perspective:1500px;min-width:500px"
+         aria-hidden="true">
+
+      <!--
+        .gc-floating-info.gc-floating-1
+        position: absolute  top: 10px  right: -10px  z-index: 10
+        background: white  border-radius: 12px  padding: 14px 16px
+        box-shadow: 0 12px 32px -8px rgba(10,10,35,0.18), 0 0 0 1px #e8e6f5
+        font-size: 13px  display:flex  align-items:center  gap:10px
+        animation: float 5s ease-in-out infinite  (no delay)
+
+        .gcf-icon.gcf-1-icon
+        width:28px  height:28px  border-radius:50%  flex center
+        background: accent-mint  color: ink  font-weight:700  font-size:12px
+      -->
+      <div class="absolute z-[10] bg-white rounded-12 flex items-center gap-[10px] text-[13px] animate-float"
+           style="top:10px;right:-10px;padding:14px 16px;
+                  box-shadow:0 12px 32px -8px rgba(10,10,35,0.18),0 0 0 1px #e8e6f5">
+        <div class="w-7 h-7 rounded-full flex items-center justify-center font-bold text-[12px] flex-shrink-0"
+             style="background:#7ef0c5;color:#0a0a23">
+          ↑
+        </div>
         <div>
-          <div class="text-[10px] font-bold uppercase tracking-[0.06em] text-slate-light">Today's issuance</div>
+          <div class="text-[10px] text-slate-light font-semibold uppercase tracking-[0.06em]">Today's issuance</div>
           <div class="font-bold text-[13px] text-ink">$48,210</div>
         </div>
       </div>
 
-      <!-- Gift card 1: purple grad, top:30 left:20 rotate(-8deg) z-10 -->
-      <div class="gc-1 absolute rounded-[18px] overflow-hidden cursor-pointer"
-           style="width:380px;height:240px;background:linear-gradient(135deg,#6f4dff 0%,#aa8fff 100%);top:30px;left:20px;transform:rotate(-8deg);z-index:10;box-shadow:0 30px 60px -20px rgba(10,10,35,0.35),inset 0 0 0 1px rgba(255,255,255,0.08);transition:transform 0.6s cubic-bezier(0.2,0.8,0.2,1)">
-        <div class="relative w-full h-full flex flex-col justify-between text-white p-[26px_28px]">
+      <!--
+        GIFT CARD 1 — purple gradient
+        .gift-card-1
+          background: linear-gradient(135deg, #6f4dff 0%, #aa8fff 100%)
+          top: 30px  left: 20px  transform: rotate(-8deg)  z-index: 1
+
+        .gift-card (shared)
+          position: absolute  width: 380px  height: 240px  border-radius: 18px
+          overflow: hidden  cursor: pointer
+          box-shadow: 0 30px 60px -20px rgba(10,10,35,0.35),
+                      inset 0 0 0 1px rgba(255,255,255,0.08)
+          transition: transform 0.6s cubic-bezier(0.2,0.8,0.2,1)
+
+        Class "gc-1" is a static string — global.css hover rule targets it:
+          .gift-stack:hover .gc-1 { transform: rotate(-12deg) translateY(-8px) !important }
+      -->
+      <div class="gc-1 absolute overflow-hidden cursor-pointer"
+           style="width:380px;height:240px;border-radius:18px;
+                  background:linear-gradient(135deg,#6f4dff 0%,#aa8fff 100%);
+                  top:30px;left:20px;transform:rotate(-8deg);z-index:1;
+                  box-shadow:0 30px 60px -20px rgba(10,10,35,0.35),inset 0 0 0 1px rgba(255,255,255,0.08);
+                  transition:transform 0.6s cubic-bezier(0.2,0.8,0.2,1)">
+        <!--
+          .gift-card-content
+          position:relative  width:100%  height:100%  padding:26px 28px
+          display:flex  flex-direction:column  justify-content:space-between  color:white
+        -->
+        <div class="relative w-full h-full flex flex-col justify-between text-white"
+             style="padding:26px 28px">
+          <!-- .gc-pattern → global.css .dot-pattern (absolute inset-0 opacity-0.15 dot 16×16) -->
           <div class="dot-pattern"></div>
+          <!-- .gc-shine → global.css .card-shine (absolute inset-0 linear-grad 125deg white glow) -->
           <div class="card-shine"></div>
+
+          <!-- .gc-header: relative flex justify-between items-start -->
           <div class="relative flex justify-between items-start">
+            <!-- .gc-brand: text-[10px] font-bold tracking-[0.2em] uppercase opacity-0.85 -->
             <div class="text-[10px] font-bold tracking-[0.2em] uppercase" style="opacity:0.85">NORTHWIND</div>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" opacity="0.7"><path d="M20 12V8H6a2 2 0 010-4h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" opacity="0.7">
+              <path d="M20 12V8H6a2 2 0 010-4h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/>
+            </svg>
           </div>
+
           <div>
+            <!-- .gc-amount: text-[44px] font-bold tracking-[-0.03em] leading-none -->
             <div class="text-[44px] font-bold tracking-[-0.03em] leading-none">$50</div>
-            <div class="text-[11px] mt-1.5" style="opacity:0.7">Just because.</div>
+            <!-- .gc-tagline: text-[11px] opacity-0.7 mt-[6px] -->
+            <div class="text-[11px] mt-[6px]" style="opacity:0.7">Just because.</div>
           </div>
+
+          <!-- .gc-footer: relative flex justify-between items-end font-mono text-[10px] opacity-0.7 -->
           <div class="relative flex justify-between items-end font-mono text-[10px]" style="opacity:0.7">
+            <!-- .gc-chip → global.css (w-8 h-6 gradient border ::before ::after lines) -->
             <div class="gc-chip"></div>
             <span>NW-7K2P9X</span>
           </div>
         </div>
       </div>
 
-      <!-- Gift card 2: dark grad, top:100 left:100 rotate(2deg) z-20 -->
-      <div class="gc-2 absolute rounded-[18px] overflow-hidden cursor-pointer"
-           style="width:380px;height:240px;background:linear-gradient(135deg,#0a0a23 0%,#6f4dff 100%);top:100px;left:100px;transform:rotate(2deg);z-index:20;box-shadow:0 30px 60px -20px rgba(10,10,35,0.35),inset 0 0 0 1px rgba(255,255,255,0.08);transition:transform 0.6s cubic-bezier(0.2,0.8,0.2,1)">
-        <div class="relative w-full h-full flex flex-col justify-between text-white p-[26px_28px]">
+      <!--
+        GIFT CARD 2 — dark / ink gradient
+        .gift-card-2
+          background: linear-gradient(135deg, #0a0a23 0%, #6f4dff 100%)
+          top: 100px  left: 100px  transform: rotate(2deg)  z-index: 2
+
+        Class "gc-2" targets:
+          .gift-stack:hover .gc-2 { transform: rotate(0deg) translateY(-12px) !important }
+      -->
+      <div class="gc-2 absolute overflow-hidden cursor-pointer"
+           style="width:380px;height:240px;border-radius:18px;
+                  background:linear-gradient(135deg,#0a0a23 0%,#6f4dff 100%);
+                  top:100px;left:100px;transform:rotate(2deg);z-index:2;
+                  box-shadow:0 30px 60px -20px rgba(10,10,35,0.35),inset 0 0 0 1px rgba(255,255,255,0.08);
+                  transition:transform 0.6s cubic-bezier(0.2,0.8,0.2,1)">
+        <div class="relative w-full h-full flex flex-col justify-between text-white"
+             style="padding:26px 28px">
           <div class="dot-pattern"></div>
           <div class="card-shine"></div>
           <div class="relative flex justify-between items-start">
             <div class="text-[10px] font-bold tracking-[0.2em] uppercase" style="opacity:0.85">NORTHWIND · BIRTHDAY</div>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" opacity="0.7"><path d="M20 12V8H6a2 2 0 010-4h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" opacity="0.7">
+              <path d="M20 12V8H6a2 2 0 010-4h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/>
+            </svg>
           </div>
           <div>
             <div class="text-[44px] font-bold tracking-[-0.03em] leading-none">$100</div>
-            <div class="text-[11px] mt-1.5" style="opacity:0.7">Happy birthday, Ada!</div>
+            <div class="text-[11px] mt-[6px]" style="opacity:0.7">Happy birthday, Ada!</div>
           </div>
           <div class="relative flex justify-between items-end font-mono text-[10px]" style="opacity:0.7">
             <div class="gc-chip"></div>
@@ -174,19 +325,34 @@ const {
         </div>
       </div>
 
-      <!-- Gift card 3: coral grad, top:200 left:60 rotate(-3deg) z-30 -->
-      <div class="gc-3 absolute rounded-[18px] overflow-hidden cursor-pointer"
-           style="width:380px;height:240px;background:linear-gradient(135deg,#ff8a7a 0%,#ffc060 100%);top:200px;left:60px;transform:rotate(-3deg);z-index:30;box-shadow:0 30px 60px -20px rgba(10,10,35,0.35),inset 0 0 0 1px rgba(255,255,255,0.08);transition:transform 0.6s cubic-bezier(0.2,0.8,0.2,1)">
-        <div class="relative w-full h-full flex flex-col justify-between text-white p-[26px_28px]">
+      <!--
+        GIFT CARD 3 — coral / gold gradient
+        .gift-card-3
+          background: linear-gradient(135deg, #ff8a7a 0%, #ffc060 100%)
+          top: 200px  left: 60px  transform: rotate(-3deg)  z-index: 3
+
+        Class "gc-3" targets:
+          .gift-stack:hover .gc-3 { transform: rotate(-1deg) translateY(-16px) !important }
+      -->
+      <div class="gc-3 absolute overflow-hidden cursor-pointer"
+           style="width:380px;height:240px;border-radius:18px;
+                  background:linear-gradient(135deg,#ff8a7a 0%,#ffc060 100%);
+                  top:200px;left:60px;transform:rotate(-3deg);z-index:3;
+                  box-shadow:0 30px 60px -20px rgba(10,10,35,0.35),inset 0 0 0 1px rgba(255,255,255,0.08);
+                  transition:transform 0.6s cubic-bezier(0.2,0.8,0.2,1)">
+        <div class="relative w-full h-full flex flex-col justify-between text-white"
+             style="padding:26px 28px">
           <div class="dot-pattern"></div>
           <div class="card-shine"></div>
           <div class="relative flex justify-between items-start">
             <div class="text-[10px] font-bold tracking-[0.2em] uppercase" style="opacity:0.85">NORTHWIND · SUMMER</div>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" opacity="0.7"><path d="M20 12V8H6a2 2 0 010-4h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" opacity="0.7">
+              <path d="M20 12V8H6a2 2 0 010-4h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/>
+            </svg>
           </div>
           <div>
             <div class="text-[44px] font-bold tracking-[-0.03em] leading-none">$25</div>
-            <div class="text-[11px] mt-1.5" style="opacity:0.7">Refund credit · Order #4291</div>
+            <div class="text-[11px] mt-[6px]" style="opacity:0.7">Refund credit · Order #4291</div>
           </div>
           <div class="relative flex justify-between items-end font-mono text-[10px]" style="opacity:0.7">
             <div class="gc-chip"></div>
@@ -195,18 +361,31 @@ const {
         </div>
       </div>
 
-      <!-- Floating badge 2 -->
-      <div class="absolute z-40 bg-white rounded-12 p-[14px_16px] flex items-center gap-2.5 text-[13px] animate-float-delay"
-           style="bottom:30px;right:30px;box-shadow:0 12px 32px -8px rgba(10,10,35,0.18),0 0 0 1px #e8e6f5">
+      <!--
+        .gc-floating-info.gc-floating-2
+        position: absolute  bottom: 30px  right: 30px  z-index: 10
+        Same visual as gc-floating-1
+        animation: float 5s ease-in-out infinite  animation-delay: 2s
+        (delay expressed inline — Tailwind has no animate-delay-2s token by default)
+
+        .gcf-icon.gcf-2-icon
+        background: purple-deep  color: white
+      -->
+      <div class="absolute z-[10] bg-white rounded-12 flex items-center gap-[10px] text-[13px]"
+           style="bottom:30px;right:30px;padding:14px 16px;
+                  box-shadow:0 12px 32px -8px rgba(10,10,35,0.18),0 0 0 1px #e8e6f5;
+                  animation:float 5s ease-in-out 2s infinite">
         <div class="w-7 h-7 rounded-full bg-purple-deep flex items-center justify-center flex-shrink-0">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+            <path d="M20 6L9 17l-5-5"/>
+          </svg>
         </div>
         <div>
-          <div class="text-[10px] font-bold uppercase tracking-[0.06em] text-slate-light">Redemption rate</div>
+          <div class="text-[10px] text-slate-light font-semibold uppercase tracking-[0.06em]">Redemption rate</div>
           <div class="font-bold text-[13px] text-ink">73.4%</div>
         </div>
       </div>
 
-    </div>
-  </div>
+    </div><!-- end .gift-stack -->
+  </div><!-- end .product-hero-inner -->
 </section>
