@@ -10,6 +10,7 @@ import { homepageComparison } from '../config/comparison';
 import Developers from '../components/Developers.astro';
 import Industries from '../components/Industries.astro';
 import StatsBand from '../components/StatsBand.astro';
+import { homepageStats } from '../config/statsband';
 import Testimonial from '../components/Testimonial.astro';
 import FinalCTA from '../components/FinalCTA.astro';
 import { homepageCTA } from '../config/finalcta';
@@ -25,7 +26,7 @@ import Footer from '../components/Footer.astro';
   <Comparison config={homepageComparison} />
   <Developers />
   <Industries />
-  <StatsBand />
+  <StatsBand config={homepageStats} />
   <Testimonial />
   <FinalCTA config={homepageCTA} />
   <Footer />

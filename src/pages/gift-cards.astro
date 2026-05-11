@@ -11,7 +11,8 @@ import TrustBar from '../components/loyalty/TrustBar.astro';
 import { giftCardTrustItems } from '../config/trustbar';
 import Comparison from '../components/Comparison.astro';
 import { giftCardComparison } from '../config/comparison';
-import StatBand from '../components/giftcard/StatBand.astro';
+import StatsBand from '../components/StatsBand.astro';
+import { giftCardStats } from '../config/statsband';
 import CaseStudy from "../components/CaseStudy.astro";
 import FAQ from "../components/FAQ.astro";
 import FinalCTA from '../components/FinalCTA.astro';
@@ -49,7 +50,7 @@ const GiftCardFAQ = [
 
   <Comparison config={giftCardComparison} />
 
-  <StatBand />
+  <StatsBand config={giftCardStats} />
 
   <CaseStudy />
 

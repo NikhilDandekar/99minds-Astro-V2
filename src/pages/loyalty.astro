@@ -11,7 +11,8 @@ import CodeSection from '../components/loyalty/CodeSection.astro';
 import UnifiedMoat from '../components/loyalty/UnifiedMoat.astro';
 import Comparison from '../components/Comparison.astro';
 import { loyaltyComparison } from '../config/comparison';
-import StatBand from '../components/loyalty/StatBand.astro';
+import StatsBand from '../components/StatsBand.astro';
+import { loyaltyStats } from '../config/statsband';
 import CaseStudy from '../components/loyalty/CaseStudy.astro';
 import FAQ from '../components/FAQ.astro';
 import FinalCTA from '../components/FinalCTA.astro';
@@ -104,7 +105,7 @@ import Footer from '../components/Footer.astro';
 
   <Comparison config={loyaltyComparison} />
 
-  <StatBand />
+  <StatsBand config={loyaltyStats} />
 
   <CaseStudy />
 
