@@ -14,7 +14,8 @@ import { giftCardComparison } from '../config/comparison';
 import StatBand from '../components/giftcard/StatBand.astro';
 import CaseStudy from "../components/CaseStudy.astro";
 import FAQ from "../components/FAQ.astro";
-import FinalCTA from "../components/giftcard/FinalCTA.astro";
+import FinalCTA from '../components/FinalCTA.astro';
+import { giftCardCTA } from '../config/finalcta';
 
 const GiftCardFAQ = [
   {
@@ -58,7 +59,7 @@ const GiftCardFAQ = [
     items={GiftCardFAQ}
   />
 
-  <FinalCTA />
+  <FinalCTA config={giftCardCTA} />
 
   <Footer />
 </Layout>

@@ -12,6 +12,7 @@ import Industries from '../components/Industries.astro';
 import StatsBand from '../components/StatsBand.astro';
 import Testimonial from '../components/Testimonial.astro';
 import FinalCTA from '../components/FinalCTA.astro';
+import { homepageCTA } from '../config/finalcta';
 import Footer from '../components/Footer.astro';
 ---
 
@@ -26,6 +27,6 @@ import Footer from '../components/Footer.astro';
   <Industries />
   <StatsBand />
   <Testimonial />
-  <FinalCTA />
+  <FinalCTA config={homepageCTA} />
   <Footer />
 </Layout>

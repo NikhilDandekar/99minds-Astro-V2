@@ -14,7 +14,8 @@ import { loyaltyComparison } from '../config/comparison';
 import StatBand from '../components/loyalty/StatBand.astro';
 import CaseStudy from '../components/loyalty/CaseStudy.astro';
 import FAQ from '../components/FAQ.astro';
-import FinalCTA from '../components/loyalty/FinalCTA.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+import { loyaltyCTA } from '../config/finalcta';
 import Footer from '../components/Footer.astro';
 ---
 
@@ -109,13 +110,7 @@ import Footer from '../components/Footer.astro';
 
   <FAQ />
 
-  <FinalCTA
-    title="Ready to ship loyalty your"
-    highlightText="marketing team owns"
-    subtitle="Start with a sandbox key in 30 seconds. Talk to sales when you're ready to migrate."
-    primaryCta={{ label: 'Start free trial →', href: '#' }}
-    secondaryCta={{ label: 'Book a demo', href: '#' }}
-  />
+  <FinalCTA config={loyaltyCTA} />
 
   <Footer />
 </Layout>
