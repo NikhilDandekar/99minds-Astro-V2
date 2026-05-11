@@ -6,6 +6,7 @@ import LogoWall from '../components/LogoWall.astro';
 import UnifiedPlatform from '../components/UnifiedPlatform.astro';
 import Features from '../components/Features.astro';
 import Comparison from '../components/Comparison.astro';
+import { homepageComparison } from '../config/comparison';
 import Developers from '../components/Developers.astro';
 import Industries from '../components/Industries.astro';
 import StatsBand from '../components/StatsBand.astro';
@@ -20,7 +21,7 @@ import Footer from '../components/Footer.astro';
   <LogoWall />
   <UnifiedPlatform />
   <Features />
-  <Comparison />
+  <Comparison config={homepageComparison} />
   <Developers />
   <Industries />
   <StatsBand />

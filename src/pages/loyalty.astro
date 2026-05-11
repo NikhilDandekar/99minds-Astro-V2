@@ -9,7 +9,8 @@ import RulesBuilder from '../components/loyalty/RulesBuilder.astro';
 import CapabilityRow from '../components/loyalty/CapabilityRow.astro';
 import CodeSection from '../components/loyalty/CodeSection.astro';
 import UnifiedMoat from '../components/loyalty/UnifiedMoat.astro';
-import ComparisonTable from '../components/loyalty/ComparisonTable.astro';
+import Comparison from '../components/Comparison.astro';
+import { loyaltyComparison } from '../config/comparison';
 import StatBand from '../components/loyalty/StatBand.astro';
 import CaseStudy from '../components/loyalty/CaseStudy.astro';
 import FAQ from '../components/FAQ.astro';
@@ -100,7 +101,7 @@ import Footer from '../components/Footer.astro';
 
   <UnifiedMoat />
 
-  <ComparisonTable />
+  <Comparison config={loyaltyComparison} />
 
   <StatBand />
 

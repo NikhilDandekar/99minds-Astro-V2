@@ -3,14 +3,14 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import GiftCardHero from '../components/giftcard/GiftCardHero.astro';
-import LogoWall from '../components/LogoWall.astro';
 import GiftCardCapabilities from '../components/giftcard/GiftCardCapabilities.astro';
 import CardDesigner from '../components/giftcard/CardDesigner.astro';
 import GiftCardCodeSection from '../components/giftcard/GiftCardCodeSection.astro';
 import FraudCompliance from '../components/giftcard/FraudCompliance.astro';
 import TrustBar from '../components/loyalty/TrustBar.astro';
 import { giftCardTrustItems } from '../config/trustbar';
-import ComparisonTable from '../components/loyalty/ComparisonTable.astro';
+import Comparison from '../components/Comparison.astro';
+import { giftCardComparison } from '../config/comparison';
 import StatBand from '../components/giftcard/StatBand.astro';
 import CaseStudy from "../components/CaseStudy.astro";
 import FAQ from "../components/FAQ.astro";
@@ -41,36 +41,12 @@ const GiftCardFAQ = [
 
   <GiftCardHero />
   <TrustBar items={giftCardTrustItems} />
-  <LogoWall />
   <CardDesigner />
   <GiftCardCapabilities />
   <GiftCardCodeSection />
   <FraudCompliance />
 
-  <ComparisonTable
-    eyebrow="Why teams switch from Rise.ai & Blackhawk"
-    title="Built for the modern stack."
-    lede="Rise.ai built for Shopify. Blackhawk built for retail at the dawn of plastic cards. We built for what comes next."
-    usLabel="99minds"
-    competitor1Label="Rise.ai"
-    competitor2Label="Blackhawk"
-    rows={[
-      { feature: 'Modern REST API + 7 SDKs', us: true, competitor1: 'Limited', competitor2: 'Legacy' },
-      { feature: 'Apple + Google Wallet passes', us: true, competitor1: false, competitor2: 'Add-on' },
-      { feature: 'Refunds-as-credit native flow', us: true, competitor1: true, competitor2: false },
-      { feature: 'Bulk B2B gifting (10k+)', us: true, competitor1: 'Limited', competitor2: true },
-      { feature: 'Loyalty + promotions on same platform', us: true, competitor1: 'Limited', competitor2: false },
-      { feature: 'Multi-currency (140+)', us: true, competitor1: 'USD/EUR/GBP', competitor2: true },
-      { feature: 'Self-serve sandbox', us: true, competitor1: true, competitor2: false },
-      {
-        feature: 'Time-to-launch',
-        us: '~14 days',
-        competitor1: '~30 days',
-        competitor2: '3-6 months',
-        highlight: true
-      },
-    ]}
-  />
+  <Comparison config={giftCardComparison} />
 
   <StatBand />
 
