@@ -7,6 +7,15 @@ export interface StatsBandConfig {
   stats: Stat[];
 }
 
+export const promotionsStats: StatsBandConfig = {
+  stats: [
+    { value: '38ms',    label: 'p50 promotion evaluation latency at the edge, globally' },
+    { value: '+22%',    label: 'Avg incremental margin from ML-personalized offers vs flat discounts' },
+    { value: '~21 days',label: 'From kickoff to first live campaign — Talon.One averages 6 months' },
+    { value: '0%',      label: 'Of customers say they miss filling in coupon codes' },
+  ],
+};
+
 export const homepageStats: StatsBandConfig = {
   stats: [
     { value: '$2.4B',   label: 'Stored value processed annually across our platform' },

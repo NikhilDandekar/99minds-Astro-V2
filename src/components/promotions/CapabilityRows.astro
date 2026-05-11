@@ -1,0 +1,214 @@
+---
+---
+<section class="py-[120px] px-8 max-sm:py-20 max-sm:px-5 bg-white">
+  <div class="max-w-[1280px] mx-auto">
+
+    <!-- ── ROW 1: ML Personalization ──────────────────────────────────────── -->
+    <div class="grid grid-cols-1 lg:[grid-template-columns:1fr_1.1fr] gap-[80px] items-center py-[80px] border-b border-[var(--line)]">
+      <!-- text -->
+      <div>
+        <div class="text-[12px] font-bold text-[var(--purple-deep)] uppercase tracking-[0.1em] mb-3">ML Personalization</div>
+        <h3 class="text-[36px] font-bold tracking-[-0.025em] leading-[1.1] text-[var(--ink)] mb-4">
+          Stop discounting customers who'd buy anyway.
+        </h3>
+        <p class="text-[16px] text-[var(--slate)] leading-[1.6] mb-6">
+          The biggest waste in promotions: 25% off the customer who would have paid full price. Our ML engine scores every customer's discount sensitivity in real time, so your most loyal buyers see "early access" instead of "25% off" — and your wavering carts see exactly the nudge they need to convert.
+        </p>
+        <ul class="space-y-0">
+          {[
+            '<strong>Per-customer discount sensitivity score</strong> updated nightly from your full order history',
+            '<strong>Predicted incremental margin</strong> — see if a discount is paying for itself before you offer it',
+            '<strong>Auto-tune offer strength</strong> per segment, per customer, per cart context',
+            '<strong>Same engine that powers Talon.One Predict</strong> — without the six-month onboarding',
+          ].map(b => (
+            <li class="flex gap-3 py-[10px] text-[14px] text-[var(--slate)] items-start">
+              <div class="w-5 h-5 shrink-0 bg-[var(--purple-pale)] rounded-full flex items-center justify-center text-[var(--purple-deep)] font-bold text-[12px] mt-0.5">✓</div>
+              <span set:html={b} />
+            </li>
+          ))}
+        </ul>
+        <a href="#" class="mt-6 inline-flex items-center gap-[6px] text-[var(--purple-deep)] font-semibold text-[14px] no-underline hover:gap-[10px] transition-all">
+          Explore Predict →
+        </a>
+      </div>
+
+      <!-- visual -->
+      <div class="bg-[var(--bg-alt)] border border-[var(--line)] rounded-[20px] p-8 min-h-[400px]">
+        {[
+          { init: 'A', name: 'Ada · cus_8KPq2x',    meta: '12 orders · $2,840 LTV · Gold',  tag: 'Sure-thing',  tagStyle: 'background:var(--purple-pale);color:var(--purple-deep)',   sensLabel: 'Low (12%)',     sensColor: '#c8c8d8', barW: '12%', barGrad: 'linear-gradient(90deg,var(--purple-deep),var(--purple))', offerVal: 'Early access',  offerColor: '#2dba7c', offerNote: 'No discount needed',  avatarGrad: 'linear-gradient(135deg,#6f4dff,#aa8fff)' },
+          { init: 'M', name: 'Marcus · cus_3Lm9zR',  meta: '3 orders · $410 LTV · Bronze',   tag: 'On the fence',tagStyle: 'background:rgba(255,192,96,0.2);color:#b8761a',              sensLabel: 'Medium (54%)',  sensColor: '#f5a623', barW: '54%', barGrad: 'linear-gradient(90deg,#f5a623,#ffc060)',              offerVal: '15% off',       offerColor: '#f5a623', offerNote: '+$28 expected lift',  avatarGrad: 'linear-gradient(135deg,#ff8a7a,#ffc060)' },
+          { init: 'P', name: 'Priya · cus_7Yp4kQ',   meta: '1 order · $89 LTV · New',        tag: 'Churn risk',  tagStyle: 'background:rgba(255,138,122,0.2);color:#c44a3a',             sensLabel: 'High (87%)',    sensColor: '#2dba7c', barW: '87%', barGrad: 'linear-gradient(90deg,#2dba7c,#7ef0c5)',              offerVal: '25% + free ship',offerColor: '#2dba7c', offerNote: 'High retention payoff',avatarGrad: 'linear-gradient(135deg,#00d4ff,#4a9eff)' },
+        ].map(c => (
+          <div class="bg-white border border-[var(--line)] rounded-[16px] p-5 mb-3 last:mb-0">
+            <div class="flex items-center gap-3 pb-[14px] border-b border-[var(--line)] mb-[14px]">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold shrink-0"
+                   style={`background:${c.avatarGrad}`}>{c.init}</div>
+              <div class="flex-1">
+                <div class="text-[14px] font-bold">{c.name}</div>
+                <div class="text-[11px] text-[var(--slate)]">{c.meta}</div>
+              </div>
+              <span class="text-[10px] font-bold px-2 py-[3px] rounded-full" style={c.tagStyle}>{c.tag}</span>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="bg-[var(--bg-alt)] rounded-[8px] p-[10px_12px]">
+                <div class="text-[10px] text-[var(--slate-light)] uppercase tracking-[0.06em] font-semibold mb-1">Discount sensitivity</div>
+                <div class="text-[14px] font-bold" style={`color:${c.sensColor}`}>{c.sensLabel}</div>
+                <div class="h-1 bg-[var(--line)] rounded-full mt-[6px] overflow-hidden">
+                  <div class="h-full rounded-full" style={`width:${c.barW};background:${c.barGrad}`}></div>
+                </div>
+              </div>
+              <div class="bg-[var(--bg-alt)] rounded-[8px] p-[10px_12px]">
+                <div class="text-[10px] text-[var(--slate-light)] uppercase tracking-[0.06em] font-semibold mb-1">Recommended offer</div>
+                <div class="text-[14px] font-bold" style={`color:${c.offerColor}`}>{c.offerVal}</div>
+                <div class="text-[10px] text-[var(--slate)] mt-1">{c.offerNote}</div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- ── ROW 2: A/B Testing (visual left, text right) ───────────────────── -->
+    <div class="grid grid-cols-1 lg:[grid-template-columns:1.1fr_1fr] gap-[80px] items-center py-[80px] border-b border-[var(--line)]">
+      <!-- visual first so it appears on the left in LG -->
+      <div class="bg-[var(--bg-alt)] border border-[var(--line)] rounded-[20px] p-8 min-h-[400px]">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+          <!-- variant A -->
+          <div class="bg-white border border-[var(--line)] rounded-[14px] p-[18px]">
+            <div class="text-[11px] text-[var(--slate-light)] uppercase tracking-[0.08em] font-bold mb-2">Variant A</div>
+            <div class="text-[14px] font-bold mb-3">10% off all items</div>
+            {[['Visitors','6,420'],['Orders','412'],['AOV','$148']].map(([k,v]) => (
+              <div class="flex justify-between py-2 text-[12px] border-b border-[var(--line)] last:border-b-0">
+                <span class="text-[var(--slate)]">{k}</span><span class="font-bold">{v}</span>
+              </div>
+            ))}
+            <div class="mt-3 pt-3 border-t border-[var(--line)] text-center">
+              <div class="text-[28px] font-bold tracking-[-0.02em]">6.42%</div>
+              <div class="text-[11px] text-[var(--slate)] uppercase tracking-[0.06em] mt-0.5">Conversion rate</div>
+            </div>
+          </div>
+
+          <!-- variant B winner -->
+          <div class="relative bg-white rounded-[14px] p-[18px]"
+               style="border:1px solid var(--accent-mint);background:linear-gradient(135deg,rgba(126,240,197,0.1),white);box-shadow:0 8px 24px -8px rgba(126,240,197,0.3)">
+            <!-- winner badge -->
+            <div class="absolute -top-[8px] right-3 bg-[var(--ink)] text-white text-[10px] font-bold uppercase tracking-[0.1em] px-[10px] py-[3px] rounded-full">
+              ✓ Winner
+            </div>
+            <div class="text-[11px] text-[var(--slate-light)] uppercase tracking-[0.08em] font-bold mb-2">Variant B</div>
+            <div class="text-[14px] font-bold mb-3">Free shipping over $100</div>
+            {[['Visitors','6,420'],['Orders','471'],['AOV','$162']].map(([k,v]) => (
+              <div class="flex justify-between py-2 text-[12px] border-b border-[var(--line)] last:border-b-0">
+                <span class="text-[var(--slate)]">{k}</span><span class="font-bold">{v}</span>
+              </div>
+            ))}
+            <div class="mt-3 pt-3 border-t border-[var(--line)] text-center">
+              <div class="text-[28px] font-bold tracking-[-0.02em] text-[#2dba7c]">7.34%</div>
+              <div class="text-[11px] text-[var(--slate)] uppercase tracking-[0.06em] mt-0.5">Conversion rate</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border border-[var(--line)] rounded-[10px] p-3 flex items-center gap-[10px] text-[12px] text-[var(--slate)]">
+          <div class="w-6 h-6 rounded-[6px] flex items-center justify-center font-bold text-[12px] text-[#1a8c5e]"
+               style="background:rgba(126,240,197,0.2)">✓</div>
+          <div><strong class="text-[var(--ink)]">Variant B wins by +14.3%</strong> · 99% confidence · Auto-rolling out to 100%</div>
+        </div>
+      </div>
+
+      <!-- text -->
+      <div>
+        <div class="text-[12px] font-bold text-[var(--purple-deep)] uppercase tracking-[0.1em] mb-3">Built-in A/B Testing</div>
+        <h3 class="text-[36px] font-bold tracking-[-0.025em] leading-[1.1] text-[var(--ink)] mb-4">
+          Test like Netflix, not like a Shopify app.
+        </h3>
+        <p class="text-[16px] text-[var(--slate)] leading-[1.6] mb-6">
+          Every campaign is an A/B test by default. Pick a baseline. Pick a variant. Watch the engine auto-detect statistical significance, declare a winner, and roll out the winning variant to 100% of your audience — without a single ticket to your data team.
+        </p>
+        <ul class="space-y-0">
+          {[
+            '<strong>Auto-significance detection</strong> using sequential testing — no peeking penalty',
+            '<strong>Multi-arm bandit mode</strong> for faster convergence on winning offers',
+            '<strong>Holdout groups</strong> measured against revenue, AOV, and downstream LTV',
+            '<strong>Audit log</strong> of every test, every result — defensible decisions for your CFO',
+          ].map(b => (
+            <li class="flex gap-3 py-[10px] text-[14px] text-[var(--slate)] items-start">
+              <div class="w-5 h-5 shrink-0 bg-[var(--purple-pale)] rounded-full flex items-center justify-center text-[var(--purple-deep)] font-bold text-[12px] mt-0.5">✓</div>
+              <span set:html={b} />
+            </li>
+          ))}
+        </ul>
+        <a href="#" class="mt-6 inline-flex items-center gap-[6px] text-[var(--purple-deep)] font-semibold text-[14px] no-underline hover:gap-[10px] transition-all">
+          Learn about A/B testing →
+        </a>
+      </div>
+    </div>
+
+    <!-- ── ROW 3: Couponless Redemption ───────────────────────────────────── -->
+    <div class="grid grid-cols-1 lg:[grid-template-columns:1fr_1.1fr] gap-[80px] items-center py-[80px]">
+      <!-- text -->
+      <div>
+        <div class="text-[12px] font-bold text-[var(--purple-deep)] uppercase tracking-[0.1em] mb-3">Couponless Redemption</div>
+        <h3 class="text-[36px] font-bold tracking-[-0.025em] leading-[1.1] text-[var(--ink)] mb-4">
+          Stop leaking your margin to coupon sites.
+        </h3>
+        <p class="text-[16px] text-[var(--slate)] leading-[1.6] mb-6">
+          Coupon codes get scraped, shared on Honey and RetailMeNot, and end up discounting customers who never qualified. Couponless redemption ties promotions directly to customer identity — so the right person gets the right discount, automatically, with nothing to leak.
+        </p>
+        <ul class="space-y-0">
+          {[
+            '<strong>Customer-bound promotions</strong> evaluate at cart time — no code, no leak',
+            '<strong>Hybrid mode</strong> for legacy use cases that still need codes (influencer drops, magazine ads)',
+            '<strong>Single-use unique codes</strong> generated at scale, tied to identity, expire on first use',
+          ].map(b => (
+            <li class="flex gap-3 py-[10px] text-[14px] text-[var(--slate)] items-start">
+              <div class="w-5 h-5 shrink-0 bg-[var(--purple-pale)] rounded-full flex items-center justify-center text-[var(--purple-deep)] font-bold text-[12px] mt-0.5">✓</div>
+              <span set:html={b} />
+            </li>
+          ))}
+        </ul>
+        <a href="#" class="mt-6 inline-flex items-center gap-[6px] text-[var(--purple-deep)] font-semibold text-[14px] no-underline hover:gap-[10px] transition-all">
+          See couponless flow →
+        </a>
+      </div>
+
+      <!-- visual: flow steps -->
+      <div class="bg-[var(--bg-alt)] border border-[var(--line)] rounded-[20px] p-8 min-h-[400px]">
+        <div class="flex flex-col gap-[10px]">
+          {[
+            { num: '1', title: 'Customer adds items to cart',          desc: 'Identity already known via session or login',         time: '12:04:11', highlight: false },
+            { num: '2', title: '99minds evaluates eligibility in 38ms', desc: 'Cart context + customer profile + active rules',      time: '12:04:11', highlight: true  },
+            { num: '3', title: 'Best-fit promotion auto-applies',       desc: '25% off + 2x points · "Spring Refresh" rule',        time: '12:04:12', highlight: false },
+            { num: '4', title: 'No code shown · No code to leak',       desc: 'Honey extension finds nothing to scrape',            time: '12:04:12', highlight: false },
+          ].map((step, i) => (
+            <div class={`relative flex items-center gap-3 bg-white rounded-[12px] p-[14px_16px] ${step.highlight ? 'cf-highlight' : 'border border-[var(--line)]'} ${i > 0 ? 'cf-step' : ''}`}>
+              <div class={`w-8 h-8 rounded-[8px] shrink-0 flex items-center justify-center font-bold text-[13px] ${step.highlight ? 'bg-[var(--purple-deep)] text-white' : 'bg-[var(--purple-pale)] text-[var(--purple-deep)]'}`}>
+                {step.num}
+              </div>
+              <div class="flex-1">
+                <div class="text-[13px] font-bold">{step.title}</div>
+                <div class="text-[12px] text-[var(--slate)] mt-0.5">{step.desc}</div>
+              </div>
+              <div class="font-mono text-[11px] text-[var(--slate-light)] shrink-0">{step.time}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .cf-highlight {
+    border: 2px solid var(--purple-deep);
+    box-shadow: 0 4px 16px -4px rgba(111,77,255,0.2);
+  }
+  .cf-step::before {
+    content: '';
+    position: absolute;
+    top: -10px; left: 28px;
+    width: 1px; height: 10px;
+    background: var(--purple);
+  }
+</style>

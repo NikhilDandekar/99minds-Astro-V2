@@ -1,0 +1,173 @@
+---
+---
+<section class="relative overflow-hidden pt-12 px-8 pb-20 max-sm:pt-8 max-sm:px-5 max-sm:pb-14">
+
+  <!-- mesh background -->
+  <div class="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+    <div class="absolute w-[75%] h-full"
+         style="top:-10%;right:-15%;background:radial-gradient(ellipse at 30% 50%,rgba(170,143,255,0.32) 0%,transparent 50%),radial-gradient(ellipse at 70% 30%,rgba(0,212,255,0.22) 0%,transparent 50%),radial-gradient(ellipse at 50% 80%,rgba(126,240,197,0.22) 0%,transparent 50%);filter:blur(70px);animation:meshShift 22s ease-in-out infinite">
+    </div>
+  </div>
+
+  <div class="relative z-10 max-w-[1280px] mx-auto grid grid-cols-1 lg:[grid-template-columns:1fr_1.05fr] gap-16 items-center">
+
+    <!-- LEFT: copy -->
+    <div>
+      <!-- pill -->
+      <div class="inline-flex items-center gap-2 bg-white border border-[var(--line)] px-[14px] py-[6px] rounded-full text-[13px] font-semibold text-[var(--purple-deep)] mb-6"
+           style="box-shadow:0 1px 2px rgba(10,10,35,0.04)">
+        <div class="w-[18px] h-[18px] rounded-[5px] flex items-center justify-center text-white shrink-0"
+             style="background:linear-gradient(135deg,#6f4dff,#aa8fff)">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/>
+          </svg>
+        </div>
+        Promotions &amp; Campaigns
+      </div>
+
+      <!-- heading -->
+      <h1 class="font-bold leading-none tracking-[-0.04em] text-[var(--ink)] mb-6"
+          style="font-size:clamp(44px,5.6vw,76px)">
+        Promotions that
+        <span style="background:linear-gradient(120deg,#6f4dff 0%,#00d4ff 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">
+          predict, personalize
+        </span>,
+        and convert.
+      </h1>
+
+      <p class="text-[19px] text-[var(--slate)] leading-[1.55] max-w-[540px] mb-8">
+        Rule-based promotions for the marketer. ML-driven personalization for the data team.
+        One engine, all your channels — without a six-month Talon.One implementation.
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex flex-wrap gap-3 items-center mb-10">
+        <a href="#"
+           class="font-semibold text-[15px] text-white bg-[var(--purple-deep)] px-[22px] py-[14px] rounded-full no-underline inline-flex items-center transition-all duration-200 hover:bg-[var(--ink)] hover:-translate-y-px">
+          Start free trial →
+        </a>
+        <a href="#"
+           class="font-semibold text-[15px] text-[var(--ink)] bg-white border border-[var(--line)] px-[22px] py-[14px] rounded-full no-underline inline-flex items-center transition-all duration-200 hover:border-[var(--purple-deep)] hover:text-[var(--purple-deep)]">
+          Try the simulator
+        </a>
+      </div>
+
+      <!-- feature list -->
+      <div class="flex flex-col gap-3">
+        {[
+          'Rule simulator runs <strong>against your last 30 days</strong> — see lift before you launch',
+          'ML predicts <strong>discount sensitivity per customer</strong> — stop overpaying for sure-thing buyers',
+          'Couponless redemption: <strong>no codes leaked</strong>, no Honey extension drains your margin',
+        ].map(text => (
+          <div class="flex items-start gap-3 text-[14px] text-[var(--slate)]">
+            <div class="w-[18px] h-[18px] shrink-0 bg-[var(--purple-pale)] rounded-full flex items-center justify-center text-[var(--purple-deep)] font-extrabold text-[11px] mt-0.5">
+              ✓
+            </div>
+            <div set:html={text} />
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- RIGHT: hero visual -->
+    <div class="relative hidden sm:block max-lg:scale-[0.85] max-lg:origin-top-left" style="height:540px">
+
+      <!-- floating rule 1 -->
+      <div class="absolute z-[2] bg-white rounded-[14px] p-[14px_16px] w-[280px] promo-float-1"
+           style="top:10px;left:-30px;box-shadow:0 16px 40px -10px rgba(10,10,35,0.18),0 0 0 1px var(--line)">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[9px] font-bold uppercase tracking-[0.1em] px-[7px] py-[3px] rounded" style="background:rgba(126,240,197,0.2);color:#1a8c5e">● Live</span>
+          <span class="text-[12px] font-bold flex-1">Spring Refresh</span>
+        </div>
+        <div class="font-mono text-[11px] bg-[var(--bg-alt)] border border-[var(--line)] px-[10px] py-[8px] rounded-[6px] text-[var(--slate)] leading-[1.5]">
+          <span class="text-[var(--purple-deep)] font-semibold">cart.subtotal</span> &gt;= <span class="text-[var(--ink)] font-semibold">$120</span><br/>
+          <span class="text-[var(--purple-deep)] font-semibold">customer.tier</span> in <span class="text-[var(--ink)] font-semibold">[gold, platinum]</span><br/>
+          → <span class="text-[var(--ink)] font-semibold">25% off + 2x points</span>
+        </div>
+        <div class="flex gap-3 mt-2 text-[11px]">
+          <span><strong class="text-[var(--ink)]">1,506</strong> <span class="text-[var(--slate-light)]">reach</span></span>
+          <span><strong class="text-[var(--ink)]">+$48k</strong> <span class="text-[var(--slate-light)]">lift</span></span>
+        </div>
+      </div>
+
+      <!-- cart card -->
+      <div class="absolute z-[3] bg-white rounded-[18px] border border-[var(--line)] overflow-hidden"
+           style="top:30px;right:0;width:360px;box-shadow:0 30px 60px -20px rgba(10,10,35,0.18)">
+        <div class="bg-[var(--ink)] text-white px-[18px] py-[14px] flex items-center justify-between">
+          <span class="text-[13px] font-bold">Cart</span>
+          <span class="text-[11px] opacity-70 font-mono">CART_8KPq2x</span>
+        </div>
+        <div class="p-[18px]">
+          {[
+            { name: 'Linen Overshirt',    meta: 'M · Sand · Spring 2026', price: '$165', grad: 'linear-gradient(135deg,#6f4dff,#aa8fff)' },
+            { name: 'Wide-Leg Trousers',  meta: '28 · Olive',              price: '$145', grad: 'linear-gradient(135deg,#ff8a7a,#ffc060)' },
+            { name: 'Canvas Tote',        meta: 'Natural',                  price: '$58',  grad: 'linear-gradient(135deg,#00d4ff,#4a9eff)' },
+          ].map(item => (
+            <div class="flex gap-3 items-center py-[10px] border-b border-[var(--line)] last:border-b-0">
+              <div class="w-[44px] h-[44px] rounded-[8px] shrink-0" style={`background:${item.grad}`}></div>
+              <div class="flex-1 min-w-0">
+                <div class="text-[13px] font-semibold">{item.name}</div>
+                <div class="text-[11px] text-[var(--slate)] mt-0.5">{item.meta}</div>
+              </div>
+              <div class="text-[13px] font-bold">{item.price}</div>
+            </div>
+          ))}
+
+          <div class="border-t border-dashed border-[var(--line)] my-[14px]"></div>
+
+          <div class="flex justify-between text-[13px] py-1">
+            <span class="text-[var(--slate)]">Subtotal</span><span>$368.00</span>
+          </div>
+          <div class="flex justify-between text-[13px] py-1 text-[var(--purple-deep)] font-bold">
+            <span>✓ Spring Refresh (25%)</span><span>-$92.00</span>
+          </div>
+          <div class="flex justify-between text-[13px] py-1">
+            <span class="text-[var(--slate)]">Shipping</span><span>Free</span>
+          </div>
+          <div class="flex justify-between text-[16px] font-bold mt-2 pt-[10px] border-t border-[var(--line)]">
+            <span>Total</span><span>$276.00</span>
+          </div>
+
+          <div class="mt-[14px] flex items-center gap-[10px] text-[12px] rounded-[10px] p-3 border border-[var(--purple-light)]"
+               style="background:linear-gradient(135deg,var(--purple-pale),white)">
+            <div class="w-[28px] h-[28px] bg-[var(--purple-deep)] rounded-[8px] flex items-center justify-center text-white shrink-0">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <div>
+              <strong class="block text-[var(--ink)]">Promo auto-applied · No code needed</strong>
+              <span class="text-[var(--slate)] text-[11px]">+1,000 bonus points credited at checkout</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- floating rule 2 -->
+      <div class="absolute z-[2] bg-white rounded-[14px] p-[14px_16px] w-[280px] promo-float-2"
+           style="bottom:80px;left:20px;box-shadow:0 16px 40px -10px rgba(10,10,35,0.18),0 0 0 1px var(--line)">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[9px] font-bold uppercase tracking-[0.1em] px-[7px] py-[3px] rounded" style="background:rgba(255,192,96,0.2);color:#b8761a">◐ A/B</span>
+          <span class="text-[12px] font-bold flex-1">Free shipping vs 10% off</span>
+        </div>
+        <div class="font-mono text-[11px] bg-[var(--bg-alt)] border border-[var(--line)] px-[10px] py-[8px] rounded-[6px] text-[var(--slate)] leading-[1.5]">
+          <span class="text-[var(--purple-deep)] font-semibold">variant_A</span>: <span class="text-[var(--ink)] font-semibold">free shipping</span><br/>
+          <span class="text-[var(--purple-deep)] font-semibold">variant_B</span>: <span class="text-[var(--ink)] font-semibold">10% off</span><br/>
+          → <span class="text-[var(--ink)] font-semibold">A wins by 14.2% (p=0.03)</span>
+        </div>
+        <div class="flex gap-3 mt-2 text-[11px]">
+          <span><strong class="text-[var(--ink)]">12,840</strong> <span class="text-[var(--slate-light)]">tested</span></span>
+          <span><strong class="text-[var(--ink)]">99%</strong> <span class="text-[var(--slate-light)]">conf</span></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes floatRule {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-10px); }
+  }
+  .promo-float-1 { animation: floatRule 6s ease-in-out infinite; }
+  .promo-float-2 { animation: floatRule 6s ease-in-out 2.5s infinite; }
+</style>

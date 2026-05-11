@@ -12,6 +12,17 @@ export interface FinalCTAConfig {
   buttons: CtaButton[];
 }
 
+export const promotionsCTA: FinalCTAConfig = {
+  titleLead: 'Ready to ship promotions that ',
+  titleHighlight: 'actually pay back',
+  titleTail: '?',
+  description: 'Start with a sandbox key in 30 seconds. Run the simulator on your own data this afternoon.',
+  buttons: [
+    { label: 'Start free trial →', href: '#', variant: 'primary' },
+    { label: 'Book a demo',        href: '#', variant: 'ghost' },
+  ],
+};
+
 export const homepageCTA: FinalCTAConfig = {
   titleLead: 'Ship your reward program in ',
   titleHighlight: 'a sprint',

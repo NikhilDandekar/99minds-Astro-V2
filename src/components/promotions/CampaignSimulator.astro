@@ -1,0 +1,227 @@
+---
+---
+<section class="py-[120px] px-8 max-sm:py-20 max-sm:px-5 bg-[var(--bg-alt)] overflow-hidden">
+  <div class="max-w-[1280px] mx-auto">
+
+    <!-- header -->
+    <div class="max-w-[720px] mb-16">
+      <div class="text-[13px] font-bold text-[var(--purple-deep)] uppercase tracking-[0.1em] mb-4">Campaign Simulator</div>
+      <h2 class="text-[clamp(32px,4vw,52px)] font-bold tracking-[-0.03em] leading-[1.05] text-[var(--ink)] mb-5">
+        See your campaign's lift before you launch it.
+      </h2>
+      <p class="text-[19px] text-[var(--slate)] leading-[1.55]">
+        Build the rule. Pick the segment. The simulator replays your last 30 days of orders and shows you exactly which customers would have triggered, how much you'd have discounted, and what GMV would have moved.
+      </p>
+    </div>
+
+    <!-- sim frame -->
+    <div class="bg-white rounded-[20px] border border-[var(--line)] overflow-hidden"
+         style="box-shadow:0 24px 60px -20px rgba(10,10,35,0.12)">
+
+      <!-- toolbar -->
+      <div class="bg-[var(--bg-alt)] border-b border-[var(--line)] px-4 py-3 flex items-center gap-2">
+        <span class="w-[11px] h-[11px] rounded-full bg-[#ff8a7a]"></span>
+        <span class="w-[11px] h-[11px] rounded-full bg-[#ffc060]"></span>
+        <span class="w-[11px] h-[11px] rounded-full bg-[#7ef0c5]"></span>
+        <div class="flex-1 text-center text-[12px] text-[var(--slate)] font-semibold">
+          Campaign · Spring Refresh · Simulating against last 30 days
+        </div>
+        <div class="flex items-center gap-[6px] text-[11px] font-semibold px-[10px] py-1 rounded-full"
+             style="background:rgba(126,240,197,0.15);color:#1a8c5e">
+          <span class="w-[6px] h-[6px] rounded-full bg-[#1a8c5e] sim-pulse"></span>
+          Simulating
+        </div>
+      </div>
+
+      <!-- body -->
+      <div class="grid min-h-[580px] max-lg:grid-cols-1" style="grid-template-columns:380px 1fr">
+
+        <!-- LEFT: rule builder -->
+        <div class="bg-[var(--bg-alt)] border-r border-[var(--line)] p-6 overflow-y-auto">
+
+          <div class="text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--slate-light)] mb-3">Conditions (IF)</div>
+
+          <!-- IF cards -->
+          {[
+            { tag: 'When', key: 'customer.tier',  op: ' in ',  val: '["gold", "platinum"]' },
+            { tag: 'And',  key: 'cart.subtotal',  op: ' >= ',  val: '$120' },
+            { tag: 'And',  key: 'cart.contains',  op: ' in ',  val: '["spring-2026"]' },
+          ].map(c => (
+            <div class="bg-white border border-[var(--line)] rounded-[12px] p-[14px_16px] mb-2"
+                 style="border-left:3px solid var(--accent-cyan)">
+              <div class="flex items-center gap-2 mb-[10px]">
+                <span class="text-[10px] font-bold uppercase tracking-[0.1em] px-2 py-[3px] rounded"
+                      style="background:rgba(0,212,255,0.12);color:#007a9e">{c.tag}</span>
+                <span class="text-[var(--slate-light)] ml-auto cursor-grab">⠿⠿</span>
+              </div>
+              <div class="flex flex-wrap gap-[6px] font-mono text-[12px]">
+                <span class="bg-[var(--bg-alt)] border border-[var(--line)] px-[9px] py-[5px] rounded-[6px]">
+                  <span class="text-[var(--slate)]">{c.key}</span>
+                  <span class="text-[var(--slate-light)]">{c.op}</span>
+                  <span class="text-[var(--purple-deep)] font-semibold">{c.val}</span>
+                </span>
+              </div>
+            </div>
+          ))}
+
+          <div class="bg-white border border-dashed border-[var(--line)] rounded-[12px] p-3 text-center text-[var(--slate-light)] text-[12px] font-semibold mb-2 cursor-pointer hover:border-[var(--purple)] hover:text-[var(--purple-deep)] transition-colors">
+            + Add condition
+          </div>
+
+          <div class="text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--slate-light)] mb-3 mt-6">Reward (THEN)</div>
+
+          <div class="bg-white border border-[var(--line)] rounded-[12px] p-[14px_16px] mb-2"
+               style="border-left:3px solid var(--accent-mint)">
+            <div class="flex items-center gap-2 mb-[10px]">
+              <span class="text-[10px] font-bold uppercase tracking-[0.1em] px-2 py-[3px] rounded"
+                    style="background:rgba(126,240,197,0.2);color:#1a8c5e">Apply</span>
+              <span class="text-[var(--slate-light)] ml-auto cursor-grab">⠿⠿</span>
+            </div>
+            <div class="flex flex-wrap gap-[6px] font-mono text-[12px]">
+              <span class="bg-[var(--bg-alt)] border border-[var(--line)] px-[9px] py-[5px] rounded-[6px]">
+                <span class="text-[var(--slate)]">discount</span>
+                <span class="text-[var(--slate-light)]"> = </span>
+                <span class="text-[var(--purple-deep)] font-semibold">25%</span>
+              </span>
+              <span class="bg-[var(--bg-alt)] border border-[var(--line)] px-[9px] py-[5px] rounded-[6px]">
+                <span class="text-[var(--slate)]">points_multiplier</span>
+                <span class="text-[var(--slate-light)]"> = </span>
+                <span class="text-[var(--purple-deep)] font-semibold">2x</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--slate-light)] mb-3 mt-6">Audience segments</div>
+          <div class="flex flex-wrap gap-[6px] mb-6">
+            <span class="flex items-center gap-1 px-[10px] py-[5px] rounded-full text-[11px] font-semibold bg-[var(--purple-pale)] border border-[var(--purple)] text-[var(--purple-deep)]">
+              Gold + Platinum <span class="opacity-50 cursor-pointer">×</span>
+            </span>
+            <span class="flex items-center gap-1 px-[10px] py-[5px] rounded-full text-[11px] font-semibold bg-[var(--purple-pale)] border border-[var(--purple)] text-[var(--purple-deep)]">
+              High-LTV <span class="opacity-50 cursor-pointer">×</span>
+            </span>
+            <span class="flex items-center gap-1 px-[10px] py-[5px] rounded-full text-[11px] font-semibold bg-white border border-[var(--line)] text-[var(--slate)]">
+              + Add segment
+            </span>
+          </div>
+
+          <div class="text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--slate-light)] mb-3">Schedule</div>
+          <div class="bg-white border border-[var(--line)] rounded-[12px] p-[14px_16px]">
+            <div class="flex flex-wrap gap-[6px] font-mono text-[12px]">
+              <span class="bg-[var(--bg-alt)] border border-[var(--line)] px-[9px] py-[5px] rounded-[6px]">
+                <span class="text-[var(--slate)]">starts</span>
+                <span class="text-[var(--slate-light)]"> = </span>
+                <span class="text-[var(--purple-deep)] font-semibold">Apr 15, 9am</span>
+              </span>
+              <span class="bg-[var(--bg-alt)] border border-[var(--line)] px-[9px] py-[5px] rounded-[6px]">
+                <span class="text-[var(--slate)]">ends</span>
+                <span class="text-[var(--slate-light)]"> = </span>
+                <span class="text-[var(--purple-deep)] font-semibold">Apr 30, 11pm</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: results -->
+        <div class="p-6 bg-white overflow-y-auto">
+          <div class="flex justify-between items-center mb-5">
+            <div>
+              <div class="text-[16px] font-bold">Projected impact · 30-day replay</div>
+              <div class="text-[12px] text-[var(--slate)]">Based on 12,840 orders · Mar 1 – Mar 31, 2026</div>
+            </div>
+          </div>
+
+          <!-- stat cards -->
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+            {[
+              { label: 'Eligible orders',    val: '1,506',   delta: '11.7% of total',      warn: false },
+              { label: 'Projected GMV lift', val: '+$48,210',delta: '↑ 14.2% on segment',  warn: false, green: true },
+              { label: 'Discount cost',      val: '$39,840', delta: '21% of segment GMV',  warn: true },
+              { label: 'Net contribution',   val: '+$8,370', delta: 'After discount cost',  warn: false, purple: true },
+            ].map(s => (
+              <div class="bg-[var(--bg-alt)] border border-[var(--line)] rounded-[12px] p-4">
+                <div class="text-[11px] text-[var(--slate-light)] uppercase tracking-[0.06em] font-semibold mb-2">{s.label}</div>
+                <div class="text-[22px] font-bold tracking-[-0.02em]"
+                     style={s.green ? 'color:#2dba7c' : s.purple ? 'color:var(--purple-deep)' : ''}>{s.val}</div>
+                <div class="text-[11px] font-semibold mt-1" style={s.warn ? 'color:#f5a623' : 'color:#2dba7c'}>{s.delta}</div>
+              </div>
+            ))}
+          </div>
+
+          <!-- chart -->
+          <div class="bg-[var(--bg-alt)] border border-[var(--line)] rounded-[12px] p-5 mb-5">
+            <div class="flex justify-between items-center mb-4">
+              <div class="text-[13px] font-bold">Daily GMV: with rule vs without</div>
+              <div class="flex gap-3 text-[11px]">
+                <span><span class="inline-block w-2 h-2 rounded-full mr-1 bg-[var(--purple-deep)]"></span>With rule</span>
+                <span><span class="inline-block w-2 h-2 rounded-full mr-1 bg-[var(--slate-light)]"></span>Baseline</span>
+              </div>
+            </div>
+            <div class="h-[160px]">
+              <svg width="100%" height="100%" viewBox="0 0 600 160" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="gradFill" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stop-color="#6f4dff" stop-opacity="0.25"/>
+                    <stop offset="100%" stop-color="#6f4dff" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0,110 L40,100 L80,108 L120,95 L160,98 L200,85 L240,90 L280,75 L320,80 L360,70 L400,72 L440,65 L480,68 L520,55 L560,60 L600,52"
+                      stroke="#8b8ba8" stroke-width="2" stroke-dasharray="4 3" fill="none"/>
+                <path d="M0,110 L40,100 L80,108 L120,95 L160,82 L200,68 L240,72 L280,55 L320,58 L360,42 L400,38 L440,30 L480,32 L520,18 L560,22 L600,12 L600,160 L0,160 Z"
+                      fill="url(#gradFill)"/>
+                <path d="M0,110 L40,100 L80,108 L120,95 L160,82 L200,68 L240,72 L280,55 L320,58 L360,42 L400,38 L440,30 L480,32 L520,18 L560,22 L600,12"
+                      stroke="#6f4dff" stroke-width="2.5" fill="none"/>
+                <line x1="160" y1="0" x2="160" y2="160" stroke="#aa8fff" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+                <text x="166" y="20" font-family="Montserrat" font-size="10" fill="#6f4dff" font-weight="700">Rule starts</text>
+                <circle cx="600" cy="12" r="4" fill="#6f4dff"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- segment results -->
+          <div class="text-[11px] font-bold uppercase tracking-[0.06em] text-[var(--slate)] mb-3">Top firing segments</div>
+          <div class="bg-[var(--bg-alt)] border border-[var(--line)] rounded-[12px] overflow-hidden">
+            <div class="bg-white grid gap-3 px-4 py-3 text-[11px] font-bold uppercase tracking-[0.06em] text-[var(--slate-light)] border-b border-[var(--line)]"
+                 style="grid-template-columns:2fr 1fr 1fr 1fr">
+              <div>Segment</div><div>Triggers</div><div>Avg discount</div><div>Coverage</div>
+            </div>
+            {[
+              { name: 'Gold · Spring buyers',  triggers: '842', avg: '$31.40', pct: '78%' },
+              { name: 'Platinum · Returning',  triggers: '412', avg: '$48.20', pct: '55%' },
+              { name: 'Gold · First-time',     triggers: '252', avg: '$22.10', pct: '32%' },
+            ].map((row, i) => (
+              <div class={`grid gap-3 px-4 py-3 items-center text-[13px] ${i < 2 ? 'border-b border-[var(--line)]' : ''}`}
+                   style="grid-template-columns:2fr 1fr 1fr 1fr">
+                <div class="font-semibold">{row.name}</div>
+                <div class="font-bold">{row.triggers}</div>
+                <div class="font-bold">{row.avg}</div>
+                <div class="flex items-center gap-2">
+                  <div class="flex-1 h-[6px] bg-[var(--line)] rounded-full overflow-hidden">
+                    <div class="h-full rounded-full" style={`width:${row.pct};background:linear-gradient(90deg,var(--purple-deep),var(--purple))`}></div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div class="flex gap-2 mt-5">
+            <button class="flex-1 py-[11px] font-semibold text-[13px] bg-[var(--ink)] text-white rounded-[8px] cursor-pointer border-none">
+              Launch campaign →
+            </button>
+            <button class="px-[18px] py-[11px] font-semibold text-[13px] bg-white text-[var(--ink)] border border-[var(--line)] rounded-[8px] cursor-pointer">
+              Save as draft
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes simPulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.4; }
+  }
+  .sim-pulse { animation: simPulse 2s ease-in-out infinite; }
+</style>

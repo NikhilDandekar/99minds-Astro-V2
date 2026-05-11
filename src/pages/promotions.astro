@@ -1,0 +1,94 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumb from '../components/loyalty/Breadcrumb.astro';
+import TrustBar from '../components/loyalty/TrustBar.astro';
+import Comparison from '../components/Comparison.astro';
+import StatsBand from '../components/StatsBand.astro';
+import CaseStudy from '../components/CaseStudy.astro';
+import FAQ from '../components/FAQ.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+
+import PromotionsHero from '../components/promotions/PromotionsHero.astro';
+import CampaignSimulator from '../components/promotions/CampaignSimulator.astro';
+import CapabilityRows from '../components/promotions/CapabilityRows.astro';
+import PromoCodeSection from '../components/promotions/PromoCodeSection.astro';
+
+import { promotionsTrustItems } from '../config/trustbar';
+import { promotionsComparison } from '../config/comparison';
+import { promotionsStats } from '../config/statsband';
+import { promotionsCTA } from '../config/finalcta';
+---
+
+<Layout title="Promotions & Campaigns -- 99minds">
+  <Nav />
+
+  <Breadcrumb items={[
+    { label: 'Products', href: '#' },
+    { label: 'Promotions & Campaigns' },
+  ]} />
+
+  <PromotionsHero />
+
+  <TrustBar items={promotionsTrustItems} />
+
+  <CampaignSimulator />
+
+  <CapabilityRows />
+
+  <PromoCodeSection />
+
+  <Comparison config={promotionsComparison} />
+
+  <StatsBand config={promotionsStats} />
+
+  <CaseStudy
+    eyebrow="Customer Story"
+    title="How Verdant grew incremental margin 31%."
+    companyLogo="verdant"
+    quote='"We were quoted nine months for Talon.One. We launched on 99minds in three weeks. The ML personalization alone paid for the platform in the first quarter — we stopped throwing 25% at customers who would have bought at full price."'
+    authorInitials="PP"
+    authorName="Priya Patel"
+    authorRole="Director of Growth, Verdant"
+    resultsLabel="Results in first 6 months"
+    results={[
+      { num: '+31%',  desc: 'Incremental margin on promoted orders' },
+      { num: '-42%',  desc: 'Discount cost per order via ML targeting' },
+      { num: '147',   desc: 'A/B tests run in 6 months — most by marketing alone' },
+      { num: '3 wks', desc: 'From contract signed to first live campaign' },
+    ]}
+  />
+
+  <FAQ
+    eyebrow="Common questions"
+    title="Things buyers usually ask."
+    items={[
+      {
+        question: 'How does the ML personalization actually work?',
+        answer: "Our model trains on your full order history (typically 12-24 months) and calculates a discount sensitivity score per customer per category. At cart-evaluation time, we combine that score with cart context (LTV, recency, basket composition, channel) to recommend the smallest discount that maximizes expected incremental margin. Customers who'd buy anyway see no discount; wavering customers see exactly the nudge they need.",
+        open: true,
+      },
+      {
+        question: 'Can we migrate our existing Talon.One rules?',
+        answer: 'Yes. Our migration team has a proven playbook for translating Talon.One campaigns and rules into 99minds configs. Most rule sets translate 1:1 because the underlying logic is similar. We typically complete a full migration in 4-6 weeks, including parallel-running both systems to validate identical outputs before cutover.',
+      },
+      {
+        question: "What's the latency at the cart evaluation endpoint?",
+        answer: 'p50 of 38ms, p99 of 110ms, measured globally from edge nodes. We run multi-region active-active and our cart evaluation endpoint is colocated with the cart-state caches your checkout already uses. In practice, 99minds adds less to your checkout latency than your average product image lazy-load.',
+      },
+      {
+        question: 'How does pricing compare to Talon.One for an enterprise contract?',
+        answer: "Talon.One enterprise contracts typically start in the low-six-figures annually with significant implementation services on top. 99minds enterprise pricing starts around $2,500/month for the promotions engine alone, scaling on monthly evaluation volume. For a brand doing $50M GMV with active personalization, our customers typically save 60-75% versus a comparable Talon.One contract.",
+      },
+      {
+        question: 'Can promotions stack with loyalty points and gift cards?',
+        answer: 'Yes — and this is a key advantage of being on a unified platform. A customer can earn 2x loyalty points, redeem against a gift card balance, and apply a promo discount in the same checkout, with all stacking and exclusivity logic evaluated together. With Talon.One you would integrate three separate systems and maintain reconciliation logic yourself.',
+      },
+    ]}
+  />
+
+  <FinalCTA config={promotionsCTA} />
+
+  <Footer />
+</Layout>

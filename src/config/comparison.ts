@@ -14,6 +14,24 @@ export interface ComparisonConfig {
   rows: ComparisonRow[];
 }
 
+export const promotionsComparison: ComparisonConfig = {
+  eyebrow: 'Why teams switch from Talon.One',
+  title: 'The same depth. None of the implementation pain.',
+  lede: 'Talon.One is the gold standard for enterprise promotions — and we respect it. But for most mid-market and DTC brands, it\'s overpriced, overscoped, and over a year to deploy. We built the same engine you can ship in weeks.',
+  usLabel: '99minds',
+  competitorLabels: ['Talon.One', 'Voucherify'],
+  rows: [
+    { feature: 'Rule-based promotions engine',               us: true,         competitors: [true,              true] },
+    { feature: 'ML personalization (per-customer offers)',   us: true,         competitors: ['Predict add-on',  false] },
+    { feature: 'Native A/B testing with auto-significance',  us: true,         competitors: [true,              'Manual'] },
+    { feature: '30-day dry-run on real data',                us: true,         competitors: ['Sandbox only',    false] },
+    { feature: 'Couponless redemption',                      us: true,         competitors: [true,              'Limited'] },
+    { feature: 'Native gift cards + loyalty in same ledger', us: true,         competitors: [false,             false] },
+    { feature: 'Self-serve sandbox',                         us: true,         competitors: ['Sales call req.', true] },
+    { feature: 'Time-to-launch',                             us: '~21 days',   competitors: ['3-9 months',      '~30 days'], highlight: true },
+  ],
+};
+
 export const homepageComparison: ComparisonConfig = {
   eyebrow: 'Why teams switch',
   title: 'One vendor instead of four.',
