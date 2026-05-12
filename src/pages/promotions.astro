@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Breadcrumb from '../components/loyalty/Breadcrumb.astro';
-import TrustBar from '../components/loyalty/TrustBar.astro';
+import TrustBar from '../components/TrustBar.astro';
 import Comparison from '../components/Comparison.astro';
 import StatsBand from '../components/StatsBand.astro';
 import CaseStudy from '../components/CaseStudy.astro';
@@ -20,6 +20,7 @@ import { promotionsTrustItems } from '../config/trustbar';
 import { promotionsComparison } from '../config/comparison';
 import { promotionsStats } from '../config/statsband';
 import { promotionsCTA } from '../config/finalcta';
+import { promotionsCaseStudy } from '../config/casestudy';
 ---
 
 <Layout title="Promotions & Campaigns -- 99minds">
@@ -44,22 +45,7 @@ import { promotionsCTA } from '../config/finalcta';
 
   <StatsBand config={promotionsStats} />
 
-  <CaseStudy
-    eyebrow="Customer Story"
-    title="How Verdant grew incremental margin 31%."
-    companyLogo="verdant"
-    quote='"We were quoted nine months for Talon.One. We launched on 99minds in three weeks. The ML personalization alone paid for the platform in the first quarter — we stopped throwing 25% at customers who would have bought at full price."'
-    authorInitials="PP"
-    authorName="Priya Patel"
-    authorRole="Director of Growth, Verdant"
-    resultsLabel="Results in first 6 months"
-    results={[
-      { num: '+31%',  desc: 'Incremental margin on promoted orders' },
-      { num: '-42%',  desc: 'Discount cost per order via ML targeting' },
-      { num: '147',   desc: 'A/B tests run in 6 months — most by marketing alone' },
-      { num: '3 wks', desc: 'From contract signed to first live campaign' },
-    ]}
-  />
+  <CaseStudy config={promotionsCaseStudy} />
 
   <FAQ
     eyebrow="Common questions"

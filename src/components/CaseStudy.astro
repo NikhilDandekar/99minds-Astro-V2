@@ -1,49 +1,25 @@
 ---
-export interface Result {
-  num: string;
-  desc: string;
+import type { CaseStudyConfig } from '../config/casestudy';
+import { giftCardCaseStudy } from '../config/casestudy';
+
+export interface Props extends CaseStudyConfig {
+  config?: CaseStudyConfig;
 }
 
-export interface Props {
-  eyebrow?: string;
-  title?: string;
-  companyLogo?: string;
-  quote?: string;
-  authorInitials?: string;
-  authorName?: string;
-  authorRole?: string;
-  resultsLabel?: string;
-  results?: Result[];
-}
+const { config, ...rest } = Astro.props;
+const merged = { ...giftCardCaseStudy, ...rest, ...(config ?? {}) };
 
 const {
-  eyebrow = 'Customer Story',
-  title = 'How Northwind cut refunds by 41%.',
-  companyLogo = 'NORTHWIND',
-  quote = `"Within 90 days of switching to 99minds, our refund-to-credit conversion hit 64%. We saved $1.2M in cash that would've left the business — and our customers were happier because they got value back instantly."`,
-  authorInitials = 'RC',
-  authorName = 'Rachel Chen',
-  authorRole = 'VP Customer Experience, Northwind Retail',
-  resultsLabel = 'Results in first 90 days',
-  results = [
-    {
-      num: '$1.2M',
-      desc: 'In refunds converted to store credit',
-    },
-    {
-      num: '64%',
-      desc: 'Of customers chose credit + 15% bonus',
-    },
-    {
-      num: '1.4×',
-      desc: 'LTV uplift on credit-redeeming customers',
-    },
-    {
-      num: '12 days',
-      desc: 'From kickoff to live in production',
-    },
-  ],
-} = Astro.props;
+  eyebrow,
+  title,
+  companyLogo,
+  quote,
+  authorInitials,
+  authorName,
+  authorRole,
+  resultsLabel,
+  results = [],
+} = merged;
 ---
 
 <section class="bg-[var(--bg-alt)] px-8 py-[120px] max-md:px-5 max-md:py-20">
@@ -96,7 +72,7 @@ const {
       </div>
 
       <!-- Right -->
-      <div class="flex flex-col bg-[var(--bg-alt)] p-14 max-md:p-8">
+      <div class="bg-[#0a0a23] bg-[radial-gradient(circle_at_top_right,rgba(0,212,255,0.2),transparent_60%)] flex flex-col  p-14 max-md:p-8">
 
         <div class="mb-8 text-[12px] font-bold uppercase tracking-[0.1em] text-[var(--slate-light)]">
           {resultsLabel}
@@ -105,10 +81,10 @@ const {
         <div class="flex flex-col">
           {results.map((result) => (
             <div
-              class="flex items-center gap-5 border-b border-[var(--line)] py-5 last:border-b-0"
+              class="flex items-center gap-5 border-b border-[var(--line)] py-6 last:border-b-0"
             >
               <div
-                class="min-w-[80px] text-[36px] font-extrabold leading-none tracking-[-0.03em] text-[var(--purple-deep)]"
+                class="min-w-[80px] text-[36px] font-extrabold leading-none tracking-[-0.03em] bg-clip-text text-transparent bg-gradient-to-b from-white to-[var(--purple-light)]"
               >
                 {result.num}
               </div>

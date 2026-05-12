@@ -8,13 +8,14 @@ import CardDesigner from '../components/giftcard/CardDesigner.astro';
 import DeveloperSection from '../components/DeveloperSection.astro';
 import { giftCardDeveloper } from '../config/developersection';
 import FraudCompliance from '../components/giftcard/FraudCompliance.astro';
-import TrustBar from '../components/loyalty/TrustBar.astro';
+import TrustBar from '../components/TrustBar.astro';
 import { giftCardTrustItems } from '../config/trustbar';
 import Comparison from '../components/Comparison.astro';
 import { giftCardComparison } from '../config/comparison';
 import StatsBand from '../components/StatsBand.astro';
 import { giftCardStats } from '../config/statsband';
 import CaseStudy from "../components/CaseStudy.astro";
+import { giftCardCaseStudy } from '../config/casestudy';
 import FAQ from "../components/FAQ.astro";
 import FinalCTA from '../components/FinalCTA.astro';
 import { giftCardCTA } from '../config/finalcta';
@@ -53,7 +54,7 @@ const GiftCardFAQ = [
 
   <StatsBand config={giftCardStats} />
 
-  <CaseStudy />
+  <CaseStudy config={giftCardCaseStudy} />
 
   <FAQ
     eyebrow="Invoice Generator FAQ"

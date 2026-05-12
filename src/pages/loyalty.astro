@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Breadcrumb from '../components/loyalty/Breadcrumb.astro';
 import ProductHero from '../components/loyalty/ProductHero.astro';
-import TrustBar from '../components/loyalty/TrustBar.astro';
+import TrustBar from '../components/TrustBar.astro';
 import RulesBuilder from '../components/loyalty/RulesBuilder.astro';
 import CapabilityRow from '../components/loyalty/CapabilityRow.astro';
 import DeveloperSection from '../components/DeveloperSection.astro';
@@ -13,7 +13,8 @@ import Comparison from '../components/Comparison.astro';
 import { loyaltyComparison } from '../config/comparison';
 import StatsBand from '../components/StatsBand.astro';
 import { loyaltyStats } from '../config/statsband';
-import CaseStudy from '../components/loyalty/CaseStudy.astro';
+import CaseStudy from '../components/CaseStudy.astro';
+import { loyaltyCaseStudy } from '../config/casestudy';
 import FAQ from '../components/FAQ.astro';
 import FinalCTA from '../components/FinalCTA.astro';
 import { loyaltyCTA } from '../config/finalcta';
@@ -106,7 +107,7 @@ import Footer from '../components/Footer.astro';
 
   <StatsBand config={loyaltyStats} />
 
-  <CaseStudy />
+  <CaseStudy config={loyaltyCaseStudy} />
 
   <FAQ />
 
