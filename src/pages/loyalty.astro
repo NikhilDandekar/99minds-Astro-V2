@@ -3,11 +3,11 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Breadcrumb from '../components/loyalty/Breadcrumb.astro';
 import ProductHero from '../components/loyalty/ProductHero.astro';
-import LoyaltyHero from '../components/loyalty/LoyaltyHero.astro';
 import TrustBar from '../components/loyalty/TrustBar.astro';
 import RulesBuilder from '../components/loyalty/RulesBuilder.astro';
 import CapabilityRow from '../components/loyalty/CapabilityRow.astro';
-import CodeSection from '../components/loyalty/CodeSection.astro';
+import DeveloperSection from '../components/DeveloperSection.astro';
+import { loyaltyDeveloper } from '../config/developersection';
 import UnifiedMoat from '../components/loyalty/UnifiedMoat.astro';
 import Comparison from '../components/Comparison.astro';
 import { loyaltyComparison } from '../config/comparison';
@@ -32,7 +32,6 @@ import Footer from '../components/Footer.astro';
       { label: 'Loyalty Engine' },
     ]}
   />
-  <!--<LoyaltyHero />-->
   <ProductHero
     pill="Loyalty Engine"
     title="Loyalty that"
@@ -99,7 +98,7 @@ import Footer from '../components/Footer.astro';
     </div>
   </section>
 
-  <CodeSection />
+  <DeveloperSection config={loyaltyDeveloper} />
 
   <UnifiedMoat />
 

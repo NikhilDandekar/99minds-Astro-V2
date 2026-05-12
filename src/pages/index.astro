@@ -7,7 +7,8 @@ import UnifiedPlatform from '../components/UnifiedPlatform.astro';
 import Features from '../components/Features.astro';
 import Comparison from '../components/Comparison.astro';
 import { homepageComparison } from '../config/comparison';
-import Developers from '../components/Developers.astro';
+import DeveloperSection from '../components/DeveloperSection.astro';
+import { homepageDeveloper } from '../config/developersection';
 import Industries from '../components/Industries.astro';
 import StatsBand from '../components/StatsBand.astro';
 import { homepageStats } from '../config/statsband';
@@ -24,7 +25,7 @@ import Footer from '../components/Footer.astro';
   <UnifiedPlatform />
   <Features />
   <Comparison config={homepageComparison} />
-  <Developers />
+  <DeveloperSection config={homepageDeveloper} />
   <Industries />
   <StatsBand config={homepageStats} />
   <Testimonial />

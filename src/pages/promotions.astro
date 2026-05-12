@@ -13,7 +13,8 @@ import FinalCTA from '../components/FinalCTA.astro';
 import PromotionsHero from '../components/promotions/PromotionsHero.astro';
 import CampaignSimulator from '../components/promotions/CampaignSimulator.astro';
 import CapabilityRows from '../components/promotions/CapabilityRows.astro';
-import PromoCodeSection from '../components/promotions/PromoCodeSection.astro';
+import DeveloperSection from '../components/DeveloperSection.astro';
+import { promotionsDeveloper } from '../config/developersection';
 
 import { promotionsTrustItems } from '../config/trustbar';
 import { promotionsComparison } from '../config/comparison';
@@ -37,7 +38,7 @@ import { promotionsCTA } from '../config/finalcta';
 
   <CapabilityRows />
 
-  <PromoCodeSection />
+  <DeveloperSection config={promotionsDeveloper} />
 
   <Comparison config={promotionsComparison} />
 

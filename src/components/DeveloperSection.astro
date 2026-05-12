@@ -1,0 +1,78 @@
+---
+import type { DeveloperSectionConfig } from '../config/developersection';
+import { homepageDeveloper } from '../config/developersection';
+
+export interface Props { config?: DeveloperSectionConfig; }
+
+const { config = homepageDeveloper } = Astro.props;
+const {
+  eyebrow, headingBefore, gradientText, headingAfter = '',
+  lede, callouts, tabs, activeTab = 0, codeHtml,
+} = config;
+---
+
+<section class="py-[120px] px-8 max-sm:py-20 max-sm:px-5 bg-[var(--ink)] text-white relative overflow-hidden">
+
+  <!-- radial overlays -->
+  <div class="absolute inset-0 pointer-events-none"
+       style="background:radial-gradient(ellipse at top right,rgba(170,143,255,0.18) 0%,transparent 50%),radial-gradient(ellipse at bottom left,rgba(0,212,255,0.1) 0%,transparent 50%)">
+  </div>
+
+  <div class="relative max-w-[1280px] mx-auto grid grid-cols-1 lg:[grid-template-columns:1fr_1.1fr] gap-16 items-center">
+
+    <!-- left: text + callouts -->
+    <div>
+      <div class="text-[13px] font-bold text-[var(--purple-light)] uppercase tracking-[0.1em] mb-4">{eyebrow}</div>
+      <h2 class="text-[clamp(32px,4vw,52px)] font-bold tracking-[-0.03em] leading-[1.05] text-white mb-5">
+        {headingBefore}<span style="background:linear-gradient(120deg,var(--purple-light),var(--accent-cyan));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">{gradientText}</span>{headingAfter}
+      </h2>
+      <p class="text-[19px] leading-[1.55] mb-8" style="color:rgba(255,255,255,0.65)">{lede}</p>
+
+      <div class="flex flex-col gap-6">
+        {callouts.map(c => (
+          <div class="flex gap-4 items-start">
+            <div class="w-9 h-9 rounded-[10px] flex items-center justify-center shrink-0"
+                 style="background:rgba(170,143,255,0.15);border:1px solid rgba(170,143,255,0.3);color:var(--purple-light)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" set:html={c.icon} />
+            </div>
+            <div>
+              <h4 class="text-[16px] font-bold text-white mb-1">{c.title}</h4>
+              <p class="text-[14px] leading-[1.55]" style="color:rgba(255,255,255,0.65)">{c.body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- right: code snippet card -->
+    <div class="rounded-[16px] overflow-hidden border"
+         style="background:#1a1a3e;border-color:rgba(255,255,255,0.08);box-shadow:0 24px 60px -20px rgba(0,0,0,0.5)">
+      <!-- tabs -->
+      <div class="flex gap-[2px] border-b p-1 pb-0 dev-tab-bar" style="background:rgba(0,0,0,0.3);border-color:rgba(255,255,255,0.06)">
+        {tabs.map((tab, i) => (
+          <button class={`dev-tab-btn px-[14px] py-[10px] font-mono text-[11px] rounded-t-[8px] border-none cursor-pointer transition-all ${i === activeTab ? 'bg-[#1a1a3e] text-[var(--purple-light)]' : 'bg-transparent text-white/40'}`}>
+            {tab}
+          </button>
+        ))}
+      </div>
+      <!-- code body -->
+      <div class="px-7 py-6 font-mono text-[12.5px] leading-[1.75] min-h-[380px]" style="color:#e0e0ff" set:html={codeHtml} />
+    </div>
+
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('.dev-tab-bar').forEach(bar => {
+    bar.querySelectorAll('.dev-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        bar.querySelectorAll('.dev-tab-btn').forEach(t => {
+          t.classList.remove('bg-[#1a1a3e]', 'text-[var(--purple-light)]');
+          t.classList.add('bg-transparent', 'text-white/40');
+        });
+        btn.classList.add('bg-[#1a1a3e]', 'text-[var(--purple-light)]');
+        btn.classList.remove('bg-transparent', 'text-white/40');
+      });
+    });
+  });
+</script>
