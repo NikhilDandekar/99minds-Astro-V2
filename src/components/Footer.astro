@@ -10,6 +10,7 @@ const footerCols = [
       { label: 'Loyalty Engine', href: '/loyalty' },
       { label: 'Promotions', href: '/promotions' },
       { label: 'Wallet Passes', href: '/wallet-passes' },
+      { label: 'Agentic Commerce ★', href: '/agentic-commerce', color:'text-[#7EF1C5]'},
     ],
   },
   {
@@ -75,12 +76,21 @@ const footerCols = [
           <ul class="list-none">
             {col.links.map(link => (
               <li class="mb-2.5">
-                <a
+                <!--<a
                   href={link.href}
                   class="text-white/55 no-underline text-sm transition-colors duration-200 hover:text-white"
                 >
                   {link.label}
-                </a>
+                </a>-->
+                <a
+                    href={link.href}
+                    class:list={[
+                      'no-underline text-sm transition-colors duration-200 hover:text-white',
+                      link.color || 'text-white/55',
+                    ]}
+                  >
+                    {link.label}
+                  </a>
               </li>
             ))}
           </ul>

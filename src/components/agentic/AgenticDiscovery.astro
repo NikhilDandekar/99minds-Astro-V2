@@ -1,0 +1,97 @@
+---
+---
+
+<section class="overflow-hidden bg-[var(--bg-alt)] px-8 py-[120px] max-md:px-5 max-md:py-20">
+  <div class="mx-auto max-w-[1280px]">
+    <div class="grid gap-16 items-center lg:grid-cols-[1fr_1.1fr]">
+
+      <!-- Text -->
+      <div>
+        <div class="mb-5 inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 font-mono text-[12px] font-semibold text-[var(--purple-deep)]" style="background: linear-gradient(135deg, rgba(0,255,136,0.1), rgba(170,143,255,0.1)); border-color: rgba(170,143,255,0.3);">
+          // LAYER 01 · DISCOVERABILITY
+        </div>
+        <h3 class="mb-5 font-semibold leading-[1.05] tracking-[-0.025em] text-[var(--ink)]" style="font-family: 'Fraunces', Georgia, serif; font-size: 42px;">
+          The new SEO is <em style="font-style: italic; background: linear-gradient(120deg, var(--purple-deep), var(--accent-cyan)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">AI Optimization</em>.
+        </h3>
+        <p class="mb-5 text-[16px] leading-[1.65] text-[var(--slate)]">
+          When someone asks Claude "what's the best DTC coffee brand with a loyalty program in NYC," the model doesn't query Google. It synthesizes from training data, real-time search, and structured Product schemas. Brands without AI-optimized data are invisible.
+        </p>
+        <p class="text-[16px] leading-[1.65] text-[var(--slate)]">
+          99minds gives you the AIO layer most loyalty platforms don't even know exists yet — <strong class="font-bold text-[var(--ink)]">structured Product/Offer schemas, llms.txt brand files, real-time offer feeds, and entity resolution against the major AI knowledge graphs</strong>.
+        </p>
+
+        <ul class="mt-7 space-y-0">
+          {[
+            { n: '// 01', text: '<strong>AI-ready Product schema</strong> generated automatically for every gift card, loyalty perk, and active promotion in your account. Indexed by ChatGPT, Perplexity, and Google AI Overviews within 24 hours of publish.' },
+            { n: '// 02', text: '<strong>Brand fact file</strong> at <code>yourbrand.com/llms.txt</code> with your tier structure, perk values, redemption rules, and current offers — written in the format AI engines actually consume.' },
+            { n: '// 03', text: '<strong>Real-time inventory + offer feeds</strong> for OpenAI\'s product index, Perplexity Shopping, and emerging agent marketplaces. Your active promo updates in their results within minutes.' },
+            { n: '// 04', text: '<strong>Citation analytics</strong> — see exactly which AI engines are recommending your brand, for what queries, and how those recommendations convert to bookings.' },
+          ].map(b => (
+            <li class="flex gap-3.5 border-t border-[var(--line)] py-3 text-[14px] leading-[1.6] text-[var(--slate)] first:border-t-0">
+              <span class="shrink-0 w-7 pt-0.5 font-mono text-[11px] font-bold text-[var(--purple-deep)]">{b.n}</span>
+              <span set:html={b.text} />
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Discovery visual -->
+      <div class="overflow-hidden rounded-[20px] border border-[var(--line)] bg-white shadow-[0_24px_60px_-20px_rgba(10,10,35,0.12)]">
+
+        <!-- Toolbar -->
+        <div class="flex items-center gap-2.5 border-b border-[var(--line)] bg-[var(--bg-alt)] px-4 py-3.5">
+          <div class="flex h-6 w-6 items-center justify-center rounded-[6px] text-[12px] font-extrabold text-[var(--ink)]" style="background: linear-gradient(135deg, var(--neon-green), var(--neon-cyan));">P</div>
+          <div class="flex-1 rounded-[6px] border border-[var(--line)] bg-white px-3 py-1.5 font-mono text-[12px] text-[var(--ink)]">
+            best gift card for a foodie under $50<span class="dt-cursor inline-block w-0.5 h-3 bg-[var(--purple-deep)] align-middle ml-0.5"></span>
+          </div>
+        </div>
+
+        <!-- Body -->
+        <div class="p-6">
+          <div class="mb-4 rounded-[6px] border-l-[3px] border-[var(--purple-deep)] bg-[rgba(170,143,255,0.08)] px-3.5 py-3 text-[12px] italic leading-[1.5] text-[var(--slate)]">
+            <strong class="font-semibold not-italic text-[var(--purple-deep)]">Searching across:</strong> brand directories, Product schemas, real-time offer feeds, customer reviews, llms.txt fact files. Found 12 candidates.
+          </div>
+
+          <!-- Featured result -->
+          <div class="mb-2.5 cursor-pointer rounded-xl border-2 border-[var(--purple-deep)] p-3.5 shadow-[0_8px_24px_-8px_rgba(111,77,255,0.25)]" style="background: linear-gradient(135deg, var(--purple-pale), white);">
+            <div class="mb-2 flex items-start justify-between">
+              <div class="flex items-center gap-2 text-[14px] font-bold text-[var(--ink)]">
+                Northwind Provisions
+                <span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wide text-[var(--ink)]" style="background: linear-gradient(135deg, var(--neon-green), var(--neon-cyan));">★ Recommended</span>
+              </div>
+              <span class="text-[12px] font-semibold text-[var(--slate)]">★ 4.8</span>
+            </div>
+            <p class="mb-2.5 text-[12px] leading-[1.5] text-[var(--slate)]">$25–$500 · 24 categories · Apple Wallet ready · Free shipping over $35 · Currently: <strong class="font-semibold text-[var(--ink)]">+15% bonus on $50+</strong></p>
+            <div class="flex gap-2">
+              <button class="rounded-[6px] px-3 py-1.5 text-[11px] font-semibold text-[var(--ink)]" style="background: linear-gradient(135deg, var(--neon-green), var(--neon-cyan));">Buy now ($50)</button>
+              <button class="rounded-[6px] bg-[var(--ink)] px-3 py-1.5 text-[11px] font-semibold text-white">View details</button>
+            </div>
+          </div>
+
+          <!-- Non-featured results -->
+          {[
+            { name: 'Folio Market', rating: '★ 4.6', meta: '$20–$200 · 8 categories · Email delivery only' },
+            { name: 'Marquee & Co', rating: '★ 4.4', meta: '$50–$1,000 · 4 categories · 7-day delivery' },
+          ].map(r => (
+            <div class="mb-2.5 cursor-pointer rounded-xl border border-[var(--line)] p-3.5 transition-all hover:-translate-y-0.5 hover:border-[var(--purple-light)]">
+              <div class="mb-2 flex items-start justify-between">
+                <span class="text-[14px] font-bold text-[var(--ink)]">{r.name}</span>
+                <span class="text-[12px] font-semibold text-[var(--slate)]">{r.rating}</span>
+              </div>
+              <p class="text-[12px] leading-[1.5] text-[var(--slate)]">{r.meta}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .dt-cursor { animation: dtBlink 1s infinite; }
+  @keyframes dtBlink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+</style>

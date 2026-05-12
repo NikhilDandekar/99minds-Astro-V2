@@ -1,0 +1,86 @@
+---
+---
+
+<section class="bg-white px-8 py-[120px] max-md:px-5 max-md:py-20">
+  <div class="mx-auto max-w-[1280px]">
+
+    <!-- Header -->
+    <div class="max-w-[720px]">
+      <div class="mb-4 text-[13px] font-bold uppercase tracking-[0.1em] text-[var(--purple-deep)]">The three layers</div>
+      <h2 class="mb-5 font-bold leading-[1.05] tracking-[-0.03em] text-[var(--ink)]" style="font-size: clamp(32px, 4vw, 52px);">
+        Three ways AI changes <em style="font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 500;">your reward stack</em>.
+      </h2>
+      <p class="text-[19px] leading-[1.55] text-[var(--slate)]">
+        Agentic Commerce isn't one feature — it's three distinct shifts happening in parallel, each requiring different platform capabilities. We built for all three.
+      </p>
+    </div>
+
+    <!-- Cards -->
+    <div class="mt-10 grid gap-6 lg:grid-cols-3">
+
+      <!-- Pillar 01 -->
+      <div class="relative overflow-hidden rounded-[20px] border border-[var(--line)] bg-[var(--bg-alt)] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--purple-light)] hover:shadow-[0_20px_50px_-16px_rgba(111,77,255,0.18)] max-md:p-6">
+        <div class="mb-4 font-mono text-[12px] font-bold text-[var(--purple-deep)]">// 01</div>
+        <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-[14px] text-white" style="background: linear-gradient(135deg, var(--purple-deep), var(--purple));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </div>
+        <h3 class="mb-3 text-[24px] font-semibold leading-[1.15] tracking-[-0.015em] text-[var(--ink)]" style="font-family: 'Fraunces', Georgia, serif;">
+          Be discoverable by AI shoppers
+        </h3>
+        <p class="mb-6 text-[14px] leading-[1.6] text-[var(--slate)]">
+          When a user asks ChatGPT "best gift card for a foodie under $50," your brand needs to be in the response. And the answer needs to be acted on, not just cited.
+        </p>
+        <ul class="space-y-2 border-t border-[var(--line)] pt-5">
+          {['Schema.org Product + Offer markup, AI-optimized', 'llms.txt + llms-full.txt with brand-level fact files', 'Structured data feeds for OpenAI, Anthropic, Perplexity indexers', 'Real-time inventory + offer availability via API'].map(f => (
+            <li class="flex items-start gap-2.5 text-[13px] leading-[1.5] text-[var(--ink)]">
+              <span class="shrink-0 font-bold text-[var(--purple-deep)]">→</span>{f}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Pillar 02 -->
+      <div class="relative overflow-hidden rounded-[20px] border border-[var(--line)] bg-[var(--bg-alt)] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--purple-light)] hover:shadow-[0_20px_50px_-16px_rgba(111,77,255,0.18)] max-md:p-6">
+        <div class="mb-4 font-mono text-[12px] font-bold text-[var(--purple-deep)]">// 02</div>
+        <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-[14px] text-white" style="background: linear-gradient(135deg, var(--accent-coral), var(--accent-gold));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <h3 class="mb-3 text-[24px] font-semibold leading-[1.15] tracking-[-0.015em] text-[var(--ink)]" style="font-family: 'Fraunces', Georgia, serif;">
+          Embed your rewards in your AI assistant
+        </h3>
+        <p class="mb-6 text-[14px] leading-[1.6] text-[var(--slate)]">
+          Building your own brand AI? Customers want to ask it: "what's my point balance? Apply my best offer. Send a $50 eGift to Sarah." All of that should just work.
+        </p>
+        <ul class="space-y-2 border-t border-[var(--line)] pt-5">
+          {['Pre-built tool definitions for 40+ commerce intents', 'Authenticated customer context — no account-mixing', 'Deterministic responses for receipts, balances, redemptions', 'Drop-in components for OpenAI Assistants, Vercel AI SDK, LangChain'].map(f => (
+            <li class="flex items-start gap-2.5 text-[13px] leading-[1.5] text-[var(--ink)]">
+              <span class="shrink-0 font-bold text-[var(--purple-deep)]">→</span>{f}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Pillar 03 -->
+      <div class="relative overflow-hidden rounded-[20px] border border-[var(--line)] bg-[var(--bg-alt)] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--purple-light)] hover:shadow-[0_20px_50px_-16px_rgba(111,77,255,0.18)] max-md:p-6">
+        <div class="mb-4 font-mono text-[12px] font-bold text-[var(--purple-deep)]">// 03</div>
+        <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-[14px] text-white" style="background: linear-gradient(135deg, var(--accent-cyan), #4a9eff);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3 class="mb-3 text-[24px] font-semibold leading-[1.15] tracking-[-0.015em] text-[var(--ink)]" style="font-family: 'Fraunces', Georgia, serif;">
+          Be programmable for any agent stack
+        </h3>
+        <p class="mb-6 text-[14px] leading-[1.6] text-[var(--slate)]">
+          Don't bet on a single AI vendor. Be agent-stack-agnostic by exposing your rewards through MCP — the open protocol that any model from any vendor can speak.
+        </p>
+        <ul class="space-y-2 border-t border-[var(--line)] pt-5">
+          {['Native MCP server, hosted or self-hosted', '40+ exposed tools: gift cards, points, store credit, promos, wallet', 'Per-tool scopes, rate limits, and full audit trails', 'One implementation. Every agent platform.'].map(f => (
+            <li class="flex items-start gap-2.5 text-[13px] leading-[1.5] text-[var(--ink)]">
+              <span class="shrink-0 font-bold text-[var(--purple-deep)]">→</span>{f}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>

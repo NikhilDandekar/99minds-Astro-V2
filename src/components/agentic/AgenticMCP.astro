@@ -1,0 +1,94 @@
+---
+---
+
+<section class="relative overflow-hidden bg-[var(--ink)] px-8 py-[120px] text-white max-md:px-5 max-md:py-20">
+  <!-- Background radial glows -->
+  <div class="pointer-events-none absolute inset-0" style="background: radial-gradient(ellipse at top right, rgba(170,143,255,0.18) 0%, transparent 50%), radial-gradient(ellipse at bottom left, rgba(0,240,255,0.12) 0%, transparent 50%);"></div>
+
+  <div class="relative mx-auto max-w-[1280px]">
+    <div class="grid gap-16 items-center lg:grid-cols-2">
+
+      <!-- Text -->
+      <div>
+        <div class="mb-4 text-[13px] font-bold uppercase tracking-[0.1em] text-[var(--purple-light)]">// LAYER 03 · MCP PROTOCOL LAYER</div>
+        <h3 class="mb-5 font-semibold leading-[1.05] tracking-[-0.025em] text-white" style="font-family: 'Fraunces', Georgia, serif; font-size: 42px;">
+          The <em style="font-style: italic; background: linear-gradient(120deg, var(--neon-green), var(--neon-cyan)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Model Context Protocol</em> for rewards.
+        </h3>
+        <p class="mb-5 text-[16px] leading-[1.65]" style="color: rgba(255,255,255,0.7);">
+          MCP (Model Context Protocol) is the open standard from Anthropic that lets any AI agent — Claude, GPT, Gemini, open-source — discover and call tools across your stack. It's becoming the USB-C of AI integrations.
+        </p>
+        <p class="text-[16px] leading-[1.65]" style="color: rgba(255,255,255,0.7);">
+          99minds runs a <strong class="font-bold text-white">native MCP server</strong> that exposes your entire rewards platform as a typed, discoverable, authenticated set of tools. Drop our endpoint into any MCP-compatible agent and it immediately knows how to issue gift cards, query loyalty, and redeem promos. <strong class="font-bold text-white">One integration. Every agent platform. Now and forever.</strong>
+        </p>
+
+        <!-- Tools list -->
+        <div class="mt-6 flex flex-col gap-3">
+          {[
+            { icon: '<rect x="3" y="6" width="18" height="13" rx="2"/>', name: 'gift_card.create', desc: 'Issue an eGift' },
+            { icon: '<path d="M12 2l2.5 7h7l-5.5 4.5 2 7L12 16l-6 4.5 2-7L2.5 9h7z"/>', name: 'loyalty.balance', desc: 'Query points + tier' },
+            { icon: '<circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/>', name: 'promotion.apply', desc: 'Evaluate & apply best offer' },
+            { icon: '<rect x="6" y="2" width="12" height="20" rx="2"/>', name: 'wallet.push_update', desc: 'Update Apple/Google pass' },
+          ].map(t => (
+            <div class="flex items-center gap-3.5 rounded-xl border px-4 py-3.5 transition-all hover:border-[rgba(170,143,255,0.25)] hover:bg-[rgba(170,143,255,0.08)]" style="background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08);">
+              <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-[8px] border" style="background: rgba(170,143,255,0.15); border-color: rgba(170,143,255,0.3); color: var(--purple-light);">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" set:html={t.icon} />
+              </div>
+              <div class="flex-1 font-mono text-[13px] font-semibold" style="color: var(--neon-cyan);">{t.name}</div>
+              <div class="text-[12px]" style="color: rgba(255,255,255,0.55);">{t.desc}</div>
+            </div>
+          ))}
+          <div class="flex items-center gap-3.5 rounded-xl border px-4 py-3.5 opacity-70" style="background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08);">
+            <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-[8px] border text-[14px] font-bold" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: rgba(255,255,255,0.4);">+</div>
+            <div class="flex-1 font-mono text-[13px] font-semibold" style="color: var(--neon-cyan);">36 more tools</div>
+            <div class="text-[12px]" style="color: rgba(255,255,255,0.55);">Full catalog in docs</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Terminal -->
+      <div class="overflow-hidden rounded-2xl shadow-[0_24px_60px_-20px_rgba(0,0,0,0.5)]" style="background: #0a0a16; border: 1px solid rgba(170,143,255,0.2);">
+        <!-- Terminal header -->
+        <div class="flex items-center gap-2 border-b px-4 py-3" style="background: rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.06);">
+          <span class="h-[11px] w-[11px] rounded-full bg-[#ff5f57]"></span>
+          <span class="h-[11px] w-[11px] rounded-full bg-[#febc2e]"></span>
+          <span class="h-[11px] w-[11px] rounded-full bg-[#28c840]"></span>
+          <span class="ml-3 font-mono text-[11px]" style="color: rgba(255,255,255,0.5);">claude --mcp 99minds</span>
+        </div>
+        <!-- Terminal body -->
+        <div class="min-h-[420px] px-7 py-6 font-mono text-[12.5px] leading-[1.75]" style="color: #e0e0ff;">
+          <div><span style="color: rgba(255,255,255,0.35); font-style: italic;"># Add 99minds MCP server to your Claude / OpenAI / any agent</span></div>
+          <div><span style="color: var(--neon-green);">$</span> claude mcp add 99minds <span style="color: var(--neon-green);">https://mcp.99minds.com</span></div>
+          <div>&nbsp;</div>
+          <div><span style="color: rgba(255,255,255,0.35); font-style: italic;"># Discover tools (zero-config)</span></div>
+          <div><span style="color: var(--neon-green);">$</span> claude mcp list-tools 99minds</div>
+          <div class="my-2 rounded border-l-2 px-3 py-2" style="background: rgba(0,255,136,0.08); border-color: var(--neon-green); color: rgba(255,255,255,0.85);">
+            <div>✓ <span style="color: var(--neon-cyan);">gift_card.create</span>{'     '}Issue an eGift</div>
+            <div>✓ <span style="color: var(--neon-cyan);">gift_card.balance</span>{'    '}Check card balance</div>
+            <div>✓ <span style="color: var(--neon-cyan);">loyalty.balance</span>{'      '}Get points & tier</div>
+            <div>✓ <span style="color: var(--neon-cyan);">loyalty.tier_status</span>{'  '}Tier benefits + progress</div>
+            <div>✓ <span style="color: var(--neon-cyan);">promotion.apply</span>{'      '}Evaluate best offer</div>
+            <div>✓ <span style="color: var(--neon-cyan);">promotion.simulate</span>{'   '}Preview a campaign</div>
+            <div>✓ <span style="color: var(--neon-cyan);">store_credit.issue</span>{'   '}Refund-as-credit</div>
+            <div>✓ <span style="color: var(--neon-cyan);">wallet.create_pass</span>{'   '}Apple/Google Wallet</div>
+            <div style="color: rgba(255,255,255,0.5);">... 32 more</div>
+          </div>
+          <div><span style="color: rgba(255,255,255,0.35); font-style: italic;"># Now any prompt can invoke them</span></div>
+          <div><span style="color: var(--neon-green);">$</span> claude <span style="color: var(--neon-green);">"Send Ada a $50 birthday eGift"</span></div>
+          <div class="my-2 rounded border-l-2 px-3 py-2" style="background: rgba(0,255,136,0.08); border-color: var(--neon-green); color: rgba(255,255,255,0.85);">
+            <div>→ <span style="color: var(--neon-cyan);">gift_card.create</span>(</div>
+            <div>{'    '}<span style="color: #b8bfff;">customer</span>: <span style="color: var(--neon-green);">"cus_8KPq2x"</span>,</div>
+            <div>{'    '}<span style="color: #b8bfff;">amount</span>: <span style="color: var(--accent-gold);">5000</span>,</div>
+            <div>{'    '}<span style="color: #b8bfff;">recipient</span>: <span style="color: var(--neon-green);">"ada@example.com"</span>,</div>
+            <div>{'    '}<span style="color: #b8bfff;">message</span>: <span style="color: var(--neon-green);">"Happy birthday!"</span></div>
+            <div>{'  '})</div>
+            <div>&nbsp;</div>
+            <div>✓ Created gift card <span style="color: var(--neon-green);">gc_8x2K9q</span></div>
+            <div>✓ Email sent · Apple Wallet pass attached</div>
+            <div>✓ Audit log: <span style="color: var(--neon-green);">aud_4nL2pX</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

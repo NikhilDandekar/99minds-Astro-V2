@@ -20,6 +20,9 @@
     --accent-mint: #7ef0c5;
     --accent-coral: #ff8a7a;
     --accent-gold: #ffc060;
+    --neon-green: #00ff88;
+    --neon-cyan: #00f0ff;
+    --neon-purple: #b794ff;
   }
 
   html { scroll-behavior: smooth; }

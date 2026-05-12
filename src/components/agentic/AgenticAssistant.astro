@@ -1,0 +1,119 @@
+---
+---
+
+<section class="overflow-hidden bg-white px-8 py-[120px] max-md:px-5 max-md:py-20">
+  <div class="mx-auto max-w-[1280px]">
+    <div class="grid gap-16 items-center lg:grid-cols-2">
+
+      <!-- Brand agent visual (order-first on mobile) -->
+      <div class="order-last lg:order-first relative overflow-hidden rounded-[24px] p-6 text-white" style="background: linear-gradient(135deg, #0a0a23 0%, #1a1a3e 100%); box-shadow: 0 30px 60px -20px rgba(10,10,35,0.3);">
+        <div class="assistant-bg-orb absolute -top-1/2 -right-1/5 h-[400px] w-[400px] rounded-full pointer-events-none" style="background: radial-gradient(circle, rgba(170,143,255,0.2) 0%, transparent 60%);"></div>
+
+        <!-- Header -->
+        <div class="relative mb-5 flex items-center gap-3">
+          <div class="flex h-9 w-9 items-center justify-center rounded-[10px] text-[14px] font-extrabold text-white" style="font-family: 'Fraunces', serif; background: linear-gradient(135deg, var(--purple-deep), var(--purple));">N</div>
+          <div class="flex-1">
+            <div class="text-[14px] font-bold text-white">Northwind Concierge</div>
+            <div class="mt-0.5 flex items-center gap-1.5 text-[11px]" style="color: var(--neon-green);">
+              <span class="maf-dot h-1.5 w-1.5 rounded-full" style="background: var(--neon-green); box-shadow: 0 0 6px var(--neon-green);"></span>
+              Powered by 99minds
+            </div>
+          </div>
+        </div>
+
+        <!-- Messages -->
+        <div class="relative flex flex-col gap-3">
+
+          <div class="flex flex-row-reverse gap-2">
+            <div class="max-w-[80%] rounded-[14px] rounded-br-[4px] px-3.5 py-2.5 text-[13px] leading-[1.45] text-white" style="background: linear-gradient(135deg, var(--purple-deep), var(--purple));">
+              What's my points balance and what can I redeem?
+            </div>
+          </div>
+
+          <div class="flex gap-2">
+            <div class="max-w-[80%] rounded-[14px] rounded-bl-[4px] border px-3.5 py-2.5 text-[13px] leading-[1.45] text-white" style="background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.1);">
+              You have 8,420 points and $42.50 in store credit. Here's what you can redeem right now:
+              <div class="mt-2 rounded-xl p-3.5" style="background: linear-gradient(135deg, rgba(0,255,136,0.12), rgba(170,143,255,0.08)); border: 1px solid rgba(0,255,136,0.25);">
+                <div class="mb-2 text-[12px] font-bold uppercase tracking-wide" style="color: var(--neon-green);">Available Rewards</div>
+                {[
+                  ['$25 Store Credit', '2,500 pts'],
+                  ['Free Shipping (1 yr)', '5,000 pts'],
+                  ['Limited Edition Tote', '7,500 pts'],
+                  ['Studio Tour (Platinum)', 'Locked'],
+                ].map(([label, val]) => (
+                  <div class="flex justify-between py-0.5 text-[12px]" style="color: rgba(255,255,255,0.85);">
+                    <span>{label}</span><strong class="font-bold text-white">{val}</strong>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-row-reverse gap-2">
+            <div class="max-w-[80%] rounded-[14px] rounded-br-[4px] px-3.5 py-2.5 text-[13px] leading-[1.45] text-white" style="background: linear-gradient(135deg, var(--purple-deep), var(--purple));">
+              Send Sarah a $50 birthday eGift
+            </div>
+          </div>
+
+          <div class="flex gap-2">
+            <div class="max-w-[90%] rounded-[14px] rounded-bl-[4px] border px-3.5 py-2.5 text-[13px] leading-[1.45] text-white" style="background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.1);">
+              Done — sent to sarah@hex.co with a "Happy birthday" note. She'll get an email + Apple Wallet pass. You earned 50 bonus points for the referral.
+              <div class="mt-2 rounded-xl p-3.5" style="background: linear-gradient(135deg, rgba(0,255,136,0.12), rgba(170,143,255,0.08)); border: 1px solid rgba(0,255,136,0.25);">
+                <div class="mb-2 text-[12px] font-bold uppercase tracking-wide" style="color: var(--neon-green);">Receipt</div>
+                {[
+                  ['$50 eGift to Sarah', '−$50.00'],
+                  ['Charged to Visa ••4242', ''],
+                  ['Bonus points earned', '+50'],
+                ].map(([label, val]) => (
+                  <div class="flex justify-between py-0.5 text-[12px]" style="color: rgba(255,255,255,0.85);">
+                    <span>{label}</span>{val && <strong class="font-bold text-white">{val}</strong>}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div>
+        <div class="mb-5 inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 font-mono text-[12px] font-semibold text-[var(--purple-deep)]" style="background: linear-gradient(135deg, rgba(0,255,136,0.1), rgba(170,143,255,0.1)); border-color: rgba(170,143,255,0.3);">
+          // LAYER 02 · YOUR OWN ASSISTANT
+        </div>
+        <h3 class="mb-5 font-semibold leading-[1.05] tracking-[-0.025em] text-[var(--ink)]" style="font-family: 'Fraunces', Georgia, serif; font-size: 42px;">
+          Build your brand's <em style="font-style: italic; background: linear-gradient(120deg, var(--purple-deep), var(--accent-cyan)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">concierge AI</em>. We do the boring parts.
+        </h3>
+        <p class="mb-5 text-[16px] leading-[1.65] text-[var(--slate)]">
+          Every brand is going to ship an AI shopping assistant. The question is whether your assistant can actually <em>do anything</em> — or just chat about it.
+        </p>
+        <p class="text-[16px] leading-[1.65] text-[var(--slate)]">
+          99minds ships <strong class="font-bold text-[var(--ink)]">40+ ready-made commerce tool definitions</strong> for OpenAI Assistants, Vercel AI SDK, LangChain, LangGraph, and any MCP-compliant runtime. Drop them in. Your assistant can immediately check balances, apply offers, issue gift cards, redeem points, and process refunds-as-credit — with deterministic, audit-logged responses.
+        </p>
+
+        <ul class="mt-7 space-y-0">
+          {[
+            { n: '// 01', text: '<strong>40+ pre-built tools</strong> spanning gift cards, store credit, loyalty (balance, redemption, tier inquiry), promotions (apply, list, simulate), and wallet pass operations.' },
+            { n: '// 02', text: '<strong>Authenticated customer context</strong>. Every tool call carries the verified customer ID, so your AI never confuses Alice\'s loyalty balance with Bob\'s.' },
+            { n: '// 03', text: '<strong>Deterministic outputs</strong>. AI is creative; ledgers must not be. Our tool responses are structured JSON with stable schemas — perfect for chained agent workflows.' },
+            { n: '// 04', text: '<strong>Hallucination guards</strong>. The model can\'t "imagine" offers that don\'t exist or balances the customer doesn\'t have. Every value comes from the real ledger.' },
+          ].map(b => (
+            <li class="flex gap-3.5 border-t border-[var(--line)] py-3 text-[14px] leading-[1.6] text-[var(--slate)] first:border-t-0">
+              <span class="shrink-0 w-7 pt-0.5 font-mono text-[11px] font-bold text-[var(--purple-deep)]">{b.n}</span>
+              <span set:html={b.text} />
+            </li>
+          ))}
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .maf-dot { animation: mafPulse 2s ease-in-out infinite; }
+  @keyframes mafPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+</style>

@@ -67,6 +67,24 @@ export const loyaltyComparison: ComparisonConfig = {
   ],
 };
 
+export const agenticComparison: ComparisonConfig = {
+  eyebrow: '// VS THE COMPETITION',
+  title: 'Built for agentic commerce, not retrofitted.',
+  lede: "Talon.One launched an Agentic Commerce page. So did a few others. Here's the honest difference.",
+  usLabel: '99minds',
+  competitorLabels: ['Talon.One', 'Antavo / Yotpo'],
+  rows: [
+    { feature: 'Native MCP server',                              us: true,      competitors: ['Roadmap',      false] },
+    { feature: 'Pre-built agent tool definitions',               us: '40+',     competitors: ['Limited',      false] },
+    { feature: 'AI-discoverable Product schema',                 us: true,      competitors: [false,          false] },
+    { feature: 'llms.txt brand fact files',                      us: true,      competitors: [false,          false] },
+    { feature: 'Gift cards + loyalty + promos in one MCP',       us: true,      competitors: ['Promos only',  'Loyalty only'] },
+    { feature: 'Per-tool audit logs & rate limits',              us: true,      competitors: [true,           false] },
+    { feature: 'Citation analytics (which AI cites you)',        us: true,      competitors: [false,          false] },
+    { feature: 'Time to live MCP integration',                   us: '~1 day',  competitors: ['~3 weeks',     'N/A'], highlight: true },
+  ],
+};
+
 export const giftCardComparison: ComparisonConfig = {
   eyebrow: 'Why teams switch from Rise.ai & Blackhawk',
   title: 'Built for the modern stack.',

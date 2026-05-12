@@ -1,0 +1,57 @@
+---
+---
+
+<section class="px-8 py-[120px] max-md:px-5 max-md:py-20" style="background: linear-gradient(180deg, #ffffff 0%, #fafaff 100%); overflow: hidden;">
+  <div class="mx-auto max-w-[1280px]">
+
+    <!-- Header -->
+    <div class="max-w-[720px]">
+      <div class="mb-4 text-[13px] font-bold uppercase tracking-[0.1em] text-[var(--purple-deep)]">The thesis</div>
+      <h2 class="mb-5 font-bold leading-[1.05] tracking-[-0.03em] text-[var(--ink)]" style="font-size: clamp(32px, 4vw, 52px);">
+        Commerce just got <em style="font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 500;">a new kind of buyer</em>.
+      </h2>
+      <p class="text-[19px] leading-[1.55] text-[var(--slate)]">
+        For thirty years, we built websites for humans. Then mobile apps. Then chatbots. The next surface is here, and it doesn't look at pixels — it reads APIs, compares structured data, and makes purchase decisions in milliseconds. Your brand is either set up for it, or it's invisible to it.
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="mt-16 flex flex-col">
+
+      {[
+        {
+          num: '700M+',
+          title: 'People are already using AI to research purchases.',
+          body: 'ChatGPT alone has over 700 million weekly active users. A growing share of them ask "find me X" before they ask Google. The question for every brand: when an AI is asked, does it know to recommend you — and does it have the structured data to act on that recommendation?',
+          source: '// OpenAI public usage figures, 2025',
+        },
+        {
+          num: '$4.4T',
+          title: 'Will flow through agentic commerce by 2030.',
+          body: 'Forrester, Gartner, and McKinsey all project that autonomous AI agents — not chatbots, not search assistants, true delegated-purchase agents — will mediate trillions in commerce by the end of the decade. The brands that ship MCP-compliant infrastructure now will own the early mindshare.',
+          source: '// Industry analyst consensus, 2025',
+        },
+        {
+          num: '0%',
+          title: 'Of legacy loyalty platforms can be invoked by an AI agent today.',
+          body: 'Antavo, Talon.One, Smile.io — they were all built before MCP existed. Their APIs are designed for human-built integrations, not for AI agents to discover, reason about, and call autonomously. 99minds is built MCP-first, with structured tool definitions, deterministic responses, and audit-grade logs for every agent action.',
+          source: '// Architecture analysis, Q4 2025',
+        },
+      ].map((stat, i) => (
+        <div class={`grid gap-12 items-center py-12 ${i > 0 ? 'border-t border-[var(--line)]' : ''} md:grid-cols-[280px_1fr]`}>
+          <div class="font-semibold leading-[0.95] tracking-[-0.04em]" style={`font-family: 'Fraunces', Georgia, serif; font-size: clamp(72px, 9vw, 132px); background: linear-gradient(120deg, var(--purple-deep), var(--accent-cyan)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;`}>
+            {stat.num}
+          </div>
+          <div>
+            <h3 class="mb-3 text-[28px] font-semibold leading-[1.2] tracking-[-0.015em] text-[var(--ink)]" style="font-family: 'Fraunces', Georgia, serif;">
+              {stat.title}
+            </h3>
+            <p class="max-w-[640px] text-[16px] leading-[1.65] text-[var(--slate)]">{stat.body}</p>
+            <div class="mt-3 font-mono text-[12px] text-[var(--slate-light)]">{stat.source}</div>
+          </div>
+        </div>
+      ))}
+
+    </div>
+  </div>
+</section>

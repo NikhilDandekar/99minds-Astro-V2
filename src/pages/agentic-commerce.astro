@@ -1,0 +1,80 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumb from '../components/loyalty/Breadcrumb.astro';
+import Comparison from '../components/Comparison.astro';
+import FAQ from '../components/FAQ.astro';
+
+import AgenticHero from '../components/agentic/AgenticHero.astro';
+import AgenticManifesto from '../components/agentic/AgenticManifesto.astro';
+import AgenticPillars from '../components/agentic/AgenticPillars.astro';
+import AgenticDiscovery from '../components/agentic/AgenticDiscovery.astro';
+import AgenticAssistant from '../components/agentic/AgenticAssistant.astro';
+import AgenticMCP from '../components/agentic/AgenticMCP.astro';
+import AgenticCompat from '../components/agentic/AgenticCompat.astro';
+import AgenticCTA from '../components/agentic/AgenticCTA.astro';
+
+import { agenticComparison } from '../config/comparison';
+---
+
+<Layout title="Agentic Commerce — 99minds">
+  <Nav />
+
+  <Breadcrumb items={[
+    { label: 'Products', href: '#' },
+    { label: 'Agentic Commerce' },
+  ]} />
+
+  <AgenticHero />
+
+  <AgenticManifesto />
+
+  <AgenticPillars />
+
+  <AgenticDiscovery />
+
+  <AgenticAssistant />
+
+  <AgenticMCP />
+
+  <AgenticCompat />
+
+  <Comparison config={agenticComparison} />
+
+  <FAQ
+    eyebrow="Common questions"
+    title="What buyers usually ask."
+    items={[
+      {
+        question: 'What exactly is "agentic commerce" and why should I care now?',
+        answer: "Agentic commerce is the emerging shift where autonomous AI agents — not human users clicking buttons — discover, compare, and purchase from brands. It's already real: ChatGPT can browse and shop, Perplexity has a shopping product, Claude can use MCP-compliant tools to act on your behalf. Brands without a deliberate agentic strategy will find their offers invisible to a fast-growing share of the market. The cost of being early is small; the cost of being last is enormous.",
+        open: true,
+      },
+      {
+        question: 'What is MCP and why does it matter?',
+        answer: 'Model Context Protocol is an open standard (created by Anthropic, now adopted across the industry) that lets AI agents discover and call external tools in a standardized way. It\'s becoming the universal interface between AI models and the rest of your stack — like USB-C for AI. By exposing 99minds as an MCP server, your rewards platform becomes instantly callable from any compliant agent: Claude, GPT, Gemini, open-source. One integration, every agent.',
+      },
+      {
+        question: 'Do I need to build my own AI agent to use this?',
+        answer: 'Not at all. Layer 1 (Discoverability) works whether or not you have an AI assistant — it makes you visible to ChatGPT, Perplexity, etc. Layer 2 (Embed in your assistant) is for when you do build one. Layer 3 (MCP) is the universal interface. Most brands start with Layer 1 today and add Layers 2/3 over the next 6-12 months as their AI strategy matures.',
+      },
+      {
+        question: 'How do you prevent AI agents from making mistakes that cost real money?',
+        answer: 'Three layers of protection: (1) authenticated customer context — every tool call carries the verified customer ID so agents can\'t act on the wrong account; (2) per-tool scopes and rate limits — your agent might be allowed to check balances unlimited times but only redeem rewards 5x per day per customer; (3) deterministic, audit-logged outputs — every agent action creates an immutable audit record with full inputs, outputs, and the reasoning trace. You always know exactly what happened.',
+      },
+      {
+        question: 'What about hallucinations? AI lies — what stops it from inventing offers or balances?',
+        answer: 'The structural answer: AI never holds the source of truth. The 99minds ledger does. When an AI agent says "you have $42.50 in store credit," it\'s because it called store_credit.balance and the real ledger returned that number. The model can\'t invent a value because the value is structured JSON returned from an authoritative API. This is fundamentally different from giving an AI free-text access to your data.',
+      },
+      {
+        question: 'How long does the MCP integration take?',
+        answer: 'Most teams have 99minds tools live in their agent stack within a single business day. Add our MCP endpoint to your Claude/OpenAI/Vercel AI SDK config, run our auth flow once, and you\'re done. Discoverability (Layer 1) is automatic for active 99minds accounts — your Product schemas and llms.txt files are generated and served as soon as you flip the switch.',
+      },
+    ]}
+  />
+
+  <AgenticCTA />
+
+  <Footer />
+</Layout>

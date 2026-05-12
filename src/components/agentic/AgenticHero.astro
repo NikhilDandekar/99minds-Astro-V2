@@ -1,0 +1,133 @@
+---
+---
+
+<section class="relative overflow-hidden px-8 pt-20 pb-[120px] text-white" style="background: linear-gradient(180deg, #050518 0%, #0a0a23 100%);">
+
+  <!-- Background overlays -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="hero-agentic-mesh absolute top-[-10%] right-[-15%] w-4/5 h-full" style="background: radial-gradient(ellipse at 30% 50%, rgba(170,143,255,0.4) 0%, transparent 50%), radial-gradient(ellipse at 70% 30%, rgba(0,240,255,0.25) 0%, transparent 50%), radial-gradient(ellipse at 50% 80%, rgba(0,255,136,0.18) 0%, transparent 50%); filter: blur(80px);"></div>
+    <div class="absolute inset-0" style="background-image: linear-gradient(rgba(170,143,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(170,143,255,0.06) 1px, transparent 1px); background-size: 56px 56px; mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%); -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);"></div>
+  </div>
+
+  <div class="relative z-10 mx-auto max-w-[1280px] grid gap-16 items-center lg:grid-cols-[1.05fr_1fr]">
+
+    <!-- Left: copy -->
+    <div>
+      <!-- Pill -->
+      <div class="mb-6 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[13px] font-semibold" style="background: rgba(170,143,255,0.1); border-color: rgba(170,143,255,0.3); color: #b8bfff; padding-left: 8px;">
+        <span class="rounded-full px-2.5 py-0.5 text-[11px] font-extrabold uppercase tracking-wide text-[var(--ink)]" style="background: linear-gradient(135deg, var(--neon-green), var(--neon-cyan));">NEW</span>
+        Agentic Commerce platform · GA
+      </div>
+
+      <!-- Headline -->
+      <h1 class="mb-6 font-semibold leading-[0.88] tracking-[-0.04em]" style="font-family: 'Fraunces', Georgia, serif; font-size: clamp(48px, 6.2vw, 88px); color: white;line-height:90px;">
+        When AI agents start <em class="not-italic" style="background: linear-gradient(120deg, var(--neon-green) 0%, var(--neon-cyan) 50%, var(--purple-light) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">shopping for your customers</em>, will you be the brand they pick?
+      </h1>
+
+      <p class="mb-9 text-[20px] leading-[1.55]" style="color: rgba(255,255,255,0.75); max-width: 540px;">
+        ChatGPT, Claude, Perplexity, and a new wave of autonomous shopping agents are already comparing brands, applying promo codes, redeeming gift cards, and checking out — without humans in the loop. 99minds is the rewards layer built for this new commerce surface.
+      </p>
+
+      <div class="mb-12 flex flex-wrap gap-3">
+        <a href="#" class="inline-flex items-center gap-1.5 rounded-full px-5 py-3.5 text-[15px] font-bold text-[var(--ink)] transition-all hover:-translate-y-0.5" style="background: linear-gradient(135deg, var(--neon-green), var(--neon-cyan));">
+          Read the manifesto →
+        </a>
+        <a href="#" class="inline-flex items-center gap-1.5 rounded-full border px-5 py-3.5 text-[15px] font-semibold text-white transition-all hover:border-white/30 hover:bg-white/10" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.15);">
+          See it in action
+        </a>
+      </div>
+
+      <!-- Three mini pillars -->
+      <div class="grid gap-4 grid-cols-3">
+        {[
+          { num: '// 01', name: 'Be discoverable', desc: 'Make your brand citable by AI shoppers' },
+          { num: '// 02', name: 'Be assistive',    desc: 'Embed your rewards in your AI assistant' },
+          { num: '// 03', name: 'Be programmable', desc: 'MCP-native rewards for any agent stack' },
+        ].map(p => (
+          <div class="rounded-xl border p-3.5 transition-all hover:-translate-y-0.5" style="background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08);">
+            <div class="mb-1.5 text-[11px] font-bold" style="font-family: 'JetBrains Mono', monospace; color: var(--neon-green);">{p.num}</div>
+            <div class="mb-1 text-[13px] font-bold text-white">{p.name}</div>
+            <div class="text-[11px] leading-[1.4]" style="color: rgba(255,255,255,0.55);">{p.desc}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Right: Agent conversation window -->
+    <div>
+      <div class="overflow-hidden rounded-2xl" style="background: rgba(20,20,50,0.7); backdrop-filter: blur(20px); border: 1px solid rgba(170,143,255,0.2); box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5), 0 0 60px -10px rgba(170,143,255,0.3);">
+
+        <!-- Window header -->
+        <div class="flex items-center gap-2.5 border-b px-4 py-3" style="background: rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.08);">
+          <div class="flex h-6 w-6 items-center justify-center rounded-[6px] text-[12px] font-extrabold text-[var(--ink)]" style="background: linear-gradient(135deg, var(--neon-green), var(--neon-cyan));">A</div>
+          <div class="text-[12px] font-semibold" style="color: rgba(255,255,255,0.7);">Shopping Assistant</div>
+          <div class="ml-auto flex items-center gap-1.5 text-[11px]" style="color: var(--neon-green);">
+            <span class="agent-status-dot h-1.5 w-1.5 rounded-full" style="background: var(--neon-green); box-shadow: 0 0 8px var(--neon-green);"></span>
+            Live
+          </div>
+        </div>
+
+        <!-- Messages -->
+        <div class="flex flex-col gap-3.5 p-5">
+
+          <!-- User msg -->
+          <div class="agent-msg-1 flex gap-2.5">
+            <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-[11px] font-bold text-white" style="background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2);">U</div>
+            <div class="flex-1 rounded-[10px] border px-3.5 py-2.5 text-[13px] leading-[1.5]" style="background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.06); color: rgba(255,255,255,0.9);">
+              Find me a hoodie under $80 with same-day shipping. Use any rewards I have.
+            </div>
+          </div>
+
+          <!-- Bot msg -->
+          <div class="agent-msg-2 flex gap-2.5">
+            <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[11px] font-bold text-[var(--ink)]" style="background: linear-gradient(135deg, var(--neon-green), var(--neon-cyan));">A</div>
+            <div class="flex-1 rounded-[10px] border px-3.5 py-2.5 text-[13px] leading-[1.5]" style="background: linear-gradient(135deg, rgba(170,143,255,0.1), rgba(0,240,255,0.05)); border-color: rgba(170,143,255,0.2); color: rgba(255,255,255,0.9);">
+              I found 3 options. Northwind has the best fit and you have $42.50 in store credit + a 15% Gold-tier discount available.
+              <div class="mt-2 rounded-[6px] border px-2.5 py-2 font-mono text-[11px] leading-[1.5]" style="background: rgba(0,0,0,0.3); border-color: rgba(0,240,255,0.2); color: rgba(255,255,255,0.7);">
+                <span style="color: var(--neon-cyan);">→ 99minds.checkout.preview</span>(<span style="color: #b8bfff;">brand</span>=<span style="color: var(--neon-green);">"northwind"</span>, <span style="color: #b8bfff;">customer</span>=<span style="color: var(--neon-green);">"cus_8KP"</span>)
+              </div>
+              <div class="mt-2 rounded-lg p-3" style="background: linear-gradient(135deg, rgba(0,255,136,0.1), rgba(170,143,255,0.05)); border: 1px solid rgba(0,255,136,0.25);">
+                <div class="flex justify-between py-0.5 text-[12px]" style="color: rgba(255,255,255,0.85);"><span>Hoodie · Northwind Heavyweight</span><span>$78.00</span></div>
+                <div class="flex justify-between py-0.5 text-[12px]" style="color: rgba(255,255,255,0.85);"><span>Gold tier discount (15%)</span><span style="color: var(--neon-green);">−$11.70</span></div>
+                <div class="flex justify-between py-0.5 text-[12px]" style="color: rgba(255,255,255,0.85);"><span>Store credit applied</span><span style="color: var(--neon-green);">−$42.50</span></div>
+                <div class="mt-1.5 flex justify-between border-t border-dashed pt-2 text-[12px] font-bold text-white" style="border-color: rgba(255,255,255,0.15);"><span>Total</span><span>$23.80</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- User reply -->
+          <div class="agent-msg-3 flex gap-2.5">
+            <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-[11px] font-bold text-white" style="background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2);">U</div>
+            <div class="flex-1 rounded-[10px] border px-3.5 py-2.5 text-[13px] leading-[1.5]" style="background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.06); color: rgba(255,255,255,0.9);">
+              Perfect, buy it.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .hero-agentic-mesh {
+    animation: agenticMeshShift 20s ease-in-out infinite;
+  }
+  @keyframes agenticMeshShift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-40px, 30px) scale(1.1); }
+  }
+  .agent-status-dot { animation: agentPulse 2s ease-in-out infinite; }
+  @keyframes agentPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+  .agent-msg-1 { animation: msgFadeIn 0.5s ease-out 0.2s backwards; }
+  .agent-msg-2 { animation: msgFadeIn 0.5s ease-out 0.6s backwards; }
+  .agent-msg-3 { animation: msgFadeIn 0.5s ease-out 1.2s backwards; }
+  @keyframes msgFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
