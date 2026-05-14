@@ -12,7 +12,8 @@ import FinalCTA from '../components/FinalCTA.astro';
 
 import PromotionsHero from '../components/promotions/PromotionsHero.astro';
 import CampaignSimulator from '../components/promotions/CampaignSimulator.astro';
-import CapabilityRows from '../components/promotions/CapabilityRows.astro';
+import CapabilityRows from '../components/CapabilityRows.astro';
+import { promotionsCapabilityRows } from '../config/capabilityrows';
 import DeveloperSection from '../components/DeveloperSection.astro';
 import { promotionsDeveloper } from '../config/developersection';
 
@@ -37,7 +38,7 @@ import { promotionsCaseStudy } from '../config/casestudy';
 
   <CampaignSimulator />
 
-  <CapabilityRows />
+  <CapabilityRows rows={promotionsCapabilityRows} />
 
   <DeveloperSection config={promotionsDeveloper} />
 

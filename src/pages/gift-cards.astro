@@ -3,7 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import GiftCardHero from '../components/giftcard/GiftCardHero.astro';
-import GiftCardCapabilities from '../components/giftcard/GiftCardCapabilities.astro';
+import CapabilityRows from '../components/CapabilityRows.astro';
+import { giftCardCapabilityRows } from '../config/capabilityrows';
 import CardDesigner from '../components/giftcard/CardDesigner.astro';
 import DeveloperSection from '../components/DeveloperSection.astro';
 import { giftCardDeveloper } from '../config/developersection';
@@ -46,7 +47,7 @@ const GiftCardFAQ = [
   <GiftCardHero />
   <TrustBar items={giftCardTrustItems} />
   <CardDesigner />
-  <GiftCardCapabilities />
+  <CapabilityRows rows={giftCardCapabilityRows} />
   <DeveloperSection config={giftCardDeveloper} />
   <FraudCompliance />
 

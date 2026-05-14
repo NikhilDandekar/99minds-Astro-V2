@@ -5,7 +5,8 @@ import Breadcrumb from '../components/loyalty/Breadcrumb.astro';
 import ProductHero from '../components/loyalty/ProductHero.astro';
 import TrustBar from '../components/TrustBar.astro';
 import RulesBuilder from '../components/loyalty/RulesBuilder.astro';
-import CapabilityRow from '../components/loyalty/CapabilityRow.astro';
+import CapabilityRows from '../components/CapabilityRows.astro';
+import { loyaltyCapabilityRows } from '../config/capabilityrows';
 import DeveloperSection from '../components/DeveloperSection.astro';
 import { loyaltyDeveloper } from '../config/developersection';
 import UnifiedMoat from '../components/loyalty/UnifiedMoat.astro';
@@ -51,53 +52,7 @@ import Footer from '../components/Footer.astro';
 
   <RulesBuilder />
 
-  <!-- Capabilities section -->
-  <section class="capabilities">
-    <div class="container">
-      <CapabilityRow
-        eyebrow="Tier Architecture"
-        title="Four tiers. Infinite configuration."
-        description="Define thresholds, reset cadences, earning multipliers, and benefit packages per tier. Roll tiers out progressively or flip the whole program at once with our safe-mode deploy."
-        bullets={[
-          { label: 'Flexible thresholds:', description: 'Points, spend, visit count, or any custom metric.' },
-          { label: 'Tier benefits API:', description: 'Query eligibility and unlock brand experiences on the fly.' },
-          { label: 'Qualification windows:', description: 'Annual reset, rolling 12-month, or lifetime — your call.' },
-        ]}
-        ctaLabel="Read tier docs"
-        ctaHref="#"
-        visualSlot="tiers"
-      />
-
-      <CapabilityRow
-        eyebrow="Challenges & Campaigns"
-        title="Gamification that drives real behavior."
-        description="Time-boxed challenges with progress tracking drive urgency. A/B test challenge variants natively — no extra tooling, no sampling headaches."
-        bullets={[
-          { label: 'Progress widgets:', description: 'Embeddable via our JS SDK or React components.' },
-          { label: 'Segment targeting:', description: 'Ship challenges to Bronze-only or Platinum-at-risk cohorts.' },
-          { label: 'Native A/B testing:', description: 'Split traffic across earning rates and measure lift.' },
-        ]}
-        ctaLabel="Explore challenges"
-        ctaHref="#"
-        reverse={true}
-        visualSlot="challenges"
-      />
-
-      <CapabilityRow
-        eyebrow="Rewards Catalog"
-        title="Redemption that doesn't leak value."
-        description="Connect your Shopify or custom catalog, or use our built-in digital rewards (gift cards, discount codes, digital goods). Set minimum redemption thresholds, expiry policies, and per-tier visibility."
-        bullets={[
-          { label: 'Catalog sync:', description: 'Pull from your existing product library or curate manually.' },
-          { label: 'Expiry policies:', description: 'Keep your liability clean with configurable redemption windows.' },
-          { label: 'Partial redemption:', description: 'Let members redeem points + pay the rest — higher conversion.' },
-        ]}
-        ctaLabel="See catalog options"
-        ctaHref="#"
-        visualSlot="rewards"
-      />
-    </div>
-  </section>
+  <CapabilityRows rows={loyaltyCapabilityRows} />
 
   <DeveloperSection config={loyaltyDeveloper} />
 
@@ -115,19 +70,3 @@ import Footer from '../components/Footer.astro';
 
   <Footer />
 </Layout>
-
-<style>
-  .capabilities {
-    background: white;
-    padding: 120px 32px;
-  }
-
-  .container {
-    max-width: 1280px;
-    margin: 0 auto;
-  }
-
-  @media (max-width: 640px) {
-    .capabilities { padding: 80px 20px; }
-  }
-</style>
