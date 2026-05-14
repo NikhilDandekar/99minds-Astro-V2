@@ -65,3 +65,20 @@ export const promotionsCaseStudy: CaseStudyConfig = {
     { num: '3 wks', desc: 'From contract signed to first live campaign' },
   ],
 };
+
+export const walletCaseStudy: CaseStudyConfig = {
+  eyebrow: 'Customer Story',
+  title: 'How Sagehaus drove 4.2x repeat visits.',
+  companyLogo: 'SAGEHAUS',
+  quote: '"Wallet passes felt like marketing magic. Our customers see their balance every time they pull out their phone -- that\'s a brand impression we used to pay for. The geo-push when they\'re a block from one of our cafes has been an instant win for foot traffic."',
+  authorInitials: 'EC',
+  authorName: 'Eli Chen',
+  authorRole: 'Director of Retention, Sagehaus Coffee',
+  resultsLabel: 'Results in first 6 months',
+  results: [
+    { num: '4.2x',   desc: 'Repeat visit rate among wallet pass holders' },
+    { num: '68%',    desc: 'Of newly issued cards installed to wallet within 24h' },
+    { num: '$0',     desc: 'Spent on Apple Developer account or Pass Type ID setup' },
+    { num: '9 days', desc: 'From kickoff to first live pass on a customer\'s phone' },
+  ],
+};

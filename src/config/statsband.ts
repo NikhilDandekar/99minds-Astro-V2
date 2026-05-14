@@ -42,3 +42,12 @@ export const loyaltyStats: StatsBandConfig = {
     { value: '~30 days',  label: 'From kickoff to live program. Antavo takes 3-6 months.' },
   ],
 };
+
+export const walletStats: StatsBandConfig = {
+  stats: [
+    { value: '92%',  label: 'Avg open rate on wallet push notifications vs 22% for email' },
+    { value: '1.2s', label: 'Median time from balance change to wallet pass update' },
+    { value: '73%',  label: 'Of installed passes are still active 12 months later' },
+    { value: '3.8x', label: 'In-store visit lift among customers with the wallet pass installed' },
+  ],
+};

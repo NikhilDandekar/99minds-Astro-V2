@@ -55,3 +55,14 @@ export const loyaltyCTA: FinalCTAConfig = {
     { label: 'Book a demo', href: '#', variant: 'ghost' },
   ],
 };
+
+export const walletCTA: FinalCTAConfig = {
+  titleLead: "Ready to live in your customer's ",
+  titleHighlight: 'wallet',
+  titleTail: '?',
+  description: 'Start with a sandbox key in 30 seconds. Send your first pass to your own phone today.',
+  buttons: [
+    { label: 'Start free trial ->', href: '#', variant: 'primary' },
+    { label: 'Book a demo',         href: '#', variant: 'ghost' },
+  ],
+};

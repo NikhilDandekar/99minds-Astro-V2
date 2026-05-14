@@ -11,7 +11,10 @@ export type CapabilityVisualSlot =
   | 'omnichannel'
   | 'tiers'
   | 'challenges'
-  | 'rewards';
+  | 'rewards'
+  | 'realtime-updates'
+  | 'geo-fenced'
+  | 'multi-pass';
 
 export interface CapabilityRowConfig {
   eyebrow: string;
@@ -175,5 +178,54 @@ export const loyaltyCapabilityRows: CapabilityRowConfig[] = [
     ctaHref: '#',
     reverse: false,
     visualSlot: 'rewards',
+  },
+];
+
+// ── Wallet Passes ─────────────────────────────────────────────────────────────
+
+export const walletCapabilityRows: CapabilityRowConfig[] = [
+  {
+    eyebrow: 'Real-time Updates',
+    title: "The marketing channel that's already on every phone.",
+    description: "A loyalty pass in a wallet is a 24/7 brand presence. Balance changes, tier upgrades, expiring rewards -- they all push to the lock screen instantly, with open rates that make email look broken. Best of all: customers never delete their wallet passes.",
+    bullets: [
+      { html: '<strong>Sub-2-second updates</strong> from your backend to the lock screen, both platforms' },
+      { html: '<strong>Lock-screen rich notifications</strong> with brand colors, custom icons, deep links' },
+      { html: '<strong>Webhook-driven</strong> -- fire updates from any system that can POST' },
+      { html: '<strong>Deliverability dashboard</strong> shows pass installs, updates pushed, taps received' },
+    ],
+    ctaLabel: 'See live update flow',
+    ctaHref: '#',
+    reverse: false,
+    visualSlot: 'realtime-updates',
+  },
+  {
+    eyebrow: 'Geo-Fenced Notifications',
+    title: 'Push when it matters. Where it matters.',
+    description: 'Native iOS and Android both surface wallet passes on the lock screen when a user enters a geofence near a store location. Combined with our segmentation engine, you can send "your balance is $184 -- drop in" only to high-LTV customers within walking distance of a store.',
+    bullets: [
+      { html: '<strong>Native geofencing</strong> via Apple Wallet & Google Wallet -- no app required' },
+      { html: '<strong>Bulk store-list upload</strong> -- define 1,000 locations in one CSV' },
+      { html: '<strong>Time-of-day & cohort filters</strong> -- only push to Gold members on weekday mornings' },
+      { html: '<strong>Dwell-time gating</strong> to avoid spam from customers walking past' },
+    ],
+    ctaLabel: 'Explore geo-targeting',
+    ctaHref: '#',
+    reverse: true,
+    visualSlot: 'geo-fenced',
+  },
+  {
+    eyebrow: 'Multi-Pass, Multi-Program',
+    title: 'One ledger. Every pass type.',
+    description: "Run loyalty, gift cards, store credit, event tickets, and limited-edition collectible passes -- all from one platform, all updating from one ledger. A customer can hold a stack of your passes and they'll all sync together when they redeem at checkout.",
+    bullets: [
+      { html: '<strong>All major pass types</strong> -- loyalty, store cards, coupons, event tickets, generic' },
+      { html: '<strong>Cross-pass linking</strong> -- redeeming a coupon updates the loyalty pass automatically' },
+      { html: '<strong>Limited-edition drops</strong> -- collectible passes for marketing campaigns and brand moments' },
+    ],
+    ctaLabel: 'See all pass types',
+    ctaHref: '#',
+    reverse: false,
+    visualSlot: 'multi-pass',
   },
 ];

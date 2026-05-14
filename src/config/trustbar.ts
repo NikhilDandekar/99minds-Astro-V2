@@ -87,3 +87,31 @@ export const loyaltyTrustItems: TrustItem[] = [
     sublabel: '+ Shopify, Salesforce',
   },
 ];
+
+export const walletTrustItems: TrustItem[] = [
+  {
+    icon: '<path d="M13 2L3 14h7l-1 8 10-12h-7z"/>',
+    label: 'Sub-2s sync',
+    sublabel: 'Balance to wallet',
+  },
+  {
+    icon: '<rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/>',
+    label: 'Apple + Google',
+    sublabel: 'One pass, both stores',
+  },
+  {
+    icon: '<circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/>',
+    label: 'Zero certificates',
+    sublabel: 'We manage Pass Type ID',
+  },
+  {
+    icon: '<circle cx="12" cy="11" r="3"/><path d="M12 2a9 9 0 00-9 9c0 7 9 13 9 13s9-6 9-13a9 9 0 00-9-9z"/>',
+    label: 'Geo-targeted push',
+    sublabel: 'Notify near a store',
+  },
+  {
+    icon: '<path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M12 6v6l4 2"/>',
+    label: '92% open rate',
+    sublabel: 'Wallet push vs email',
+  },
+];

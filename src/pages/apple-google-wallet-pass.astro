@@ -1,0 +1,87 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumb from '../components/loyalty/Breadcrumb.astro';
+import TrustBar from '../components/TrustBar.astro';
+import Comparison from '../components/Comparison.astro';
+import StatsBand from '../components/StatsBand.astro';
+import CaseStudy from '../components/CaseStudy.astro';
+import FAQ from '../components/FAQ.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+import DeveloperSection from '../components/DeveloperSection.astro';
+import CapabilityRows from '../components/CapabilityRows.astro';
+
+import WalletHero from '../components/wallet/WalletHero.astro';
+import PassDesigner from '../components/wallet/PassDesigner.astro';
+
+import { walletTrustItems } from '../config/trustbar';
+import { walletComparison } from '../config/comparison';
+import { walletStats } from '../config/statsband';
+import { walletCaseStudy } from '../config/casestudy';
+import { walletCTA } from '../config/finalcta';
+import { walletDeveloper } from '../config/developersection';
+import { walletCapabilityRows } from '../config/capabilityrows';
+---
+
+<Layout
+  title="Mobile Wallet Passes — 99minds"
+  description="Apple Wallet and Google Wallet passes that update in real time. The marketing channel your competitors haven't figured out — and it's already on every customer's phone."
+>
+  <Nav />
+
+  <Breadcrumb
+    items={[
+      { label: 'Products', href: '/products' },
+      { label: 'Mobile Wallet Passes' },
+    ]}
+  />
+
+  <WalletHero />
+
+  <TrustBar items={walletTrustItems} />
+
+  <PassDesigner />
+
+  <CapabilityRows rows={walletCapabilityRows} />
+
+  <DeveloperSection config={walletDeveloper} />
+
+  <Comparison config={walletComparison} />
+
+  <StatsBand config={walletStats} />
+
+  <CaseStudy config={walletCaseStudy} />
+
+  <FAQ
+    eyebrow="Common questions"
+    title="Things buyers usually ask."
+    items={[
+      {
+        question: 'Do we need an Apple Developer account?',
+        answer: 'No. We hold the Apple Pass Type ID certificate and Google Wallet Issuer account. Your passes are issued under the 99minds infrastructure but display your branding exclusively to the end user. This saves weeks of platform onboarding and avoids the recurring cost of maintaining your own Apple Developer membership and Pass Type ID renewals.',
+        open: true,
+      },
+      {
+        question: 'Can passes update with information from systems other than 99minds?',
+        answer: 'Yes. While the tightest integration is with 99minds gift cards and loyalty (where updates happen automatically and natively), our pass-update endpoint accepts updates from any system that can POST to a webhook. So you can keep using your current OMS or CRM and just push pass updates from there.',
+      },
+      {
+        question: 'What happens if a customer deletes the pass?',
+        answer: 'We get a pass.removed webhook the moment they delete it. You can use this to trigger re-engagement (email with a new install link), pause future updates, or update internal segmentation. The underlying customer balance/points are untouched — they live in the 99minds ledger, not the pass itself.',
+      },
+      {
+        question: 'How do geo-fenced notifications actually work?',
+        answer: "Both Apple Wallet and Google Wallet support native geofencing — the OS surfaces your pass on the lock screen when the user enters a geofence you defined. No app required, no location permissions beyond the wallet's own. We support up to 10 geofences per pass on iOS (Apple's limit) and unlimited on Android, with bulk store-list management for multi-location brands.",
+      },
+      {
+        question: 'Are wallet passes secure for storing balance information?',
+        answer: "The pass itself shows balance/points display data only — the source of truth lives in our PCI-DSS Level 1 ledger. Pass data is signed by us so it can't be tampered with on the device. Sensitive identifiers (member ID, gift card token) are scoped to display-only and can't be reused for redemption without verification against our ledger.",
+      },
+    ]}
+  />
+
+  <FinalCTA config={walletCTA} />
+
+  <Footer />
+</Layout>

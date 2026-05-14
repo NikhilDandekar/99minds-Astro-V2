@@ -1,0 +1,231 @@
+---
+---
+
+<section class="py-[120px] px-8 max-sm:py-20 max-sm:px-5 overflow-hidden bg-[var(--bg-alt)]">
+  <div class="mx-auto max-w-[1280px]">
+
+    <!-- header -->
+    <div class="max-w-[720px] mb-16">
+      <div class="text-[13px] font-bold text-[var(--purple-deep)] uppercase tracking-[0.1em] mb-4">Pass Designer</div>
+      <h2 class="text-[clamp(32px,4vw,52px)] font-bold tracking-[-0.03em] leading-[1.05] text-[var(--ink)] mb-5">Design your pass. Ship to both stores.</h2>
+      <p class="text-[19px] text-[var(--slate)] leading-[1.55]">
+        One designer outputs both Apple Wallet and Google Wallet passes — pixel-perfect for each platform's specs. No engineering. No designer ticket. No certificate hell.
+      </p>
+    </div>
+
+    <!-- designer frame -->
+    <div class="bg-white rounded-[20px] border border-[var(--line)] overflow-hidden" style="box-shadow:0 24px 60px -20px rgba(10,10,35,0.12)">
+
+      <!-- toolbar -->
+      <div class="flex items-center gap-2 px-4 py-3 bg-[var(--bg-alt)] border-b border-[var(--line)]">
+        <span class="w-[11px] h-[11px] rounded-full" style="background:#ff8a7a"></span>
+        <span class="w-[11px] h-[11px] rounded-full" style="background:#ffc060"></span>
+        <span class="w-[11px] h-[11px] rounded-full" style="background:#7ef0c5"></span>
+        <div class="flex-1 text-center text-[12px] text-[var(--slate)] font-semibold">Pass Designer · Northwind / Loyalty Pass</div>
+        <div class="flex gap-0.5 bg-white border border-[var(--line)] rounded-full p-[3px]">
+          <button class="pd-platform active flex items-center gap-1.5 px-3 py-[5px] text-[11px] font-semibold rounded-full transition-all">Apple</button>
+          <button class="pd-platform flex items-center gap-1.5 px-3 py-[5px] text-[11px] font-semibold rounded-full transition-all text-[var(--slate)]">Google</button>
+        </div>
+      </div>
+
+      <!-- 3-col body -->
+      <div class="grid min-h-[580px]" style="grid-template-columns:280px 1fr 320px">
+
+        <!-- LEFT: pass types + templates -->
+        <div class="bg-[var(--bg-alt)] border-r border-[var(--line)] p-5 overflow-y-auto">
+          <div class="text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--slate-light)] mb-3">Pass type</div>
+          <div class="grid grid-cols-2 gap-1.5 mb-5">
+            {[
+              { name: 'Loyalty',  active: true,  icon: '<path d="M12 2l2.5 7h7l-5.5 4.5 2 7L12 16l-6 4.5 2-7L2.5 9h7z"/>' },
+              { name: 'Gift Card',active: false, icon: '<rect x="3" y="6" width="18" height="13" rx="2"/>' },
+              { name: 'Coupon',   active: false, icon: '<circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/>' },
+              { name: 'Event',    active: false, icon: '<path d="M3 12l2-2 8 8 8-8 2 2"/>' },
+              { name: 'Boarding', active: false, icon: '<path d="M3 7l9-4 9 4v10l-9 4-9-4V7z"/>' },
+              { name: 'Generic',  active: false, icon: '<rect x="4" y="4" width="16" height="16" rx="2"/>' },
+            ].map(pt => (
+              <button class={`pd-pass-type bg-white border rounded-[8px] p-3 text-center cursor-pointer transition-all hover:-translate-y-0.5 ${pt.active ? 'border-[var(--purple-deep)] bg-[var(--purple-pale)]' : 'border-[var(--line)]'}`}>
+                <div class="w-6 h-6 mx-auto mb-1.5 flex items-center justify-center text-[var(--purple-deep)]">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" set:html={pt.icon}></svg>
+                </div>
+                <div class="text-[11px] font-semibold">{pt.name}</div>
+              </button>
+            ))}
+          </div>
+
+          <div class="text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--slate-light)] mb-3">Brand colors</div>
+          <div class="flex gap-1.5 flex-wrap mb-5">
+            {[
+              { hex: '#6f4dff', active: true  },
+              { hex: '#0a0a23', active: false },
+              { hex: '#ff8a7a', active: false },
+              { hex: '#7ef0c5', active: false },
+              { hex: '#00d4ff', active: false },
+              { hex: '#ffc060', active: false },
+              { hex: '#aa8fff', active: false },
+              { hex: '#1a8c5e', active: false },
+            ].map(s => (
+              <button class={`pd-swatch w-7 h-7 rounded-full cursor-pointer border-2 border-white transition-transform hover:scale-110 ${s.active ? 'ring-2 ring-[var(--purple-deep)]' : 'ring-1 ring-[var(--line)]'}`} style={`background:${s.hex}`} data-color={`linear-gradient(135deg,${s.hex} 0%,${s.hex}cc 100%)`}></button>
+            ))}
+          </div>
+
+          <div class="text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--slate-light)] mb-3">Templates</div>
+          <div class="grid grid-cols-2 gap-1.5">
+            {[
+              { bg: 'linear-gradient(135deg,#6f4dff,#aa8fff)',  active: true },
+              { bg: 'linear-gradient(135deg,#0a0a23,#6f4dff)',  active: false },
+              { bg: 'linear-gradient(135deg,#ff8a7a,#ffc060)',  active: false },
+              { bg: 'linear-gradient(135deg,#7ef0c5,#00d4ff)',  active: false },
+              { bg: 'linear-gradient(135deg,#f4f2fb,#b8bfff)',  active: false },
+              { bg: 'linear-gradient(135deg,#ffc060,#ff8a7a)',  active: false },
+            ].map(t => (
+              <button class={`pd-thumb aspect-[1.6/1] rounded-[8px] cursor-pointer border-2 transition-all hover:-translate-y-0.5 ${t.active ? 'border-[var(--purple-deep)] shadow-[0_0_0_3px_rgba(111,77,255,0.15)]' : 'border-transparent'}`} style={`background:${t.bg}`} data-bg={t.bg}></button>
+            ))}
+          </div>
+        </div>
+
+        <!-- CENTER: phone preview -->
+        <div class="flex items-center justify-center p-[30px] relative" style="background:radial-gradient(circle at 30% 20%,var(--purple-pale),transparent 50%),radial-gradient(circle at 70% 80%,rgba(126,240,197,0.1),transparent 50%),white">
+          <div class="relative" style="width:230px;height:460px;border-radius:36px;background:linear-gradient(180deg,#2c2c2e 0%,#1a1a1c 100%);padding:10px;box-shadow:0 30px 60px -16px rgba(10,10,35,0.4),0 0 0 2px rgba(255,255,255,0.05) inset">
+            <!-- notch -->
+            <div class="absolute z-10 top-[6px] left-1/2 -translate-x-1/2 bg-black" style="width:70px;height:18px;border-radius:12px"></div>
+            <div class="w-full h-full overflow-hidden relative" style="border-radius:26px;background:linear-gradient(180deg,#1c1c1e 0%,#2c2c2e 100%);padding:28px 12px 12px">
+              <div class="flex justify-between text-white text-[9px] font-semibold px-1.5 pb-3">
+                <span>9:41</span>
+                <span>▂▄▆▇ 📶 🔋</span>
+              </div>
+              <div id="pd-preview-pass" class="rounded-[12px] p-3.5 text-white relative overflow-hidden transition-all duration-400" style="background:linear-gradient(135deg,#6f4dff 0%,#aa8fff 100%);box-shadow:0 8px 16px -4px rgba(0,0,0,0.3)">
+                <div class="absolute" style="top:-30%;right:-15%;width:130px;height:130px;background:radial-gradient(circle,rgba(255,255,255,0.15),transparent 60%)"></div>
+                <div class="relative flex justify-between items-start mb-3">
+                  <div class="text-[9px] font-bold uppercase tracking-[0.15em] opacity-85">NORTHWIND</div>
+                  <div class="w-[22px] h-[22px] rounded-full flex items-center justify-center font-extrabold text-[10px]" style="background:rgba(255,255,255,0.2)">N</div>
+                </div>
+                <div class="text-[8px] font-bold uppercase tracking-[0.1em] opacity-70 mb-0.5">Balance</div>
+                <div class="text-[26px] font-bold tracking-[-0.02em] leading-none">$184.50</div>
+                <div class="flex justify-between mt-3 text-[8px]">
+                  <div>
+                    <div class="opacity-70 uppercase tracking-[0.08em] font-bold">Member</div>
+                    <div class="font-bold text-[10px] mt-0.5">Gold</div>
+                  </div>
+                  <div class="text-right">
+                    <div class="opacity-70 uppercase tracking-[0.08em] font-bold">Points</div>
+                    <div class="font-bold text-[10px] mt-0.5">2,840</div>
+                  </div>
+                </div>
+                <div class="mt-2.5 rounded bg-white" style="height:32px;background-image:repeating-linear-gradient(90deg,#000 0,#000 1.5px,white 1.5px,white 3px,#000 3px,#000 4px,white 4px,white 7px,#000 7px,#000 8.5px,white 8.5px,white 11px),linear-gradient(white,white)"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: settings panel -->
+        <div class="bg-white border-l border-[var(--line)] p-5 overflow-y-auto">
+          {[
+            { label: 'Brand name',        val: 'Northwind' },
+            { label: 'Pass label',        val: 'Balance' },
+            { label: 'Currency / Format', val: 'USD — Currency display' },
+            { label: 'Logo upload',       val: 'northwind-logo.svg' },
+          ].map(f => (
+            <div class="mb-4">
+              <label class="block text-[12px] font-semibold text-[var(--ink)] mb-1.5">{f.label}</label>
+              <input class="w-full px-3 py-[9px] text-[13px] text-[var(--ink)] bg-[var(--bg-alt)] border border-[var(--line)] rounded-[8px] transition-colors focus:outline-none focus:border-[var(--purple-deep)] focus:bg-white" value={f.val} />
+            </div>
+          ))}
+
+          <div class="text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--slate-light)] mt-6 mb-1">Live updates</div>
+
+          {[
+            { label: 'Auto-update balance', sub: 'On every transaction',      on: true  },
+            { label: 'Push on tier change', sub: '"You\'re now Platinum"',    on: true  },
+            { label: 'Geo-fenced push',     sub: 'Notify near a store',       on: false },
+            { label: 'Expiration alert',    sub: '7 days before lapse',       on: true  },
+          ].map(t => (
+            <div class="flex justify-between items-center py-3 border-b border-[var(--line)] last:border-b-0">
+              <div>
+                <div class="text-[13px] text-[var(--ink)] font-medium">{t.label}</div>
+                <div class="text-[11px] text-[var(--slate-light)] mt-0.5">{t.sub}</div>
+              </div>
+              <button class={`pd-toggle relative w-9 h-5 rounded-full cursor-pointer transition-colors ${t.on ? 'bg-[var(--purple-deep)]' : 'bg-[var(--line)]'}`}>
+                <span class={`absolute top-0.5 w-4 h-4 bg-white rounded-full transition-all ${t.on ? 'right-0.5' : 'left-0.5'}`}></span>
+              </button>
+            </div>
+          ))}
+
+          <div class="mt-5 pt-5 border-t border-[var(--line)]">
+            <button class="w-full py-[11px] text-[13px] font-semibold text-white rounded-[8px] cursor-pointer transition-colors hover:bg-[var(--purple-deep)]" style="background:var(--ink)">
+              Publish to Apple + Google →
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Platform toggle
+  document.querySelectorAll('.pd-platform').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.closest('.flex')!.querySelectorAll('.pd-platform').forEach(b => {
+        b.classList.remove('active', 'bg-[var(--ink)]', 'text-white');
+        b.classList.add('text-[var(--slate)]');
+      });
+      btn.classList.add('active', 'bg-[var(--ink)]', 'text-white');
+      btn.classList.remove('text-[var(--slate)]');
+    });
+  });
+
+  // Pass type
+  document.querySelectorAll('.pd-pass-type').forEach(pt => {
+    pt.addEventListener('click', () => {
+      pt.closest('.grid')!.querySelectorAll('.pd-pass-type').forEach(p => {
+        p.classList.remove('border-[var(--purple-deep)]', 'bg-[var(--purple-pale)]');
+        p.classList.add('border-[var(--line)]');
+      });
+      pt.classList.add('border-[var(--purple-deep)]', 'bg-[var(--purple-pale)]');
+      pt.classList.remove('border-[var(--line)]');
+    });
+  });
+
+  // Color swatches
+  const previewPass = document.getElementById('pd-preview-pass');
+  document.querySelectorAll('.pd-swatch').forEach(s => {
+    s.addEventListener('click', () => {
+      document.querySelectorAll('.pd-swatch').forEach(sw => sw.classList.remove('ring-2', 'ring-[var(--purple-deep)]'));
+      s.classList.add('ring-2', 'ring-[var(--purple-deep)]');
+      if (previewPass) previewPass.style.background = (s as HTMLElement).dataset.color || '';
+    });
+  });
+
+  // Templates
+  document.querySelectorAll('.pd-thumb').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.pd-thumb').forEach(th => {
+        th.classList.remove('border-[var(--purple-deep)]', 'shadow-[0_0_0_3px_rgba(111,77,255,0.15)]');
+        th.classList.add('border-transparent');
+      });
+      t.classList.add('border-[var(--purple-deep)]', 'shadow-[0_0_0_3px_rgba(111,77,255,0.15)]');
+      t.classList.remove('border-transparent');
+      if (previewPass) previewPass.style.background = (t as HTMLElement).dataset.bg || '';
+    });
+  });
+
+  // Toggles
+  document.querySelectorAll('.pd-toggle').forEach(toggle => {
+    toggle.addEventListener('click', () => {
+      const span = toggle.querySelector('span')!;
+      const isOn = span.classList.contains('right-0.5');
+      if (isOn) {
+        span.classList.replace('right-0.5', 'left-0.5');
+        toggle.classList.replace('bg-[var(--purple-deep)]', 'bg-[var(--line)]');
+      } else {
+        span.classList.replace('left-0.5', 'right-0.5');
+        toggle.classList.replace('bg-[var(--line)]', 'bg-[var(--purple-deep)]');
+      }
+    });
+  });
+</script>
+
+<style>
+  .pd-platform.active { background: var(--ink); color: white; }
+</style>

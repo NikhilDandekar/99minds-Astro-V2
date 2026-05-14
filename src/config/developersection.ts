@@ -236,3 +236,59 @@ export const promotionsDeveloper: DeveloperSectionConfig = {
   activeTab: 0,
   codeHtml: promotionsCode,
 };
+
+// ─── Wallet Passes ────────────────────────────────────────────────────────────
+const walletCode = [
+  L(C('// Issue a wallet pass - Apple + Google in one call')),
+  L(`${K('const')} pass ${P('=')} ${K('await')} client${P('.')}walletPasses${P('.')}${F('create')}${P('({"')}`),
+  L(`  customer${P(':')} ${S("'cus_8KPq2x'")}${P(',')}`),
+  L(`  type${P(':')} ${S("'loyalty'")}${P(',')}`),
+  L(`  template${P(':')} ${S("'northwind_gold'")}${P(',')}`),
+  L(`  fields${P(':')} ${P('{')}`),
+  L(`    member_name${P(':')} ${S("'Ada Lovelace'")}${P(',')}`),
+  L(`    balance${P(':')}     ${N('18450')}${P(',')}          ${C('// $184.50')}`),
+  L(`    points${P(':')}      ${N('2840')}${P(',')}`),
+  L(`    tier${P(':')}        ${S("'gold'")}`),
+  L(`  ${P('},')} `),
+  L(`  delivery${P(':')} ${P('{')}`),
+  L(`    method${P(':')} ${S("'sms'")}${P(',')}             ${C('// auto-detects iOS/Android')}`),
+  L(`    phone${P(':')}  ${S("'+15551234567'")}`),
+  L(`  ${P('},')} `),
+  L(`  geo_locations${P(':')} ${S("'northwind_stores'")}`),
+  L(`${P('});')}`),
+  L('&nbsp;'),
+  L(C('// -> 201 Created')),
+  L(P('{')),
+  L(`  ${K('"id"')}${P(':')} ${S('"wp_8x2K9q"')}${P(',')}`),
+  L(`  ${K('"apple_url"')}${P(':')} ${S('"https://w.99m.co/p/8x..."')}${P(',')}`),
+  L(`  ${K('"google_url"')}${P(':')} ${S('"https://pay.google.com/..."')}${P(',')}`),
+  L(`  ${K('"universal_url"')}${P(':')} ${S('"https://w.99m.co/p/8x"')}`),
+  L(P('}')),
+].join('\n');
+
+export const walletDeveloper: DeveloperSectionConfig = {
+  eyebrow: 'For developers',
+  headingBefore: 'No certificates. No P12 files. ',
+  gradientText: 'Just code.',
+  lede: 'We own the Apple Developer account, the Pass Type ID certificate, and the Google Wallet Issuer ID. You issue passes through one API. We handle the platform-specific signing, encoding, and delivery.',
+  callouts: [
+    {
+      icon: '<path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6z"/>',
+      title: 'We own the certificate hell',
+      body: 'No Apple Pass Type ID setup. No Google Wallet Issuer onboarding. Pass Type Identifiers, signing certificates, and issuer accounts are all managed by us.',
+    },
+    {
+      icon: '<path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M9 12l2 2 4-4"/>',
+      title: 'Single API, dual platforms',
+      body: 'One create-pass endpoint outputs both .pkpass for iOS and a Google Wallet save URL for Android. SMS link auto-detects platform.',
+    },
+    {
+      icon: '<path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M12 7v5l3 2"/>',
+      title: 'Webhook on every interaction',
+      body: 'pass.installed, pass.updated, pass.removed, geo.entered, and 12 more events. Trigger downstream marketing on each.',
+    },
+  ],
+  tabs: ['Issue Pass (Node)', 'Update (cURL)', 'Webhook'],
+  activeTab: 0,
+  codeHtml: walletCode,
+};

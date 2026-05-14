@@ -102,3 +102,21 @@ export const giftCardComparison: ComparisonConfig = {
     { feature: 'Time-to-launch',                        us: '~14 days',  competitors: ['~30 days',    '3-6 months'], highlight: true },
   ],
 };
+
+export const walletComparison: ComparisonConfig = {
+  eyebrow: 'Why teams switch from Badge & PassKit',
+  title: "Wallet that's part of your platform -- not another tool.",
+  lede: "Badge and PassKit are dedicated wallet pass tools. We are too -- but we're also where your gift card balance, loyalty points, and store credit already live. So our passes update the moment those balances change.",
+  usLabel: '99minds',
+  competitorLabels: ['Badge', 'PassKit'],
+  rows: [
+    { feature: 'Apple + Google Wallet support',         us: true,        competitors: [true,               true] },
+    { feature: 'Visual pass designer',                  us: true,        competitors: [true,               'Limited'] },
+    { feature: 'Geo-fenced push notifications',         us: true,        competitors: [true,               true] },
+    { feature: 'Native gift card balance on pass',      us: true,        competitors: ['3rd party sync',   '3rd party sync'] },
+    { feature: 'Native loyalty engine on pass',         us: true,        competitors: ['3rd party sync',   '3rd party sync'] },
+    { feature: 'Promo redemption updates pass live',    us: true,        competitors: ['Webhook required', 'Webhook required'] },
+    { feature: 'One contract, one platform',            us: true,        competitors: [false,              false] },
+    { feature: 'Time-to-launch',                        us: '~10 days',  competitors: ['~14 days',         '~30 days'], highlight: true },
+  ],
+};

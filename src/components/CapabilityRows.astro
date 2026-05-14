@@ -301,6 +301,89 @@ const { rows } = Astro.props;
             </div>
           )}
 
+          {/* ── Real-time Updates ────────────────────── */}
+          {row.visualSlot === 'realtime-updates' && (
+            <div class="flex flex-col gap-3">
+              {[
+                { n: '1', title: 'Customer redeems $50 at checkout',       desc: 'In-store POS, web checkout, or mobile app',           time: '12:04:11', highlight: false },
+                { n: '2', title: '99minds ledger updates instantly',        desc: 'Balance: $234.50 -> $184.50 · Webhook fires',         time: '12:04:11', highlight: true  },
+                { n: '3', title: 'Apple + Google push servers notified',    desc: 'Pass payload signed and sent to both',                time: '12:04:12', highlight: false },
+                { n: '4', title: "Customer's wallet shows new balance",     desc: '"Balance updated · $184.50" -> lock screen',         time: '12:04:12', highlight: true  },
+              ].map((step, i) => (
+                <div class={`relative flex items-center gap-3.5 rounded-[12px] p-[14px_16px] ${step.highlight ? 'bg-white border-2 border-[var(--purple-deep)] shadow-[0_4px_16px_-4px_rgba(111,77,255,0.2)]' : 'bg-white border border-[var(--line)]'} ${i > 0 ? 'uf-step' : ''}`}>
+                  <div class={`w-8 h-8 shrink-0 rounded-[8px] flex items-center justify-center font-bold text-[13px] ${step.highlight ? 'bg-[var(--purple-deep)] text-white' : 'bg-[var(--purple-pale)] text-[var(--purple-deep)]'}`}>{step.n}</div>
+                  <div class="flex-1">
+                    <div class="text-[13px] font-bold">{step.title}</div>
+                    <div class="text-[12px] text-[var(--slate)] mt-0.5">{step.desc}</div>
+                  </div>
+                  <div class="font-mono text-[11px] text-[var(--slate-light)] shrink-0">{step.time}</div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* ── Geo-Fenced ────────────────────────────── */}
+          {row.visualSlot === 'geo-fenced' && (
+            <div class="bg-white border border-[var(--line)] rounded-[16px] overflow-hidden">
+              <div class="geo-map h-[220px] relative overflow-hidden" style="background:linear-gradient(135deg,var(--bg-alt),var(--purple-pale))">
+                <svg viewBox="0 0 280 220" preserveAspectRatio="none" class="absolute inset-0 w-full h-full">
+                  <path d="M0,80 Q60,75 140,90 T280,100" stroke="rgba(170,143,255,0.25)" stroke-width="3" fill="none"/>
+                  <path d="M40,0 Q50,60 60,120 T80,220" stroke="rgba(170,143,255,0.25)" stroke-width="3" fill="none"/>
+                  <path d="M180,0 Q175,60 170,120 T160,220" stroke="rgba(170,143,255,0.25)" stroke-width="3" fill="none"/>
+                  <path d="M0,180 Q80,175 160,180 T280,170" stroke="rgba(170,143,255,0.25)" stroke-width="3" fill="none"/>
+                </svg>
+                <div class="geo-radius absolute rounded-full" style="top:30px;left:70px;width:110px;height:110px;border:2px dashed var(--purple);background:rgba(170,143,255,0.1)"></div>
+                <div class="absolute flex items-center justify-center text-white" style="top:70px;left:110px;width:28px;height:28px;background:var(--purple-deep);border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 4px 12px -2px rgba(111,77,255,0.5)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform:rotate(45deg);width:14px;height:14px"><path d="M3 9l1-5h16l1 5M3 9v11h18V9"/></svg>
+                </div>
+                <div class="absolute rounded-full" style="top:80px;left:145px;width:16px;height:16px;background:var(--accent-mint);border:2px solid white;box-shadow:0 2px 6px rgba(126,240,197,0.5)"></div>
+                <div class="absolute rounded-full" style="top:95px;left:95px;width:16px;height:16px;background:var(--accent-mint);border:2px solid white;box-shadow:0 2px 6px rgba(126,240,197,0.5)"></div>
+              </div>
+              <div class="p-[18px]">
+                <div class="flex justify-between items-start mb-3">
+                  <div>
+                    <div class="text-[14px] font-bold">Northwind · SoHo</div>
+                    <div class="text-[11px] text-[var(--slate)] mt-0.5">450m radius · 2 customers nearby</div>
+                  </div>
+                  <span class="text-[11px] font-bold px-[10px] py-[3px] rounded-full" style="background:rgba(126,240,197,0.2);color:#1a8c5e">● Active</span>
+                </div>
+                <div class="flex gap-[10px] items-center rounded-[10px] p-3 mt-2 bg-[var(--bg-alt)]">
+                  <div class="w-8 h-8 rounded-[8px] flex items-center justify-center text-white shrink-0" style="background:linear-gradient(135deg,var(--purple-deep),var(--purple))">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l1-5h16l1 5M3 9v11h18V9"/></svg>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="text-[9px] font-semibold uppercase tracking-[0.06em] text-[var(--slate)]">Northwind · Wallet</div>
+                    <div class="text-[12px] font-semibold mt-0.5">$184.50 store credit · You're 2 blocks away ✨</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ── Multi-Pass ────────────────────────────── */}
+          {row.visualSlot === 'multi-pass' && (
+            <div class="flex flex-col gap-3">
+              {[
+                { grad: 'linear-gradient(135deg,#6f4dff,#aa8fff)',   name: 'Loyalty membership',          desc: 'Tier · points · perks · birthday rewards', count: '8,420' },
+                { grad: 'linear-gradient(135deg,#ff8a7a,#ffc060)',   name: 'Store credit / gift card',    desc: 'Real-time balance · refunds-as-credit',    count: '4,210' },
+                { grad: 'linear-gradient(135deg,#00d4ff,#4a9eff)',   name: 'Promo coupons',               desc: 'Single-use · expiring · personalized',     count: '12,100' },
+                { grad: 'linear-gradient(135deg,#1a8c5e,#7ef0c5)',   name: 'Limited-edition collectibles', desc: 'Drops · brand moments · VIP events',      count: '340' },
+              ].map(p => (
+                <div class="bg-white border border-[var(--line)] rounded-[14px] p-[18px] flex gap-3.5 items-center transition-transform hover:translate-x-1">
+                  <div class="w-16 h-10 rounded-[8px] shrink-0" style={`background:${p.grad}`}></div>
+                  <div class="flex-1 min-w-0">
+                    <div class="text-[14px] font-bold">{p.name}</div>
+                    <div class="text-[12px] text-[var(--slate)] mt-0.5">{p.desc}</div>
+                  </div>
+                  <div class="text-right shrink-0 text-[11px]">
+                    <div class="text-[14px] font-bold text-[var(--ink)]">{p.count}</div>
+                    <div class="text-[var(--slate-light)] mt-0.5">passes</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
           {/* ── Rewards Catalog ───────────────────────── */}
           {row.visualSlot === 'rewards' && (
             <div class="grid grid-cols-2 gap-3 max-sm:grid-cols-1">
@@ -362,5 +445,31 @@ const { rows } = Astro.props;
     position: absolute;
     inset: 0;
     background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent 60%);
+  }
+  /* Real-time updates: connector between steps */
+  .uf-step::before {
+    content: '';
+    position: absolute;
+    top: -10px; left: 28px;
+    width: 1px; height: 10px;
+    background: var(--purple);
+  }
+  /* Geo map grid overlay */
+  .geo-map::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(170,143,255,0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(170,143,255,0.1) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  /* Geo radius radar pulse */
+  .geo-radius {
+    animation: radarPulse 3s ease-in-out infinite;
+  }
+  @keyframes radarPulse {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.05); opacity: 0.9; }
   }
 </style>
