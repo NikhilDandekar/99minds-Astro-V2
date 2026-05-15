@@ -217,7 +217,7 @@ const {
         width:28px  height:28px  border-radius:50%  flex center
         background: accent-mint  color: ink  font-weight:700  font-size:12px
       -->
-      <div class="absolute z-[10] bg-white rounded-12 flex items-center gap-[10px] text-[13px] animate-float"
+      <div class="absolute z-[10] bg-white rounded-lg flex items-center gap-[10px] text-[13px] animate-float"
            style="top:10px;right:-10px;padding:14px 16px;
                   box-shadow:0 12px 32px -8px rgba(10,10,35,0.18),0 0 0 1px #e8e6f5">
         <div class="w-7 h-7 rounded-full flex items-center justify-center font-bold text-[12px] flex-shrink-0"
@@ -246,146 +246,137 @@ const {
         Class "gc-1" is a static string — global.css hover rule targets it:
           .gift-stack:hover .gc-1 { transform: rotate(-12deg) translateY(-8px) !important }
       -->
-      <div class="gc-1 absolute overflow-hidden cursor-pointer"
+      <!-- CARD 1: purple (back) -->
+      <div id="gc-card-1" class="absolute overflow-hidden cursor-pointer"
            style="width:380px;height:240px;border-radius:18px;
                   background:linear-gradient(135deg,#6f4dff 0%,#aa8fff 100%);
-                  top:30px;left:20px;transform:rotate(-8deg);z-index:1;
+                  top:20px;left:10px;transform:rotate(-8deg);z-index:1;
                   box-shadow:0 30px 60px -20px rgba(10,10,35,0.35),inset 0 0 0 1px rgba(255,255,255,0.08);
                   transition:transform 0.6s cubic-bezier(0.2,0.8,0.2,1)">
-        <!--
-          .gift-card-content
-          position:relative  width:100%  height:100%  padding:26px 28px
-          display:flex  flex-direction:column  justify-content:space-between  color:white
-        -->
-        <div class="relative w-full h-full flex flex-col justify-between text-white"
-             style="padding:26px 28px">
-          <!-- .gc-pattern → global.css .dot-pattern (absolute inset-0 opacity-0.15 dot 16×16) -->
-          <div class="dot-pattern"></div>
-          <!-- .gc-shine → global.css .card-shine (absolute inset-0 linear-grad 125deg white glow) -->
-          <div class="card-shine"></div>
-
-          <!-- .gc-header: relative flex justify-between items-start -->
+        <div class="relative w-full h-full flex flex-col justify-between text-white" style="padding:26px 28px">
+          <!-- dot pattern -->
+          <div class="absolute inset-0 pointer-events-none" style="background-image:radial-gradient(circle,rgba(255,255,255,0.15) 1px,transparent 1px);background-size:16px 16px;opacity:0.5"></div>
+          <!-- shine -->
+          <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(125deg,rgba(255,255,255,0.18) 0%,transparent 50%)"></div>
           <div class="relative flex justify-between items-start">
-            <!-- .gc-brand: text-[10px] font-bold tracking-[0.2em] uppercase opacity-0.85 -->
             <div class="text-[10px] font-bold tracking-[0.2em] uppercase" style="opacity:0.85">NORTHWIND</div>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" opacity="0.7">
-              <path d="M20 12V8H6a2 2 0 010-4h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/>
-            </svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" opacity="0.7"><path d="M20 12V8H6a2 2 0 010-4h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/></svg>
           </div>
-
           <div>
-            <!-- .gc-amount: text-[44px] font-bold tracking-[-0.03em] leading-none -->
             <div class="text-[44px] font-bold tracking-[-0.03em] leading-none">$50</div>
-            <!-- .gc-tagline: text-[11px] opacity-0.7 mt-[6px] -->
             <div class="text-[11px] mt-[6px]" style="opacity:0.7">Just because.</div>
           </div>
-
-          <!-- .gc-footer: relative flex justify-between items-end font-mono text-[10px] opacity-0.7 -->
           <div class="relative flex justify-between items-end font-mono text-[10px]" style="opacity:0.7">
-            <!-- .gc-chip → global.css (w-8 h-6 gradient border ::before ::after lines) -->
-            <div class="gc-chip"></div>
+            <!-- chip: rounded rect + cross lines via child divs -->
+            <div class="relative w-8 h-6 rounded-[4px]" style="background:linear-gradient(135deg,rgba(255,255,255,0.4),rgba(255,255,255,0.15));border:1px solid rgba(255,255,255,0.3)">
+              <div class="absolute inset-y-0 left-0 right-0 m-auto h-px" style="background:rgba(255,255,255,0.4)"></div>
+              <div class="absolute inset-x-0 top-0 bottom-0 m-auto w-px" style="background:rgba(255,255,255,0.4)"></div>
+            </div>
             <span>NW-7K2P9X</span>
           </div>
         </div>
       </div>
 
-      <!--
-        GIFT CARD 2 — dark / ink gradient
-        .gift-card-2
-          background: linear-gradient(135deg, #0a0a23 0%, #6f4dff 100%)
-          top: 100px  left: 100px  transform: rotate(2deg)  z-index: 2
-
-        Class "gc-2" targets:
-          .gift-stack:hover .gc-2 { transform: rotate(0deg) translateY(-12px) !important }
-      -->
-      <div class="gc-2 absolute overflow-hidden cursor-pointer"
+      <!-- CARD 2: dark/ink (middle) -->
+      <div id="gc-card-2" class="absolute overflow-hidden cursor-pointer"
            style="width:380px;height:240px;border-radius:18px;
                   background:linear-gradient(135deg,#0a0a23 0%,#6f4dff 100%);
-                  top:100px;left:100px;transform:rotate(2deg);z-index:2;
+                  top:90px;left:90px;transform:rotate(2deg);z-index:2;
                   box-shadow:0 30px 60px -20px rgba(10,10,35,0.35),inset 0 0 0 1px rgba(255,255,255,0.08);
                   transition:transform 0.6s cubic-bezier(0.2,0.8,0.2,1)">
-        <div class="relative w-full h-full flex flex-col justify-between text-white"
-             style="padding:26px 28px">
-          <div class="dot-pattern"></div>
-          <div class="card-shine"></div>
+        <div class="relative w-full h-full flex flex-col justify-between text-white" style="padding:26px 28px">
+          <div class="absolute inset-0 pointer-events-none" style="background-image:radial-gradient(circle,rgba(255,255,255,0.15) 1px,transparent 1px);background-size:16px 16px;opacity:0.5"></div>
+          <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(125deg,rgba(255,255,255,0.18) 0%,transparent 50%)"></div>
           <div class="relative flex justify-between items-start">
             <div class="text-[10px] font-bold tracking-[0.2em] uppercase" style="opacity:0.85">NORTHWIND · BIRTHDAY</div>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" opacity="0.7">
-              <path d="M20 12V8H6a2 2 0 010-4h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/>
-            </svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" opacity="0.7"><path d="M20 12V8H6a2 2 0 010-4h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/></svg>
           </div>
           <div>
             <div class="text-[44px] font-bold tracking-[-0.03em] leading-none">$100</div>
             <div class="text-[11px] mt-[6px]" style="opacity:0.7">Happy birthday, Ada!</div>
           </div>
           <div class="relative flex justify-between items-end font-mono text-[10px]" style="opacity:0.7">
-            <div class="gc-chip"></div>
+            <div class="relative w-8 h-6 rounded-[4px]" style="background:linear-gradient(135deg,rgba(255,255,255,0.4),rgba(255,255,255,0.15));border:1px solid rgba(255,255,255,0.3)">
+              <div class="absolute inset-y-0 left-0 right-0 m-auto h-px" style="background:rgba(255,255,255,0.4)"></div>
+              <div class="absolute inset-x-0 top-0 bottom-0 m-auto w-px" style="background:rgba(255,255,255,0.4)"></div>
+            </div>
             <span>NW-8KPQ2X</span>
           </div>
         </div>
       </div>
 
-      <!--
-        GIFT CARD 3 — coral / gold gradient
-        .gift-card-3
-          background: linear-gradient(135deg, #ff8a7a 0%, #ffc060 100%)
-          top: 200px  left: 60px  transform: rotate(-3deg)  z-index: 3
-
-        Class "gc-3" targets:
-          .gift-stack:hover .gc-3 { transform: rotate(-1deg) translateY(-16px) !important }
-      -->
-      <div class="gc-3 absolute overflow-hidden cursor-pointer"
+      <!-- CARD 3: coral/gold (front) -->
+      <div id="gc-card-3" class="absolute overflow-hidden cursor-pointer"
            style="width:380px;height:240px;border-radius:18px;
                   background:linear-gradient(135deg,#ff8a7a 0%,#ffc060 100%);
                   top:200px;left:60px;transform:rotate(-3deg);z-index:3;
                   box-shadow:0 30px 60px -20px rgba(10,10,35,0.35),inset 0 0 0 1px rgba(255,255,255,0.08);
                   transition:transform 0.6s cubic-bezier(0.2,0.8,0.2,1)">
-        <div class="relative w-full h-full flex flex-col justify-between text-white"
-             style="padding:26px 28px">
-          <div class="dot-pattern"></div>
-          <div class="card-shine"></div>
+        <div class="relative w-full h-full flex flex-col justify-between text-white" style="padding:26px 28px">
+          <div class="absolute inset-0 pointer-events-none" style="background-image:radial-gradient(circle,rgba(255,255,255,0.15) 1px,transparent 1px);background-size:16px 16px;opacity:0.5"></div>
+          <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(125deg,rgba(255,255,255,0.18) 0%,transparent 50%)"></div>
           <div class="relative flex justify-between items-start">
             <div class="text-[10px] font-bold tracking-[0.2em] uppercase" style="opacity:0.85">NORTHWIND · SUMMER</div>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" opacity="0.7">
-              <path d="M20 12V8H6a2 2 0 010-4h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/>
-            </svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" opacity="0.7"><path d="M20 12V8H6a2 2 0 010-4h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/></svg>
           </div>
           <div>
             <div class="text-[44px] font-bold tracking-[-0.03em] leading-none">$25</div>
             <div class="text-[11px] mt-[6px]" style="opacity:0.7">Refund credit · Order #4291</div>
           </div>
           <div class="relative flex justify-between items-end font-mono text-[10px]" style="opacity:0.7">
-            <div class="gc-chip"></div>
+            <div class="relative w-8 h-6 rounded-[4px]" style="background:linear-gradient(135deg,rgba(255,255,255,0.4),rgba(255,255,255,0.15));border:1px solid rgba(255,255,255,0.3)">
+              <div class="absolute inset-y-0 left-0 right-0 m-auto h-px" style="background:rgba(255,255,255,0.4)"></div>
+              <div class="absolute inset-x-0 top-0 bottom-0 m-auto w-px" style="background:rgba(255,255,255,0.4)"></div>
+            </div>
             <span>NW-9LMNZ4</span>
           </div>
         </div>
       </div>
 
-      <!--
-        .gc-floating-info.gc-floating-2
-        position: absolute  bottom: 30px  right: 30px  z-index: 10
-        Same visual as gc-floating-1
-        animation: float 5s ease-in-out infinite  animation-delay: 2s
-        (delay expressed inline — Tailwind has no animate-delay-2s token by default)
-
-        .gcf-icon.gcf-2-icon
-        background: purple-deep  color: white
-      -->
-      <div class="absolute z-[10] bg-white rounded-12 flex items-center gap-[10px] text-[13px]"
+      <!-- Floating badge 2: redemption rate -->
+      <div class="absolute z-[10] bg-white rounded-[12px] flex items-center gap-[10px] text-[13px]"
            style="bottom:30px;right:30px;padding:14px 16px;
                   box-shadow:0 12px 32px -8px rgba(10,10,35,0.18),0 0 0 1px #e8e6f5;
-                  animation:float 5s ease-in-out 2s infinite">
-        <div class="w-7 h-7 rounded-full bg-purple-deep flex items-center justify-center flex-shrink-0">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
-            <path d="M20 6L9 17l-5-5"/>
-          </svg>
+                  animation:gcFloat 5s ease-in-out 2s infinite">
+        <div class="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0" style="background:#6f4dff">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
         </div>
         <div>
-          <div class="text-[10px] text-slate-light font-semibold uppercase tracking-[0.06em]">Redemption rate</div>
-          <div class="font-bold text-[13px] text-ink">73.4%</div>
+          <div class="text-[10px] font-semibold uppercase tracking-[0.06em]" style="color:#8b8ba8">Redemption rate</div>
+          <div class="font-bold text-[13px]" style="color:#0a0a23">73.4%</div>
         </div>
       </div>
 
     </div><!-- end .gift-stack -->
   </div><!-- end .product-hero-inner -->
 </section>
+
+<script>
+  // Hover fan-out: JS because Tailwind can't express parent:hover > sibling transforms
+  const stack = document.querySelector('.gift-stack');
+  const c1 = document.getElementById('gc-card-1');
+  const c2 = document.getElementById('gc-card-2');
+  const c3 = document.getElementById('gc-card-3');
+
+  if (stack && c1 && c2 && c3) {
+    stack.addEventListener('mouseenter', () => {
+      (c1 as HTMLElement).style.transform = 'rotate(-14deg) translateY(-12px) translateX(-8px)';
+      (c2 as HTMLElement).style.transform = 'rotate(4deg) translateY(-16px)';
+      (c3 as HTMLElement).style.transform = 'rotate(-2deg) translateY(-20px) translateX(6px)';
+    });
+    stack.addEventListener('mouseleave', () => {
+      (c1 as HTMLElement).style.transform = 'rotate(-8deg)';
+      (c2 as HTMLElement).style.transform = 'rotate(2deg)';
+      (c3 as HTMLElement).style.transform = 'rotate(-3deg)';
+    });
+  }
+</script>
+
+<style>
+  /* Float animation — can't be expressed in Tailwind without config changes */
+  @keyframes gcFloat {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-8px); }
+  }
+  .animate-float { animation: gcFloat 5s ease-in-out infinite; }
+</style>
