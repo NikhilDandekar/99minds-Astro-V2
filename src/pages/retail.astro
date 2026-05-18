@@ -1,0 +1,402 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumb from '../components/loyalty/Breadcrumb.astro';
+import CaseStudy from '../components/CaseStudy.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+
+import RetailHero from '../components/retail/RetailHero.astro';
+
+import { retailCaseStudy } from '../config/casestudy';
+import { retailCTA } from '../config/finalcta';
+
+const calendarItems = [
+  {
+    month: 'Q4 · NOV–DEC',
+    event: 'Holiday gifting peak',
+    pain: "eGifts make up 30%+ of holiday revenue. One outage and you lose a week's GMV. One ugly card design and the brand suffers.",
+    solution: '<strong>Gift Cards + Wallet Passes.</strong> Branded eGifts, scaled to BFCM, delivered to inbox + wallet in under 2 seconds.',
+  },
+  {
+    month: 'Q1 · JAN–FEB',
+    event: 'The returns avalanche',
+    pain: 'January refunds bleed cash and kill LTV. Standard refund-to-cash means you lose the customer too. They got disappointed and got their money back.',
+    solution: '<strong>Store Credit + Refunds-as-Credit.</strong> Offer credit + 15%, recover 64% of refund cash, keep the relationship.',
+  },
+  {
+    month: 'Q2 · MAR–MAY',
+    event: 'Spring re-engagement',
+    pain: "The customers who bought a gift in December — what happens to them? Most retailers never speak to them again. That's the loyalty cohort you're leaving on the table.",
+    solution: '<strong>Loyalty Engine.</strong> Auto-enroll holiday gifters into a tiered program. Birthday rewards. Status. Habit-building challenges.',
+  },
+  {
+    month: 'Q3 · JUN–OCT',
+    event: 'The margin grind',
+    pain: "Mid-year is when discounts get desperate. Site-wide 25% off attracts customers who'd have paid full price — and trains everyone to wait for the sale.",
+    solution: '<strong>ML-Personalized Promotions.</strong> Discount only the customers who need the nudge. Save 40% of promo cost; protect AOV.',
+  },
+];
+
+const kpiCards = [
+  {
+    num: '+42%',
+    name: 'LTV uplift',
+    sub: 'among customers in our loyalty program after 12 months',
+    how: 'Tier-based status drives 3.2× repeat purchase. Birthday rewards land at 92% open rate. Personalized challenges build habits — not just transactions.',
+    pills: ['Loyalty Engine', 'Wallet Passes'],
+  },
+  {
+    num: '+38%',
+    name: 'Gift card revenue',
+    sub: 'vs prior provider, same brand, same holiday season',
+    how: "Branded eGifts that look like your brand, not your vendor's. Wallet pass delivery means the gift never gets lost. Bulk B2B gifting unlocks corporate revenue you weren't capturing.",
+    pills: ['Gift Cards', 'B2B Gifting'],
+  },
+  {
+    num: '−42%',
+    name: 'Discount cost',
+    sub: 'per promoted order, via ML personalization',
+    how: "Per-customer discount sensitivity scoring stops your sure-thing buyers from getting 25% off they'd have paid full price for. Wavering carts get the nudge. Loyal buyers get status, not discounts.",
+    pills: ['Promotions', 'ML Predict'],
+  },
+  {
+    num: '64%',
+    name: 'Refund-to-credit conversion',
+    sub: 'across our retail customer base',
+    how: 'When a customer requests a refund, offer instant store credit + 15%. Most accept. Cash stays in the business, LTV climbs because you said "yes" to credit instead of "wait 5–7 days" to cash.',
+    pills: ['Store Credit', 'Refunds-as-Credit'],
+  },
+];
+
+const journeySteps = [
+  {
+    num: '01',
+    title: 'Acquisition',
+    desc: "A friend sends them a $50 birthday eGift. They open the email, the brand looks beautiful, they redeem. They've never bought from you before — and now they're a customer.",
+    tacticTitle: 'Branded eGifts that look like your brand',
+    tacticDesc: 'Pixel-perfect cards, scheduled delivery, included in the wallet on day one. Gifters become your top-of-funnel for free.',
+    products: ['Gift Cards', 'Wallet Passes'],
+  },
+  {
+    num: '02',
+    title: 'First purchase',
+    desc: 'They redeem the eGift, add a few extras, check out. The cart auto-applies a "first-purchase 15% off" promotion — no code needed, no coupon site to scrape. They feel taken care of.',
+    tacticTitle: 'Couponless first-purchase incentive',
+    tacticDesc: 'Customer-bound promotions evaluate at cart time. Right person, right discount, automatic. No code shown.',
+    products: ['Promotions', 'Couponless'],
+  },
+  {
+    num: '03',
+    title: 'Retention',
+    desc: 'Auto-enrolled in loyalty. Earns 200 points on the first order. A wallet pass appears with their tier badge. Three weeks later, a "complete a streak" challenge lands — and they\'re back.',
+    tacticTitle: 'Tiered loyalty + gamified challenges',
+    tacticDesc: 'Status drives repeat. Streaks build habit. Wallet passes keep your brand on their lock screen forever.',
+    products: ['Loyalty Engine', 'Challenges', 'Wallet Passes'],
+  },
+  {
+    num: '04',
+    title: 'The recovery',
+    desc: 'The wrong size. They request a refund. Instead of cash leaving the business, you offer $57.50 in store credit (the refund + 15%). They accept. They redeem within 30 days.',
+    tacticTitle: 'Refunds-as-credit with a sweetener',
+    tacticDesc: 'Embedded in your returns flow. 64% of refunds become store credit. LTV climbs 1.4× for credit-redeeming customers.',
+    products: ['Store Credit', 'Refunds-as-Credit'],
+  },
+  {
+    num: '05',
+    title: 'VIP & advocacy',
+    desc: "Twelve months in, they've hit Gold tier. They get an early-access drop, a private studio tour, and a $25 birthday eGift in their wallet. They send three friends. Each gets a $50 referral eGift.",
+    tacticTitle: 'Status, perks & referral flywheel',
+    tacticDesc: 'Tier-protected rewards, partner perks, and a referral program that issues real branded eGifts — not just discount codes.',
+    products: ['Loyalty Tiers', 'Gift Cards', 'Referral'],
+  },
+];
+
+const stackRows = [
+  { label: 'Storefront',     tools: [{ icon: 'S', name: 'Shopify Plus' }, { icon: 'B', name: 'BigCommerce' }, { icon: 'SF', name: 'Salesforce Commerce' }, { icon: 'Hi', name: 'Headless / Custom' }], featured: false },
+  { label: 'Reward layer',   tools: [{ icon: '99', name: '99minds — Gift Cards · Loyalty · Promotions · Wallet', featured: true }], featured: true },
+  { label: 'CDP / CRM',      tools: [{ icon: 'K', name: 'Klaviyo' }, { icon: 'B', name: 'Braze' }, { icon: 'SE', name: 'Segment' }, { icon: 'A', name: 'Attentive' }], featured: false },
+  { label: 'Returns & CX',   tools: [{ icon: 'L', name: 'Loop Returns' }, { icon: 'R', name: 'Returnly' }, { icon: 'Z', name: 'Zendesk' }, { icon: 'G', name: 'Gladly' }], featured: false },
+  { label: 'In-store / POS', tools: [{ icon: 'SQ', name: 'Square' }, { icon: 'SH', name: 'Shopify POS' }, { icon: 'L', name: 'Lightspeed' }, { icon: 'H', name: 'Heartland' }], featured: false },
+];
+
+const peers = [
+  {
+    segment: 'Beauty · DTC',
+    name: 'Verdant',
+    arr: '$8M GMV · 2 founders, 14 employees',
+    summary: 'Direct-to-consumer skincare. Heavy first-purchase discount dependency was killing margin. Switched to ML-personalized promotions to cut discount cost without hurting conversion.',
+    stats: [
+      { label: 'Discount cost', val: '−42%', color: 'green' },
+      { label: 'Repeat rate',   val: '+24%', color: 'purple' },
+      { label: 'Time to launch', val: '3 weeks', color: '' },
+    ],
+  },
+  {
+    segment: 'Apparel · Mid-market',
+    name: 'Lumen & Co',
+    arr: '$48M GMV · 8 stores + ecom',
+    summary: 'Multi-channel apparel brand. Wanted unified loyalty across in-store and online without a 12-month systems integration. Migrated from three separate vendors in seven weeks.',
+    stats: [
+      { label: 'Vendor spend',   val: '−$340k/yr', color: 'green' },
+      { label: 'VIP cohort',     val: '3.1×',      color: 'purple' },
+      { label: 'Time to migrate', val: '7 weeks',  color: '' },
+    ],
+  },
+  {
+    segment: 'Home & Heritage',
+    name: 'Northwind',
+    arr: '$280M GMV · 64 stores + ecom + B2B',
+    summary: 'Legacy heritage brand. Replaced Blackhawk gift cards and home-grown loyalty with a single 99minds deployment. Refunds-as-credit recovered $1.2M in cash in the first 90 days alone.',
+    stats: [
+      { label: 'Refund-to-credit', val: '64%',   color: 'green' },
+      { label: 'Cash retained',    val: '$1.2M', color: 'purple' },
+      { label: 'LTV uplift',       val: '1.4×',  color: '' },
+    ],
+  },
+];
+
+const migrations = [
+  { name: 'Rise.ai',           products: 'Gift cards · Store credit · Cashback', time: '~4 weeks' },
+  { name: 'Yotpo Loyalty',     products: 'Loyalty · Reviews · Referrals',        time: '~5 weeks' },
+  { name: 'Smile.io',          products: 'Loyalty · Points · Tiers',             time: '~4 weeks' },
+  { name: 'Blackhawk Network', products: 'Gift cards · Stored value',            time: '~6 weeks' },
+  { name: 'Talon.One',         products: 'Promotions · Coupons',                 time: '~6 weeks' },
+  { name: 'Antavo',            products: 'Loyalty · Tiers · Challenges',         time: '~5 weeks' },
+];
+---
+
+<Layout title="For Retail & DTC — 99minds" description="Gift cards that print money in November. Loyalty that brings them back in February. Promotions that don't bleed margin in May. One platform sized for your peak.">
+
+  <Nav />
+
+  <Breadcrumb items={[{ label: 'Solutions', href: '/solutions' }, { label: 'Retail & DTC' }]} />
+
+  <RetailHero />
+
+  <!-- ── LOGO WALL ─────────────────────────────────────────────────────────── -->
+  <div class="py-14 px-8 border-t border-b border-[var(--line)] bg-white">
+    <div class="mx-auto max-w-[1280px] text-center">
+      <div class="text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--slate-light)] mb-8">Trusted by retail brands across categories</div>
+      <div class="grid grid-cols-6 gap-8 items-center max-md:grid-cols-3">
+        {[
+          { name: 'NORTHWIND', style: 'font-family:Georgia,serif' },
+          { name: 'LUMEN&CO',  style: '' },
+          { name: 'verdant',   style: 'font-style:italic' },
+          { name: 'SAGEHAUS',  style: 'font-weight:300;letter-spacing:0.15em' },
+          { name: 'Folio',     style: '' },
+          { name: 'Marquee',   style: 'font-family:Georgia,serif' },
+        ].map(b => (
+          <div class="text-[18px] font-bold text-[var(--slate)] text-center tracking-[-0.02em] opacity-65 hover:opacity-100 hover:text-[var(--ink)] transition-all cursor-default" style={b.style} set:html={b.name}></div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- ── THE PROBLEM: RETAIL CALENDAR ──────────────────────────────────────── -->
+  <section class="py-[120px] px-8 max-sm:py-20 max-sm:px-5 bg-[var(--bg-alt)] overflow-hidden">
+    <div class="mx-auto max-w-[1280px]">
+      <div class="max-w-[720px] mb-16">
+        <div class="text-[13px] font-bold text-[var(--purple-deep)] uppercase tracking-[0.1em] mb-4">The retail year, in four moments</div>
+        <h2 class="text-[clamp(32px,4vw,52px)] font-bold tracking-[-0.03em] leading-[1.05] text-[var(--ink)] mb-5">Your calendar is our roadmap.</h2>
+        <p class="text-[19px] text-[var(--slate)] leading-[1.55]">Every retail brand runs the same year. Every quarter has the same recurring crisis. We built the platform that solves all four — instead of bolting on a tool for each.</p>
+      </div>
+
+      <div class="grid grid-cols-4 gap-4 mt-8 max-lg:grid-cols-2 max-sm:grid-cols-1">
+        {calendarItems.map(c => (
+          <div class="bg-white border border-[var(--line)] rounded-2xl p-6 transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_-12px_rgba(111,77,255,0.15)] hover:border-[var(--purple-light)]">
+            <div class="text-[11px] font-bold uppercase tracking-[0.1em] text-[var(--purple-deep)] mb-2">{c.month}</div>
+            <div class="font-['Fraunces',Georgia,serif] text-[22px] font-semibold tracking-[-0.015em] leading-[1.1] mb-3">{c.event}</div>
+            <p class="border-b border-[var(--line)]text-[13px] text-[var(--slate)] leading-[1.55] mb-4">{c.pain}</p>
+            <div class="mt-4  flex items-start gap-2.5 text-[12px] text-[var(--ink)] leading-[1.5]">
+              <div class="w-5 h-5 rounded-full flex items-center justify-center text-[var(--purple-deep)] font-extrabold text-[11px] flex-shrink-0 mt-px" style="background:var(--purple-pale)">✓</div>
+              <div set:html={c.solution}></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── KPI BAND ───────────────────────────────────────────────────────────── -->
+  <section class="py-[120px] px-8 max-sm:py-20 max-sm:px-5 bg-[var(--ink)] text-white relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse at top right,rgba(255,138,122,0.18) 0%,transparent 50%),radial-gradient(ellipse at bottom left,rgba(170,143,255,0.15) 0%,transparent 50%)"></div>
+    <div class="relative mx-auto max-w-[1280px]">
+      <div class="max-w-[720px] mb-16">
+        <div class="text-[13px] font-bold text-[var(--purple-light)] uppercase tracking-[0.1em] mb-4">Move the metrics that matter</div>
+        <h2 class="text-[clamp(32px,4vw,52px)] font-bold tracking-[-0.03em] leading-[1.05] text-white mb-5">The four KPIs every retail VP gets <em class="font-['Fraunces',Georgia,serif] font-medium not-italic">asked about every Monday</em>.</h2>
+        <p class="text-[19px] leading-[1.55]" style="color:rgba(255,255,255,0.7)">Forget feature lists. Here's what 99minds does to the numbers your CEO actually tracks.</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-6 mt-14 max-lg:grid-cols-1">
+        {kpiCards.map(k => (
+          <div class="rounded-[20px] p-8 border transition-all hover:-translate-y-0.5" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08)">
+            <div class="flex items-center gap-6 mb-5">
+              <div class="text-[64px] font-bold tracking-[-0.04em] leading-none flex-shrink-0" style="background:linear-gradient(180deg,white 0%,var(--purple-light) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">{k.num}</div>
+              <div class="text-[18px] font-bold leading-[1.3] flex-1">
+                {k.name}
+                <span class="block text-[13px] font-normal mt-1" style="color:rgba(255,255,255,0.55)">{k.sub}</span>
+              </div>
+            </div>
+            <div class="pt-5 border-t text-[14px] leading-[1.6]" style="border-color:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7)">
+              <strong class="text-white font-bold">How.</strong> {k.how}
+              <div class="flex gap-1.5 flex-wrap mt-4">
+                {k.pills.map(p => (
+                  <span class="px-[10px] py-1 rounded-full text-[11px] font-semibold text-[var(--purple-light)] border" style="background:rgba(170,143,255,0.15);border-color:rgba(170,143,255,0.3)">{p}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BUYER JOURNEY ─────────────────────────────────────────────────────── -->
+  <section class="py-[120px] px-8 max-sm:py-20 max-sm:px-5 bg-white">
+    <div class="mx-auto max-w-[1280px]">
+      <div class="max-w-[720px] mb-16">
+        <div class="text-[13px] font-bold text-[var(--purple-deep)] uppercase tracking-[0.1em] mb-4">Your customer's lifecycle, mapped</div>
+        <h2 class="text-[clamp(32px,4vw,52px)] font-bold tracking-[-0.03em] leading-[1.05] text-[var(--ink)] mb-5">From first eGift to <em class="font-['Fraunces',Georgia,serif] font-medium not-italic">lifelong VIP</em>.</h2>
+        <p class="text-[19px] text-[var(--slate)] leading-[1.55]">Each stage of the retail customer lifecycle has a 99minds product behind it. The same ledger. The same identity. The same brand.</p>
+      </div>
+
+      <div class="flex flex-col gap-6 mt-12">
+        {journeySteps.map(j => (
+          <div class="bg-[var(--bg-alt)] border border-[var(--line)] rounded-[20px] p-10 grid items-center gap-10 transition-all hover:-translate-y-0.5 hover:shadow-[0_16px_40px_-12px_rgba(111,77,255,0.1)] max-lg:grid-cols-1 max-lg:gap-6 max-lg:p-7" style="grid-template-columns:auto 1fr 1.2fr">
+            <div class="font-['Fraunces',Georgia,serif] text-[64px] font-semibold leading-none w-20 max-lg:w-auto max-lg:text-[48px]" style="font-size:56px;background:linear-gradient(135deg,var(--purple-deep),var(--purple));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">{j.num}</div>
+            <div>
+              <h3 class="text-[24px] font-bold tracking-[-0.015em] mb-2">{j.title}</h3>
+              <p class="text-[14px] text-[var(--slate)] leading-[1.6]">{j.desc}</p>
+            </div>
+            <div class="bg-white border border-[var(--line)] rounded-xl p-5">
+              <div class="text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--purple-deep)] mb-2">Tactic</div>
+              <div class="text-[14px] font-bold mb-1.5">{j.tacticTitle}</div>
+              <div class="text-[12px] text-[var(--slate)] leading-[1.5] mb-3">{j.tacticDesc}</div>
+              <div class="flex gap-1.5 flex-wrap">
+                {j.products.map(p => (
+                  <span class="text-[11px] font-semibold px-[9px] py-[3px] rounded-full text-[var(--purple-deep)] bg-[var(--purple-pale)]">{p}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STACK / INTEGRATIONS ──────────────────────────────────────────────── -->
+  <section class="py-[120px] px-8 max-sm:py-20 max-sm:px-5 bg-[var(--bg-alt)] overflow-hidden">
+    <div class="mx-auto max-w-[1280px]">
+      <div class="max-w-[720px] mb-16">
+        <div class="text-[13px] font-bold text-[var(--purple-deep)] uppercase tracking-[0.1em] mb-4">Sits in your stack</div>
+        <h2 class="text-[clamp(32px,4vw,52px)] font-bold tracking-[-0.03em] leading-[1.05] text-[var(--ink)] mb-5">The stack <em class="font-['Fraunces',Georgia,serif] font-medium not-italic">your team already runs</em>.</h2>
+        <p class="text-[19px] text-[var(--slate)] leading-[1.55]">Pre-built integrations with the platforms retail teams actually use. No custom middleware, no six-month integration sprint.</p>
+      </div>
+
+      <div class="bg-white border border-[var(--line)] rounded-[24px] px-8 mt-16 max-sm:p-7" style="box-shadow:0 24px 60px -20px rgba(10,10,35,0.08)">
+        {stackRows.map((row, i) => (
+          <div class={`flex items-center gap-20 py-6  relative stack-row max-lg:flex-col max-lg:items-start max-lg:gap-3 ${i < stackRows.length - 1 ? 'stack-row-sep' : ''}`}>
+            <div class={`w-[100px] flex-shrink text-[11px] font-bold uppercase tracking-[0.08em] max-lg:w-auto ${row.featured ? 'text-[var(--purple-deep)]' : 'text-[var(--slate-light)]'}`} style="width:110px">{row.label}</div>
+            <div class="flex gap-2.5 flex-wrap flex-1 pl-8">
+              {row.tools.map((t: any) => (
+                t.featured
+                  ? <div class="flex items-center gap-2 px-[18px] py-3 rounded-[10px] text-[14px] font-bold text-white border border-[var(--purple-deep)]" style="background:linear-gradient(135deg,var(--purple-deep),var(--purple));box-shadow:0 8px 20px -6px rgba(111,77,255,0.4)">
+                      <div class="w-[18px] h-[18px] rounded-[5px] flex items-center justify-center text-[11px] font-bold" style="background:rgba(255,255,255,0.2)">{t.icon}</div>
+                      {t.name}
+                    </div>
+                  : <div class="flex items-center gap-2 px-[14px] py-[10px] bg-[var(--bg-alt)] border border-[var(--line)] rounded-[10px] text-[13px] font-semibold transition-all hover:bg-white hover:border-[var(--purple)] hover:-translate-y-0.5 cursor-default">
+                      <div class="w-[18px] h-[18px] rounded-[5px] flex items-center justify-center text-[11px] font-bold text-[var(--purple-deep)]" style="background:var(--purple-pale)">{t.icon}</div>
+                      {t.name}
+                    </div>
+              ))}
+            </div>
+          </div>
+        ))}
+
+        <div class="mt-8 py-8 border-t border-[var(--line)] flex gap-3.5 items-start text-[14px] text-[var(--slate)] leading-[1.6]">
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center text-[var(--purple-deep)] flex-shrink-0" style="background:var(--purple-pale)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+          </div>
+          <div><strong class="text-[var(--ink)]">Don't see your tool?</strong> Our open API and 60+ webhook events plug into anything. We've shipped custom integrations for over 200 enterprise retail stacks — most go live in a single sprint.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CASE STUDY ────────────────────────────────────────────────────────── -->
+  <CaseStudy config={retailCaseStudy} />
+
+  <!-- ── PEER COMPARISON ───────────────────────────────────────────────────── -->
+  <section class="py-[120px] px-8 max-sm:py-20 max-sm:px-5 bg-[var(--bg-alt)]">
+    <div class="mx-auto max-w-[1280px]">
+      <div class="max-w-[720px] mx-auto text-center mb-16">
+        <div class="text-[13px] font-bold text-[var(--purple-deep)] uppercase tracking-[0.1em] mb-4">Built for your size, your category</div>
+        <h2 class="text-[clamp(32px,4vw,52px)] font-bold tracking-[-0.03em] leading-[1.05] text-[var(--ink)] mb-5">From <em class="font-['Fraunces',Georgia,serif] font-medium not-italic">$5M</em> startups to <em class="font-['Fraunces',Georgia,serif] font-medium not-italic">$500M</em> heritage brands.</h2>
+        <p class="text-[19px] text-[var(--slate)] leading-[1.55]">Three real customer profiles, three different sizes, three different KPIs. Same platform.</p>
+      </div>
+
+      <div class="grid grid-cols-3 gap-5 max-lg:grid-cols-1">
+        {peers.map(p => (
+          <div class="bg-white border border-[var(--line)] rounded-[18px] p-7 transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_-12px_rgba(111,77,255,0.15)] hover:border-[var(--purple-light)]">
+            <div class="text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--purple-deep)] mb-3.5">{p.segment}</div>
+            <div class="font-['Fraunces',Georgia,serif] text-[24px] font-semibold mb-1.5">{p.name}</div>
+            <div class="text-[12px] text-[var(--slate-light)] mb-5">{p.arr}</div>
+            <p class="text-[14px] text-[var(--slate)] leading-[1.6] mb-6">{p.summary}</p>
+            {p.stats.map(s => (
+              <div class="flex justify-between items-center py-3 border-t border-[var(--line)]">
+                <span class="text-[12px] text-[var(--slate)]">{s.label}</span>
+                <span class={`text-[16px] font-bold tracking-[-0.01em] ${s.color === 'green' ? 'text-[#2dba7c]' : s.color === 'purple' ? 'text-[var(--purple-deep)]' : 'text-[var(--ink)]'}`}>{s.val}</span>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MIGRATION ─────────────────────────────────────────────────────────── -->
+  <section class="py-[120px] px-8 max-sm:py-20 max-sm:px-5 bg-white">
+    <div class="mx-auto max-w-[1280px]">
+      <div class="grid items-center gap-20 max-lg:grid-cols-1 max-lg:gap-12" style="grid-template-columns:1fr 1.1fr">
+        <div>
+          <div class="text-[13px] font-bold text-[var(--purple-deep)] uppercase tracking-[0.1em] mb-4">Switching is easier than you think</div>
+          <h3 class="text-[36px] font-bold tracking-[-0.025em] leading-[1.1] mb-4">Coming from one of these? You're our specialty.</h3>
+          <p class="text-[16px] text-[var(--slate)] leading-[1.6] mb-6">We've migrated hundreds of retail brands off legacy gift card and loyalty stacks. Our migration team handles balance import, parallel running, and customer-facing comms — so the switch is invisible to your end users.</p>
+          <a href="#" class="inline-flex items-center gap-1.5 font-semibold text-[14px] px-[18px] py-[10px] rounded-full text-white transition-all hover:bg-[var(--ink)] hover:-translate-y-px" style="background:var(--purple-deep)">Talk to migrations team →</a>
+        </div>
+
+        <div class="flex flex-col gap-2.5">
+          {migrations.map(m => (
+            <div class="flex items-center gap-3.5 px-[18px] py-[14px] bg-[var(--bg-alt)] border border-[var(--line)] rounded-xl transition-all hover:border-[var(--purple)] hover:bg-white">
+              <span class="text-[var(--purple-deep)] font-bold text-[18px]">→</span>
+              <div class="flex-1">
+                <div class="font-bold text-[14px]">{m.name}</div>
+                <div class="text-[12px] text-[var(--slate)]">{m.products}</div>
+              </div>
+              <span class="text-[11px] font-bold px-[10px] py-1 rounded-full text-[var(--purple-deep)]" style="background:var(--purple-pale)">{m.time}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FINAL CTA ──────────────────────────────────────────────────────────── -->
+  <FinalCTA config={retailCTA} />
+
+  <Footer />
+
+</Layout>
+
+<style>
+  .stack-row-sep::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 80px;
+    right: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--line), transparent);
+  }
+</style>

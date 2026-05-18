@@ -82,3 +82,20 @@ export const walletCaseStudy: CaseStudyConfig = {
     { num: '9 days', desc: 'From kickoff to first live pass on a customer\'s phone' },
   ],
 };
+
+export const retailCaseStudy: CaseStudyConfig = {
+  eyebrow: 'Customer Story',
+  title: 'How Lumen & Co made one platform do the work of four.',
+  companyLogo: 'LUMEN&CO',
+  quote: '"We were running Rise.ai for gift cards, Yotpo for loyalty, and a custom Shopify scripts mess for promotions. 99minds replaced all three in seven weeks. Our holiday quarter was the smoothest we\'ve ever had — and our CFO got one invoice instead of three."',
+  authorInitials: 'MJ',
+  authorName: 'Marcus Johnson',
+  authorRole: 'VP of Customer Experience, Lumen & Co',
+  resultsLabel: 'Results in first 12 months',
+  results: [
+    { num: '3.1×',    desc: 'Growth in Gold + Platinum loyalty cohort' },
+    { num: '+38%',    desc: 'Holiday gift card revenue vs prior provider' },
+    { num: '$1.2M',   desc: 'In refunds converted to store credit' },
+    { num: '−$340k',  desc: 'Annual vendor spend (vs Rise.ai + Yotpo + custom)' },
+  ],
+};

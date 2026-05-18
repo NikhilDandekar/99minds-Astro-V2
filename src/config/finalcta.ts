@@ -66,3 +66,14 @@ export const walletCTA: FinalCTAConfig = {
     { label: 'Book a demo',         href: '#', variant: 'ghost' },
   ],
 };
+
+export const retailCTA: FinalCTAConfig = {
+  titleLead: 'One platform. ',
+  titleHighlight: 'Your retail year, sorted',
+  titleTail: '.',
+  description: 'Talk to our retail team about your peak season, your refunds problem, or your loyalty migration. We\'ve seen it before.',
+  buttons: [
+    { label: 'Talk to retail team →', href: '#', variant: 'primary' },
+    { label: 'Start free trial',      href: '#', variant: 'ghost' },
+  ],
+};
